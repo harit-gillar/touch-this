@@ -268,15 +268,15 @@ const TT = {
 
   players: [
     { id:"gayatri",  name:"Gayatri",           nickname:"G",            type:"core",    apps:5, appsExact:false, role:"Co-captain. Founded the team, paid the league fee, designed the kit." },
-    { id:"harit",    name:"Harit",             nickname:null,           type:"core",    apps:6, appsExact:false, role:"Co-captain. Ran scouting, tactics and the match reports." },
-    { id:"ella",     name:"Ella",              nickname:"El Capitan",   type:"core",    apps:2, appsExact:false, role:"Player. Played for TT in Matches 4 and 7; guested for the Wasps in Match 5." },
+    { id:"harit",    name:"Harit",             nickname:null,           type:"core",    apps:7, appsExact:true,  role:"Co-captain. Ran scouting, tactics and the match reports. Ever-present, all 7 games." },
+    { id:"ella",     name:"Ella",              nickname:"El Capitan",   type:"core",    apps:5, appsExact:true,  role:"Player. Guested for the Wasps in Match 5, which does not count as a TT game." },
     { id:"franny",   name:"Francisco",         nickname:"Fran",         type:"core",    apps:3, appsExact:false, role:"Player. Top try scorer of the season." },
-    { id:"sarah",    name:"Sarah",             nickname:"G's flatmate", type:"core",    apps:4, appsExact:false, role:"Player." },
-    { id:"max",      name:"Max Gutsche",       nickname:null,           type:"core",    apps:5, appsExact:false, role:"Player. Missed Match 5 for a work event." },
+    { id:"sarah",    name:"Sarah",             nickname:null,           type:"core",    apps:4, appsExact:false, role:"Player. G's flatmate." },
+    { id:"max",      name:"Max Gutsche",       nickname:null,           type:"core",    apps:5, appsExact:true,  role:"Player. Missed Match 1, and Match 5 for a work event." },
     { id:"helena",   name:"Helena Murray",     nickname:null,           type:"core",    apps:1, appsExact:false, role:"Player. Missed Match 2 (bug)." },
     { id:"robert",   name:"Robert Hutchinson", nickname:"Rob",          type:"squad",   apps:1, appsExact:true,  role:"Played only the final (Match 7), after supporting from the sideline all season, and scored on debut." },
     { id:"bex",      name:"Bex Dunnet",        nickname:"Bex",          type:"squad",   apps:1, appsExact:true,  role:"Played only Match 1, then injured for the rest of the season." },
-    { id:"sam",      name:"Sam",               nickname:"Fran's friend",type:"regular", apps:4, appsExact:false, role:"Debuted in Match 1 as Fran's sourced ringer, formally joined on 26 Apr. Two standout shifts." },
+    { id:"sam",      name:"Sam",               nickname:null,           type:"regular", apps:4, appsExact:false, role:"Fran's friend. Debuted in Match 1 as his sourced ringer, formally joined on 26 Apr. Two standout shifts." },
     { id:"martin",   name:"Martin",            nickname:null,           type:"ringer",  apps:2, appsExact:true,  role:"Sub. Quick try scorer." },
     { id:"kingsley", name:"Kingsley",          nickname:null,           type:"ringer",  apps:1, appsExact:true,  role:"Sub. Double interception in Match 6." },
     { id:"ieuan",    name:"Ieuan",             nickname:null,           type:"ringer",  apps:1, appsExact:true,  role:"Sub in Match 2." },
@@ -356,9 +356,9 @@ const TT = {
     // ---- Early Summer 2026 (season 1) — regular season ----
     { id:"s1-w1", season:"2026-spring", week:1, date:"2026-04-22", time:"19:10", competition:"league",
       opponent:"touchdown-titans", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
-      ttScore:3, oppScore:7, result:"L", scorers:[{player:"franny",tries:2}], unattributed:1,
+      ttScore:3, oppScore:7, result:"L", scorers:[{player:"franny",tries:2},{player:"max",tries:1}], unattributed:0,
       mvp:{player:"franny",award:"MOM"},
-      notes:"Opening game. Reported as 2 to 7 on the night; official 3 to 7, so one try went unattributed. Bex dislocated a finger and still made it to the pub." },
+      notes:"Opening game. Reported as 2 to 7 on the night; the official 3 to 7 added Max's try. Bex dislocated a finger and still made it to the pub." },
     { id:"s1-bye", season:"2026-spring", week:null, date:"2026-04-29", competition:"bye",
       opponent:null, venue:null, played:false, ttScore:null, oppScore:null, result:null,
       scorers:null, unattributed:0, mvp:null, notes:"Bye week. Poor weather; the team chose to rest." },
@@ -386,15 +386,15 @@ const TT = {
     { id:"s1-w6", season:"2026-spring", week:6, date:"2026-06-03", time:"19:10", competition:"league",
       opponent:"try-hard-2", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
       ttScore:7, oppScore:8, result:"L",
-      scorers:[{player:"martin",tries:1},{player:"kingsley",tries:1},{player:"sam",tries:1}], unattributed:4,
+      scorers:[{player:"kingsley",tries:2},{player:"sam",tries:1},{player:"martin",tries:1}], unattributed:3,
       mvp:{player:"helena",award:"MVP"},
-      notes:"Closest and highest-scoring game of the season: 7 tries against the eventual 3rd-placed side, lost by one. Only 3 scorers were named, so 4 tries are unattributed. Kingsley made a double interception." },
+      notes:"Closest and highest-scoring game of the season: 7 tries against the eventual 3rd-placed side, lost by one. Kingsley scored twice off his double interception; three tries are still unattributed." },
     // ---- Early Summer 2026 — play-off (5th/6th). Set for 17 Jun, cancelled (no referee), replayed 24 Jun ----
     { id:"s1-po", season:"2026-spring", week:null, date:"2026-06-24", time:"19:50", competition:"playoff",
       playoffRound:"5th/6th place", opponent:"touchdown-titans", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
-      ttScore:3, oppScore:7, result:"L", scorers:[{player:"robert",tries:1}], unattributed:1,
+      ttScore:3, oppScore:7, result:"L", scorers:[{player:"robert",tries:2},{player:"gayatri",tries:1}], unattributed:0,
       mvp:{player:"robert",award:"MVP"},
-      notes:"Full-circle rematch with the opening opponent, ending on the same 3 to 7 scoreline. Robert scored on his debut (possibly a second). A win meant 5th; the loss meant 6th. Played in 37 degrees. Originally set for 17 Jun but cancelled — no referee." },
+      notes:"Full-circle rematch with the opening opponent, ending on the same 3 to 7 scoreline. Robert scored twice on debut and Gayatri got the third. A win meant 5th; the loss meant 6th. Played in 37 degrees. Originally set for 17 Jun but cancelled — no referee." },
 
     // ---- Season 2 (2026 Summer) — GO Mammoth summer league, Clapham Wandsworth, Pitch 2 (Touch) ----
     { id:"s2-w1", season:"2026-summer", week:1, date:"2026-07-01", time:"19:50", competition:"league",
@@ -925,9 +925,7 @@ function renderPlayers(){
   const triesMap={}; tallyScorers('all').forEach(x=>triesMap[x.id]=x.n);
   const roster = TT.players.map(p=>{
     const t=triesMap[p.id]||0;
-    const appsTxt = p.apps?`${p.apps}${p.appsExact?'':'+'} ${(p.apps===1&&p.appsExact)?'app':'apps'}`:'';
-    const triesTxt = t?`${t} ${t===1?'try':'tries'}`:'';
-    const stat=[appsTxt,triesTxt].filter(Boolean).join(' · ');
+    const stat = t?`${t} ${t===1?'try':'tries'}`:'';
     return `
     <div class="pcard">
       <span class="avatar">${esc(initials(p.name))}</span>
