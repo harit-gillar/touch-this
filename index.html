@@ -7,7 +7,7 @@
 <style>
   :root{
     --bg:#faf7f2; --panel:#ffffff; --panel-2:#fbf8f4; --ink:#1c1418; --muted:#8a7d80;
-    --line:#eadfd4; --accent:#7b2d3b; --accent-soft:#a24a58; --cream:#f4ecd8;
+    --line:#eadfd4; --accent:#6e2334; --accent-soft:#9a4453; --cream:#f0e6cf;
     --win:#3f9d6d; --loss:#b0546b; --draw:#c8912f; --pending:#8a7d80;
     --shadow:0 1px 2px rgba(60,20,30,.05),0 6px 22px rgba(60,20,30,.06);
     --radius:16px;
@@ -424,14 +424,34 @@ function tallyApps(sid){
 function withUnknown(n,unknown){ return unknown ? (n+'+') : String(n); }
 
 /* ---------- crest (fixed brand colours, crisp in both themes) ---------- */
+function ttGlyph(cx,cy,s){
+  // serif "column" letter of the TT monogram: top bar + serifs, stem, base bar + serifs
+  return `<g transform="translate(${cx} ${cy}) scale(${s})" fill="#f0e6cf">
+    <rect x="-30" y="-44" width="60" height="12"/>
+    <rect x="-30" y="-32" width="7" height="7"/>
+    <rect x="23" y="-32" width="7" height="7"/>
+    <rect x="-7" y="-32" width="14" height="64"/>
+    <rect x="-24" y="32" width="48" height="12"/>
+    <rect x="-24" y="25" width="7" height="7"/>
+    <rect x="17" y="25" width="7" height="7"/>
+  </g>`;
+}
 function crestSVG(){
-  return `<svg viewBox="0 0 100 112" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" aria-label="Touch This crest">
-    <path d="M50 4 L94 18 V54 C94 82 74 100 50 108 C26 100 6 82 6 54 V18 Z"
-      fill="#7b2d3b" stroke="#f4ecd8" stroke-width="3"/>
-    <path d="M50 12 L86 23 V54 C86 77 70 92 50 100 C30 92 14 77 14 54 V23 Z"
-      fill="none" stroke="#f4ecd8" stroke-width="1" opacity="0.55"/>
-    <text x="50" y="62" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
-      font-size="34" font-weight="700" fill="#f4ecd8" letter-spacing="-1">TT</text>
+  return `<svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" aria-label="Touch This crest">
+    <path d="M22 16 L218 16 L218 150 C218 214 176 254 120 280 C64 254 22 214 22 150 Z" fill="#6e2334"/>
+    <path d="M33 27 L207 27 L207 150 C207 206 171 242 120 265 C69 242 33 206 33 150 Z" fill="none" stroke="#f0e6cf" stroke-width="2.4"/>
+    <ellipse cx="120" cy="62" rx="26" ry="10" fill="none" stroke="#f0e6cf" stroke-width="2.2"/>
+    <g stroke="#f0e6cf" stroke-width="1.8" stroke-linecap="round">
+      <line x1="108" y1="62" x2="132" y2="62"/>
+      <line x1="112" y1="58" x2="112" y2="66"/>
+      <line x1="116" y1="57" x2="116" y2="67"/>
+      <line x1="120" y1="56.5" x2="120" y2="67.5"/>
+      <line x1="124" y1="57" x2="124" y2="67"/>
+      <line x1="128" y1="58" x2="128" y2="66"/>
+    </g>
+    ${ttGlyph(89,138,0.8)}
+    ${ttGlyph(151,138,0.8)}
+    <text x="120" y="212" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="21" fill="#f0e6cf" letter-spacing="3">MMXXVI</text>
   </svg>`;
 }
 
