@@ -174,16 +174,69 @@
   .ko-round:not(:last-child) .ko-cell-center > .ko-m::after{content:'';position:absolute;left:100%;top:50%;width:46px;height:2px;background:var(--kline)}
   .ko-consol{margin-top:16px;max-width:290px}
   .ko-cap{color:var(--muted);font-size:12.5px;margin:10px 2px 0;max-width:660px;line-height:1.55}
-  /* first-win tracker */
-  .firstwin{text-align:center;background:color-mix(in srgb,var(--accent) 5%,var(--panel))}
-  .fw-lead{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:13px}
-  .fw-clock{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-  .fw-seg{display:flex;flex-direction:column;align-items:center;min-width:66px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 6px;box-shadow:var(--shadow)}
-  .fw-n{font-size:30px;font-weight:720;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--accent);line-height:1}
-  .fw-u{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-top:5px}
-  .fw-sub{font-size:12.5px;color:var(--muted);margin-top:14px}
-  .fw-won{background:color-mix(in srgb,var(--win) 12%,var(--panel));border-color:color-mix(in srgb,var(--win) 40%,var(--line))}
-  .fw-big{font-size:20px;font-weight:660;margin:2px 0}
+  /* Gameday Hub overview */
+  .gd-scope{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding:0 2px}
+  .gd-scopedot{width:7px;height:7px;border-radius:50%;background:var(--win);box-shadow:0 0 0 3px color-mix(in srgb,var(--win) 15%,transparent)}
+  .gd-scopedot-done{background:var(--muted);box-shadow:0 0 0 3px color-mix(in srgb,var(--muted) 15%,transparent)}
+  .gd-scopetext{font-size:12.5px;font-weight:500;color:var(--muted)}
+  .gd-hero{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 22px 20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .gd-hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
+  .gd-herohead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+  .gd-kicker{font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--accent-soft)}
+  .gd-chip{font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--cream);color:var(--accent)}
+  .gd-matchline{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 12px;margin-bottom:16px}
+  .gd-us{font-size:20px;font-weight:600;letter-spacing:-.02em;color:var(--muted)}
+  .gd-vs{font-size:13px;font-weight:600;color:var(--muted)}
+  .gd-opp{font-size:27px;font-weight:700;letter-spacing:-.025em;color:var(--ink);line-height:1.05}
+  .gd-countdown{display:flex;align-items:baseline;gap:12px;padding:14px 16px;background:var(--bg);border:1px solid var(--line);border-radius:12px;margin-bottom:16px}
+  .gd-cdlabel{font-size:12px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+  .gd-cdvalue{font-size:34px;font-weight:720;letter-spacing:-.02em;color:var(--accent);font-variant-numeric:tabular-nums;margin-left:auto;line-height:1}
+  .gd-logistics{display:flex;align-items:stretch;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+  .gd-logitem{display:flex;flex-direction:column;gap:3px;min-width:0}
+  .gd-logk{font-size:11px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+  .gd-logv{font-size:14px;font-weight:600;color:var(--ink)}
+  .gd-logdiv{width:1px;align-self:stretch;background:var(--line)}
+  .gd-verdict{display:flex;align-items:flex-start;gap:9px;padding:12px 14px;background:var(--cream);border-radius:12px;margin-bottom:18px}
+  .gd-vicon{flex:0 0 auto;line-height:0;margin-top:1px}
+  .gd-vtext{font-size:13.5px;line-height:1.5;color:var(--accent)}
+  .gd-vtext strong{font-weight:700}
+  .gd-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .gd-btn{font-size:14px;font-weight:600;border-radius:11px;padding:11px 18px;cursor:pointer;border:1px solid transparent;text-decoration:none;display:inline-block}
+  .gd-btn-primary{background:var(--accent);color:var(--cream)}
+  .gd-btn-ghost{background:var(--panel);color:var(--accent);border-color:var(--line)}
+  .gd-nomatch{color:var(--muted);font-size:14px;margin:8px 0 0}
+  .gd-lower{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .gd-panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+  .gd-panelhead{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:14px}
+  .gd-panelk{font-size:12.5px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--ink)}
+  .gd-panelsub{font-size:11.5px;font-weight:500;color:var(--muted)}
+  .gd-formstrip{display:flex;gap:7px;margin-bottom:9px}
+  .gd-pip{flex:1;height:34px;display:flex;align-items:center;justify-content:center;border-radius:9px;font-size:13px;font-weight:700}
+  .gd-l{background:color-mix(in srgb,var(--loss) 12%,transparent);color:var(--loss)}
+  .gd-w{background:color-mix(in srgb,var(--win) 15%,transparent);color:var(--win)}
+  .gd-d{background:color-mix(in srgb,var(--draw) 20%,transparent);color:var(--draw)}
+  .gd-plast{box-shadow:inset 0 0 0 1.5px currentColor}
+  .gd-formnote{font-size:11px;font-weight:500;color:var(--muted)}
+  .gd-formempty{font-size:13px;color:var(--muted);margin:0}
+  .gd-lastrow{display:flex;align-items:center;gap:10px;margin-bottom:14px;text-decoration:none;color:inherit}
+  .gd-lrbadge{flex:0 0 auto;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+  .gd-lrscore{font-size:24px;font-weight:700;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums;display:inline-flex;align-items:baseline;gap:7px}
+  .gd-lrto{font-size:12px;font-weight:600;color:var(--muted)}
+  .gd-lropp{font-size:12.5px;font-weight:500;color:var(--muted);margin-left:2px}
+  .gd-fulllink{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--accent);text-decoration:none}
+  .gd-ribbon{display:flex;align-items:center;gap:9px;margin-top:14px;padding:11px 16px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+  .gd-rdot{flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:var(--accent-soft)}
+  .gd-rtext{font-size:12.5px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
+  .gd-rtext strong{font-weight:700;color:var(--accent)}
+  .gd-won{background:color-mix(in srgb,var(--win) 10%,var(--panel));border-color:color-mix(in srgb,var(--win) 35%,var(--line))}
+  .gd-won .gd-rdot{background:var(--win)}
+  @media (max-width:640px){ .gd-lower{grid-template-columns:1fr} .gd-cdvalue{font-size:27px} .gd-opp{font-size:23px} .gd-logdiv{display:none} .gd-logistics{gap:10px 22px} }
+  /* footer */
+  .site-foot{border-top:1px solid var(--line);margin-top:44px;padding:20px 2px 8px}
+  .sf-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .sf-brand{font-size:13px;font-weight:600;color:var(--ink)}
+  .sf-drought{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .sf-drought strong{color:var(--accent);font-weight:700}
   /* match report */
   .report-head{text-align:center;padding:6px 0 2px}
   .rh-meta{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
@@ -261,6 +314,13 @@
     <section data-view="opponent" hidden></section>
     <section data-view="report" hidden></section>
   </main>
+
+  <footer class="site-foot">
+    <div class="sf-inner">
+      <span class="sf-brand">Touch This</span>
+      <span class="sf-drought" id="sf-drought"></span>
+    </div>
+  </footer>
 
 </div>
 
@@ -681,108 +741,119 @@ function droughtParts(ms){
   const t=Math.floor(Math.max(0,ms)/1000);
   return {days:Math.floor(t/86400), hrs:Math.floor(t%86400/3600), mins:Math.floor(t%3600/60), secs:t%60};
 }
-function firstWinClockHTML(){
-  const start=firstGameMs(), d=droughtParts(start?Date.now()-start:0);
-  const seg=(n,u,pad)=>`<div class="fw-seg"><span class="fw-n">${pad?String(n).padStart(2,'0'):n}</span><span class="fw-u">${u}</span></div>`;
-  return seg(d.days,'days',false)+seg(d.hrs,'hrs',true)+seg(d.mins,'min',true)+seg(d.secs,'sec',true);
+function firstWinCompact(){ const s=firstGameMs(), d=droughtParts(s?Date.now()-s:0); return `${d.days}d ${d.hrs}h ${d.mins}m`; }
+function firstWinRibbonHTML(){
+  const win=firstWinFixture();
+  if(win) return `<div class="gd-ribbon gd-won"><span class="gd-rdot"></span><span class="gd-rtext">First win landed &middot; <strong>beat ${esc(oppName(win.opponent))} ${win.ttScore}&ndash;${win.oppScore}</strong> on ${fmtDate(win.date)}</span></div>`;
+  return `<div class="gd-ribbon"><span class="gd-rdot"></span><span class="gd-rtext">Still chasing the first win &middot; <strong id="gd-drought">${firstWinCompact()}</strong> since game one</span></div>`;
 }
-function firstWinCardHTML(){
-  const win=firstWinFixture(), start=firstGameMs(), g=firstGame();
-  if(win){
-    const d=droughtParts(new Date((win.date)+'T'+(win.time||'12:00')+':00').getTime()-(start||0));
-    return `<div class="card firstwin fw-won mt">
-      <div class="fw-lead">First win landed 🎉</div>
-      <div class="fw-big">Beat ${esc(oppName(win.opponent))} ${win.ttScore}&ndash;${win.oppScore}, ${fmtDate(win.date)}</div>
-      <div class="fw-sub">The wait was ${d.days} days, ${d.hrs} hours and ${d.mins} minutes from the first ever game.</div>
-    </div>`;
-  }
-  return `<div class="card firstwin mt">
-    <div class="fw-lead">The wait for a first win</div>
-    <div class="fw-clock" id="firstwin-clock">${firstWinClockHTML()}</div>
-    <div class="fw-sub">Counting up live since the first ever game${g?', '+fmtDate(g.date):''}. Still chasing win number one.</div>
-  </div>`;
+function footerDroughtHTML(){
+  const win=firstWinFixture(), s=firstGameMs();
+  if(win){ const d=droughtParts(new Date((win.date)+'T'+(win.time||'12:00')+':00').getTime()-(s||0)); return `First win came on ${fmtDate(win.date)}, after <strong>${d.days}</strong> days chasing it.`; }
+  const d=droughtParts(s?Date.now()-s:0);
+  return `<strong>${d.days}</strong> days without a win, and counting.`;
+}
+function kickoffMs(f){ return (f&&f.date)? new Date(f.date+'T'+(f.time||'19:00')+':00').getTime() : null; }
+function countdownStr(f){
+  const k=kickoffMs(f); if(!k) return 'TBC';
+  const diff=k-Date.now();
+  if(diff<=0) return 'Today';
+  const p=droughtParts(diff), pad=n=>String(n).padStart(2,'0');
+  return (p.days>0?p.days+'d ':'')+pad(p.hrs)+':'+pad(p.mins)+':'+pad(p.secs);
+}
+function h2hVerdict(oppId){
+  if(!oppId) return 'Opponent to be confirmed.';
+  const o=opp(oppId), h=headToHead(oppId);
+  const finishBit=(o&&o.finish)?` They finished ${ordinal(o.finish)} last season.`:'';
+  if(!h.played.length) return `First ever meeting with ${esc(o?o.name:'them')}.${finishBit}`;
+  const n=h.played.length;
+  let rec;
+  if(h.w===n) rec = n===1?'Beat them last time':(n===2?'Won both meetings':`Won all ${n}`);
+  else if(h.l===n) rec = n===1?'Lost the only meeting':(n===2?'Lost both meetings':`Lost all ${n}`);
+  else rec = `${h.w} win${h.w===1?'':'s'}, ${h.l} loss${h.l===1?'':'es'} in ${n} meetings`;
+  const scores=h.played.filter(f=>f.ttScore!=null&&f.oppScore!=null).map(f=>f.ttScore+'-'+f.oppScore);
+  let sc='';
+  if(scores.length && scores.every(x=>x===scores[0])) sc=`, ${h.played[0].ttScore} to ${h.played[0].oppScore} each`;
+  else if(scores.length) sc=`, ${withUnknown(h.tf,h.tfU)} tries to ${withUnknown(h.ta,h.taU)}`;
+  return `${rec}${sc}.${finishBit}`;
+}
+function allTimeForm(n){
+  return TT.fixtures.filter(f=>f.played && f.competition!=='bye' && f.ttScore!=null && f.oppScore!=null)
+    .sort((a,b)=>((a.date||'')<(b.date||'')?-1:1)).slice(-n).map(fxResult);
+}
+function lastResultFx(){
+  return TT.fixtures.filter(f=>f.played && f.competition!=='bye' && fxResult(f))
+    .sort((a,b)=>((a.date||'')<(b.date||'')?-1:1)).slice(-1)[0]||null;
+}
+function calendarHref(f){
+  if(!f||!f.date) return '#';
+  const [hh,mm]=(f.time||'19:00').split(':');
+  const start=f.date.replace(/-/g,'')+'T'+hh+mm+'00';
+  const end=f.date.replace(/-/g,'')+'T'+String(Number(hh)+1).padStart(2,'0')+mm+'00';
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Touch This//Fixtures//EN','BEGIN:VEVENT','UID:'+f.id+'@touch-this','DTSTAMP:'+start,'DTSTART:'+start,'DTEND:'+end,'SUMMARY:Touch This vs '+(oppName(f.opponent)||'TBC'),'LOCATION:'+String(f.venue||'').replace(/,/g,'\\,'),'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  return 'data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
 }
 function renderHome(){
   const sid = cur();
   const s = season(sid);
-  const rec = teamRecord(sid);
-  const best = bestPerf(sid);
   const nf = nextFixture();
-  const form = formGuide(sid);
-  const standing = (s && s.finalPosition)
-    ? `${ordinal(s.finalPosition)} of ${s.teamsInLeague} · ${s.points} pts${s.finalPlacing?` · ${ordinal(s.finalPlacing)} after play-offs`:''}`
-    : (sid==='all' ? 'Career record' : (s?(s.status==='active'?'Season under way':s.name):''));
+  const seasonLeague = TT.fixtures.filter(f=>f.season===sid && f.competition==='league');
+  const playedN = seasonLeague.filter(f=>f.played).length;
+  const totalN = seasonLeague.length;
+  const active = s && s.status==='active';
+  const scope = s ? `${esc(s.name)} &middot; ${active?'season active':'season complete'} &middot; ${playedN} of ${totalN} games played` : '';
 
-  const kpis = [
-    ['League games', rec.played],
-    ['Record (W-L)', `${rec.w}–${rec.l}`],
-    ['Points', rec.pts],
-    ['Tries for', withUnknown(rec.tf,rec.tfU)],
-    ['Tries against', withUnknown(rec.ta,rec.taU)],
-    ['Best haul', best? best.ttScore : '–']
-  ].map(([l,v])=>`<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
-
-  const nextCard = nf ? `
-    <div class="card hero-card mt">
-      <div class="next">
-        <div>
-          <div class="vs">Next up</div>
-          <div class="opp">${nf.opponent? esc(oppName(nf.opponent)) : 'Opponent TBC'}</div>
-          <div class="meta">${nf.competition==='playoff'?'Play-off · ':''}${fmtDate(nf.date)}${nf.time?' at '+esc(nf.time):''}${nf.venue?' · '+esc(nf.venue):''}${nf.week?' · Week '+nf.week:''}</div>
-        </div>
-        ${nf.opponent? '' : `<span class="cta muted">Tell Claude the date &amp; opponent to fill this in</span>`}
+  const hero = nf ? `
+    <section class="gd-hero" aria-label="Next match">
+      <div class="gd-herohead">
+        <span class="gd-kicker">Next match${nf.week?' &middot; Week '+nf.week:''}${nf.competition==='playoff'?' &middot; Play-off':''}</span>
+        <span class="gd-chip">${nf.competition==='playoff'?'Play-off':'League'}</span>
       </div>
-    </div>` : '';
+      <div class="gd-matchline"><span class="gd-us">Touch This</span><span class="gd-vs">vs</span><span class="gd-opp">${nf.opponent?esc(oppName(nf.opponent)):'Opponent TBC'}</span></div>
+      <div class="gd-countdown"><span class="gd-cdlabel">Kickoff in</span><span class="gd-cdvalue" id="gd-cdvalue">${countdownStr(nf)}</span></div>
+      <div class="gd-logistics">
+        <div class="gd-logitem"><span class="gd-logk">Date</span><span class="gd-logv">${fmtDate(nf.date)}</span></div>
+        <div class="gd-logdiv"></div>
+        <div class="gd-logitem"><span class="gd-logk">Kickoff</span><span class="gd-logv">${nf.time?esc(nf.time):'TBC'}</span></div>
+        <div class="gd-logdiv"></div>
+        <div class="gd-logitem"><span class="gd-logk">Venue</span><span class="gd-logv">${nf.venue?esc(nf.venue):'TBC'}</span></div>
+      </div>
+      ${nf.opponent?`<div class="gd-verdict"><span class="gd-vicon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6e2334" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.01"/></svg></span><span class="gd-vtext"><strong>Head to head:</strong> ${h2hVerdict(nf.opponent)}</span></div>`:''}
+      <div class="gd-actions">
+        ${nf.opponent?`<a class="gd-btn gd-btn-primary" href="#opponent/${nf.opponent}">Scouting report</a>`:''}
+        <a class="gd-btn gd-btn-ghost" href="${calendarHref(nf)}" download="touch-this-${esc(nf.id)}.ics">Add to calendar</a>
+      </div>
+    </section>` : `
+    <section class="gd-hero" aria-label="Next match"><div class="gd-kicker">Next match</div><p class="gd-nomatch">No upcoming fixtures. The season schedule will appear here.</p></section>`;
 
-  const h2h = nf && nf.opponent ? headToHead(nf.opponent) : null;
-  const h2hCard = h2h ? `
-    <div class="card mt">
-      <h3>Head-to-head vs ${esc(oppName(nf.opponent))}</h3>
-      ${h2h.played.length ? `
-        <div class="statline">
-          <div class="s"><div class="sv">${h2h.played.length}</div><div class="sl">Played</div></div>
-          <div class="s"><div class="sv">${h2h.w}–${h2h.l}</div><div class="sl">Won-Lost</div></div>
-          <div class="s"><div class="sv">${withUnknown(h2h.tf,h2h.tfU)}</div><div class="sl">Tries for</div></div>
-          <div class="s"><div class="sv">${withUnknown(h2h.ta,h2h.taU)}</div><div class="sl">Tries against</div></div>
-        </div>
-        <div class="h2h-list">
-          ${h2h.played.map(f=>`
-            <div class="h2h-meet">
-              <span class="d">${fmtDate(f.date)}</span>
-              ${compPill(f)}
-              <span class="sc">${scoreText(f)}</span>
-              ${resBadge(fxResult(f))}
-              ${f.mvp?`<span class="mvp-tag">MVP ${esc(playerShort(f.mvp.player))}</span>`:''}
-            </div>`).join('')}
-        </div>
-        <a href="#opponent/${nf.opponent}" class="h2h-more">Full record &amp; scouting notes &rarr;</a>`
-      : `<p class="muted" style="margin:0">First-ever meeting &mdash; no previous games against ${esc(oppName(nf.opponent))}. <a href="#opponent/${nf.opponent}">Scouting notes &rarr;</a></p>`}
-    </div>` : '';
-
-  const bestLine = best
-    ? `Best performance: <strong>${best.ttScore} ${best.ttScore===1?'try':'tries'}</strong> vs ${esc(oppName(best.opponent))} (${resBadge(fxResult(best))} ${best.ttScore!=null&&best.oppScore!=null?best.ttScore+'–'+best.oppScore:''})`
-    : 'No games recorded for this season yet.';
+  const form = allTimeForm(5);
+  const last = lastResultFx();
+  const formHtml = form.length
+    ? form.map((r,i)=>`<span class="gd-pip gd-${(r||'l').toLowerCase()}${i===form.length-1?' gd-plast':''}">${r||'–'}</span>`).join('')
+    : '<span class="gd-formempty">No games played yet.</span>';
+  const lastHtml = last ? `
+    <a class="gd-lastrow" href="#report/${last.id}">
+      <span class="gd-lrbadge gd-${(fxResult(last)||'l').toLowerCase()}">${fxResult(last)||'–'}</span>
+      <span class="gd-lrscore">${last.ttScore}<span class="gd-lrto">to</span>${last.oppScore}</span>
+      <span class="gd-lropp">vs ${esc(oppName(last.opponent))}</span>
+    </a>` : '<p class="gd-formempty">No results yet.</p>';
 
   $('[data-view="home"]').innerHTML = `
-    ${firstWinCardHTML()}
-    ${nextCard}
-    ${h2hCard}
-    <div class="kpis mt">${kpis}</div>
-    <div class="grid g2 mt">
-      <div class="card">
-        <h3>Form (last 5 league)</h3>
-        ${form.length? `<div class="form">${form.map(r=>`<span class="chip ${(r||'tbd').toLowerCase()}">${r||'–'}</span>`).join('')}</div>`
-                     : `<div class="empty">No league games played yet.</div>`}
-        <p class="muted" style="margin:12px 0 0;font-size:13px">${bestLine}</p>
-      </div>
-      <div class="card">
-        <h3>Season snapshot</h3>
-        <div class="bar-row"><div class="name">Played</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="val">${rec.played}</div></div>
-        <div class="bar-row"><div class="name">Won</div><div class="bar-track"><div class="bar-fill" style="width:${pct(rec.w,rec.played)}%"></div></div><div class="val">${rec.w}</div></div>
-        <div class="bar-row"><div class="name">Lost</div><div class="bar-track"><div class="bar-fill" style="width:${pct(rec.l,rec.played)}%"></div></div><div class="val">${rec.l}</div></div>
-        <div class="bar-row"><div class="name">Try diff</div><div class="bar-track"><div class="bar-fill" style="width:${rec.played?50:0}%"></div></div><div class="val">${(rec.diff>0?'+':'')+rec.diff}${rec.tfU||rec.taU?'*':''}</div></div>
-      </div>
-    </div>`;
+    <div class="gd-scope"><span class="gd-scopedot${active?'':' gd-scopedot-done'}"></span><span class="gd-scopetext">${scope}</span></div>
+    ${hero}
+    <div class="gd-lower">
+      <section class="gd-panel">
+        <div class="gd-panelhead"><span class="gd-panelk">Recent form</span><span class="gd-panelsub">Last 5, all-time</span></div>
+        <div class="gd-formstrip">${formHtml}</div>
+        <span class="gd-formnote">Newest on the right</span>
+      </section>
+      <section class="gd-panel">
+        <div class="gd-panelhead"><span class="gd-panelk">Last result</span><span class="gd-panelsub">${last?fmtDate(last.date)+(last.competition==='playoff'?', play-off':''):'&mdash;'}</span></div>
+        ${lastHtml}
+        <a class="gd-fulllink" href="#table">Season stats &amp; full table &rsaquo;</a>
+      </section>
+    </div>
+    ${firstWinRibbonHTML()}`;
 }
 const pct = (n,d)=> d? Math.round(n/d*100):0;
 function ordinal(n){ const s=['th','st','nd','rd'], v=n%100; return n+(s[(v-20)%10]||s[v]||s[0]); }
@@ -1284,7 +1355,12 @@ function boot(){
   $$('#seg button').forEach(b=>b.addEventListener('click',()=>{ location.hash='#'+b.dataset.nav; }));
 
   // live first-win clock
-  setInterval(()=>{ const el=$('#firstwin-clock'); if(el) el.innerHTML=firstWinClockHTML(); }, 1000);
+  $('#sf-drought').innerHTML=footerDroughtHTML();
+  setInterval(()=>{
+    const cd=$('#gd-cdvalue'); if(cd) cd.textContent=countdownStr(nextFixture());
+    const dr=$('#gd-drought'); if(dr) dr.textContent=firstWinCompact();
+    const sf=$('#sf-drought'); if(sf) sf.innerHTML=footerDroughtHTML();
+  }, 1000);
 
   renderAll();
   window.addEventListener('hashchange',route);
