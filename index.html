@@ -31,7 +31,6 @@
   .hero h1 svg{height:30px;width:auto;display:block}
   .hero .motto{margin:2px 0 0;color:var(--accent-soft);font-style:italic;font-size:14px}
   .hero .sub{margin:2px 0 0;color:var(--muted);font-size:13px}
-  .hero-right{margin-left:auto;display:flex;align-items:center;gap:10px}
   select{font:inherit;font-size:13px;color:var(--ink);background:var(--panel);border:1px solid var(--line);
     border-radius:10px;padding:8px 11px;cursor:pointer}
   .icon-btn{width:38px;height:38px;border:1px solid var(--line);background:var(--panel);border-radius:10px;
@@ -48,6 +47,9 @@
   .seg button.active{background:var(--panel);color:var(--accent);box-shadow:var(--shadow)}
   #seg button{display:flex;flex-direction:column;align-items:center;gap:5px;padding:8px 15px;font-size:12px;font-weight:500;line-height:1}
   #seg button svg{width:19px;height:19px;flex:none}
+  .fx-controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;margin-bottom:16px}
+  .fx-ctl{display:flex;align-items:center;gap:8px}
+  .fx-ctl-lab{font-size:12px;color:var(--muted)}
 
   /* Cards + grid */
   .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
@@ -104,6 +106,12 @@
   tbody tr:last-child td{border-bottom:none}
   tbody tr.clickable{cursor:pointer}
   tbody tr.clickable:hover{background:var(--panel-2)}
+  @media (max-width:760px){
+    .col-detail,.col-season{display:none}
+    .tablewrap th,.tablewrap td{padding:9px 10px}
+    td.col-opp{white-space:normal;min-width:92px}
+  }
+  @media (max-width:480px){ .col-comp{display:none} }
   .hl{background:color-mix(in srgb,var(--accent) 6%,var(--panel))}
   td.cmp-us,th.cmp-us{background:color-mix(in srgb,var(--accent) 8%,transparent)}
   th.cmp-us{color:var(--accent)}
@@ -279,9 +287,6 @@
     <div class="crest" id="crest"></div>
     <div>
       <h1 id="wordmark" aria-label="Touch This"></h1>
-    </div>
-    <div class="hero-right">
-      <div class="seg" id="season-seg" aria-label="Season"></div>
     </div>
   </header>
 
@@ -844,6 +849,7 @@ function ordinal(n){ const s=['th','st','nd','rd'], v=n%100; return n+(s[(v-20)%
 function renderFixtures(){
   const host = $('[data-view="fixtures"]');
   const sf = fxState.season, cf = fxState.comp;
+  const showSeason = sf==='all';
   let rows = TT.fixtures.filter(f=>{
     if(sf!=='all' && f.season!==sf) return false;
     if(cf!=='all' && f.competition!==cf) return false;
@@ -855,11 +861,11 @@ function renderFixtures(){
     if(f.competition==='bye') return `
     <tr>
       <td>${fmtDate(f.date)}</td>
-      <td class="muted">${esc(season(f.season)?.name||f.season)}</td>
-      <td><span class="pill">Bye</span></td>
-      <td class="muted">&mdash;</td>
+      ${showSeason?`<td class="col-season muted">${esc(season(f.season)?.name||f.season)}</td>`:''}
+      <td class="col-comp"><span class="pill">Bye</span></td>
+      <td class="col-opp muted">&mdash;</td>
       <td class="num muted">&mdash;</td><td class="num muted">&mdash;</td>
-      <td class="muted">&mdash;</td><td class="muted">&mdash;</td>
+      <td class="col-detail muted">&mdash;</td><td class="col-detail muted">&mdash;</td>
     </tr>`;
     const target = f.played ? `#report/${f.id}` : (f.opponent?`#opponent/${f.opponent}`:'');
     const oppCell = f.opponent
@@ -868,56 +874,56 @@ function renderFixtures(){
     return `
     <tr class="${target?'clickable':''}" ${target?`onclick="location.hash='${target}'"`:''}>
       <td>${fmtDate(f.date)}${f.time?`<div class="muted" style="font-size:12px">${esc(f.time)}</div>`:''}</td>
-      <td class="muted">${esc(season(f.season)?.name||f.season)}</td>
-      <td>${compPill(f)}</td>
-      <td>${oppCell}</td>
+      ${showSeason?`<td class="col-season muted">${esc(season(f.season)?.name||f.season)}</td>`:''}
+      <td class="col-comp">${compPill(f)}</td>
+      <td class="col-opp">${oppCell}</td>
       <td class="num">${scoreText(f)}</td>
       <td class="num">${resBadge(fxResult(f))}</td>
-      <td>${scorersText(f)}</td>
-      <td>${mvpText(f)}</td>
+      <td class="col-detail">${scorersText(f)}</td>
+      <td class="col-detail">${mvpText(f)}</td>
     </tr>`;
-  }).join('') || `<tr><td colspan="8"><div class="empty">No fixtures match these filters.</div></td></tr>`;
+  }).join('') || `<tr><td colspan="${showSeason?8:7}"><div class="empty">No fixtures match these filters.</div></td></tr>`;
 
   const arrow = k => fxState.key===k ? `<span class="arrow">${fxState.dir>0?'▲':'▼'}</span>` : '';
 
   host.innerHTML = `
     <h2 class="section-t">Every game</h2>
-    <p class="section-s">All fixtures across both seasons. Click a played game for its match report, or a team's name for the head-to-head.</p>
-    <div class="grid" style="grid-template-columns:auto auto;justify-content:start;margin-bottom:14px">
-      <span><label class="muted" style="font-size:12px;margin-right:6px">Season</label>
-        <select id="fx-season"></select></span>
-      <span><label class="muted" style="font-size:12px;margin-right:6px">Competition</label>
-        <select id="fx-comp">
-          <option value="all">All</option>
-          <option value="league">League</option>
-          <option value="playoff">Play-offs</option>
-        </select></span>
+    <p class="section-s">${showSeason?'All fixtures across both seasons. ':''}Click a played game for its match report, or a team's name for the head-to-head.</p>
+    <div class="fx-controls">
+      <div class="fx-ctl"><span class="fx-ctl-lab">Season</span>
+        <div class="seg fx-season-seg" role="tablist" aria-label="Season">
+          <button data-season="all"${sf==='all'?' class="active"':''}>All</button>
+          ${TT.seasons.map(s=>`<button data-season="${s.id}"${sf===s.id?' class="active"':''}>${esc(s.name.replace(/\s*20\d\d/,''))}</button>`).join('')}
+        </div></div>
+      <div class="fx-ctl"><span class="fx-ctl-lab">Competition</span>
+        <div class="seg fx-comp-seg" role="tablist" aria-label="Competition">
+          <button data-comp="all"${cf==='all'?' class="active"':''}>All</button>
+          <button data-comp="league"${cf==='league'?' class="active"':''}>League</button>
+          <button data-comp="playoff"${cf==='playoff'?' class="active"':''}>Play-offs</button>
+        </div></div>
     </div>
     <div class="tablewrap"><table>
       <thead><tr>
         <th class="sortable" data-sort="date">Date ${arrow('date')}</th>
-        <th>Season</th><th>Comp</th>
-        <th class="sortable" data-sort="opponent">Opponent ${arrow('opponent')}</th>
+        ${showSeason?'<th class="col-season">Season</th>':''}<th class="col-comp">Comp</th>
+        <th class="sortable col-opp" data-sort="opponent">Opponent ${arrow('opponent')}</th>
         <th class="num sortable" data-sort="score">Score ${arrow('score')}</th>
         <th class="num sortable" data-sort="result">Res ${arrow('result')}</th>
-        <th>Try scorers</th><th>MVP</th>
+        <th class="col-detail">Try scorers</th><th class="col-detail">MVP</th>
       </tr></thead>
       <tbody>${body}</tbody>
     </table></div>`;
 
-  // season options
-  const fss=$('#fx-season');
-  fss.innerHTML = '<option value="all">All seasons</option>'+TT.seasons.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('');
-  fss.value=sf; $('#fx-comp').value=cf;
-  fss.addEventListener('change',()=>{fxState.season=fss.value;renderFixtures();});
-  $('#fx-comp').addEventListener('change',e=>{fxState.comp=e.target.value;renderFixtures();});
+  // filter toggles
+  $$('.fx-season-seg button',host).forEach(b=>b.addEventListener('click',()=>{fxState.season=b.dataset.season;renderFixtures();}));
+  $$('.fx-comp-seg button',host).forEach(b=>b.addEventListener('click',()=>{fxState.comp=b.dataset.comp;renderFixtures();}));
   $$('[data-view="fixtures"] th.sortable').forEach(th=>th.addEventListener('click',()=>{
     const k=th.dataset.sort;
     if(fxState.key===k) fxState.dir*=-1; else {fxState.key=k;fxState.dir=1;}
     renderFixtures();
   }));
 }
-const fxState = { season:'all', comp:'all', key:'date', dir:1 };
+const fxState = { season:(TT.seasons.find(s=>s.status==='active')||TT.seasons[0]).id, comp:'all', key:'date', dir:1 };
 function sortFixtures(rows){
   const k=fxState.key, d=fxState.dir;
   const val=f=> k==='date'?(f.date||'9999-99-99')
@@ -945,6 +951,15 @@ function computeStandings(sid){
   rows.sort((a,b)=> b.pts-a.pts || (b.tf-b.ta)-(a.tf-a.ta) || b.tf-a.tf || a.team.localeCompare(b.team));
   rows.forEach((r,i)=>r.pos=i+1);
   return rows;
+}
+/* ---------- per-view season toggle (shared curSeason) ---------- */
+function seasonToggleHTML(){
+  return `<div class="seg season-toggle" role="tablist" aria-label="Season" style="margin-bottom:16px">`
+    + TT.seasons.map(s=>`<button data-season="${s.id}"${s.id===curSeason?' class="active"':''}>${esc(s.name.replace(/\s*20\d\d/,''))}</button>`).join('')
+    + `</div>`;
+}
+function wireSeasonToggle(host){
+  $$('.season-toggle button',host).forEach(b=>b.addEventListener('click',()=>{ curSeason=b.dataset.season; renderAll(); }));
 }
 function renderTable(){
   const host=$('[data-view="table"]');
@@ -978,6 +993,7 @@ function renderTable(){
           ? `Live table, computed straight from results and updated the moment each week is logged. ${data.length} teams.`
           : `All ${data.length} teams in the division. The table goes live the moment results start coming in.`);
     host.innerHTML = `
+      ${seasonToggleHTML()}
       <h2 class="section-t">League table &mdash; ${esc(s.name)}</h2>
       <p class="section-s">${caption}</p>
       <div class="tablewrap"><table>
@@ -985,10 +1001,12 @@ function renderTable(){
         <tbody>${rows}</tbody>
       </table></div>
       <p class="section-s" style="margin-top:12px">Points: ${TT.team.rules.points.win} for a win, ${TT.team.rules.points.loss} for a loss, ${TT.team.rules.points.bye} for a bye. One try equals one point in this league, so a team's tries are its match score.</p>`;
+    wireSeasonToggle(host);
     return;
   }
   const rec=teamRecord(sid);
   host.innerHTML = `
+    ${seasonToggleHTML()}
     <h2 class="section-t">League table &mdash; ${esc(s?s.name:'')}</h2>
     <p class="section-s">${s&&s.status==='active'?'Season in progress. The full table appears once results are in; the running Touch This row is shown below.':'Standings build up as games are played.'}</p>
     <div class="tablewrap"><table>
@@ -1001,6 +1019,7 @@ function renderTable(){
         <td class="num">${(rec.diff>0?'+':'')+rec.diff}</td><td class="num"><strong>${rec.pts}</strong></td>
       </tr></tbody>
     </table></div>`;
+  wireSeasonToggle(host);
 }
 
 function renderPlayoffs(){
@@ -1017,9 +1036,11 @@ function renderPlayoffs(){
       <div class="trow ${fxResult(f)==='L'?'win':''}"><span>${f.opponent?esc(oppName(f.opponent)):'TBC'}</span><span>${f.oppScore==null?'&mdash;':f.oppScore}</span></div>
       ${fxResult(f)?'':'<div class="tlabel" style="text-transform:none;letter-spacing:0">To be played</div>'}
     </div>`).join('') || '<div class="empty">No play-off fixtures for this season yet.</div>';
-    host.innerHTML = `<h2 class="section-t">Play-offs &mdash; ${esc(s?s.name:'')}</h2>
+    host.innerHTML = `${seasonToggleHTML()}
+      <h2 class="section-t">Play-offs &mdash; ${esc(s?s.name:'')}</h2>
       <p class="section-s">Knockout stage after the regular season.</p>
       <div class="bracket-grid">${t}</div>`;
+    wireSeasonToggle(host);
     return;
   }
   // ---- proper knockout bracket ----
@@ -1072,6 +1093,7 @@ function renderPlayoffs(){
     <p class="section-s">Where every team finished after the play-offs.</p>
     <ol class="placings">${placings.map((t,i)=>`<li class="${/Touch This/.test(t)?'tt':''}"><span class="pp">${i+1}</span><span>${esc(t)}</span></li>`).join('')}</ol>` : '';
   host.innerHTML = `
+    ${seasonToggleHTML()}
     <h2 class="section-t">Play-offs &mdash; ${esc(s.name)}</h2>
     <p class="section-s">After six league games, all seven teams were re-seeded by league finish into a knockout: the top four played for the title, the bottom three for final position.</p>
     <div class="card mt">
@@ -1091,6 +1113,7 @@ function renderPlayoffs(){
     <p class="ko-cap">Touchdown Titans beat Wandsworth Wasps in the semi, so the Wasps finished 7th. Touch This, seeded 7th, had a bye into the 5th/6th play-off and faced the Titans &mdash; their opening-day opponent &mdash; losing 3 to 7 to finish 6th, one place above the Wasps.</p>
 
     ${placingsHtml}`;
+  wireSeasonToggle(host);
 }
 
 function appsChart(){
@@ -1108,6 +1131,7 @@ function renderPlayers(){
   const host=$('[data-view="players"]'); const sid=cur();
   const scorers=tallyScorers(sid), mvps=tallyMvp(sid), unatt=totalUnattributed(sid);
   host.innerHTML = `
+    ${seasonToggleHTML()}
     <h2 class="section-t">Players</h2>
     <p class="section-s">Leaderboards for ${esc(sid==='all'?'all seasons':season(sid)?.name)}. One try equals one point in this league, so tries are the scoring stat.</p>
     <div class="grid g2">
@@ -1116,6 +1140,7 @@ function renderPlayers(){
       <div class="card"><h3>MVP awards</h3>${barChart(mvps,i=>playerName(i.id),'No MVPs logged yet.')}
         ${mvps.length?'<p class="muted" style="margin:11px 0 0;font-size:12.5px">A different player won it every week.</p>':''}</div>
     </div>`;
+  wireSeasonToggle(host);
 }
 
 function renderStats(){
@@ -1143,16 +1168,23 @@ function renderStats(){
     : `<div class="card"><h3>${title}</h3><div class="empty">No games yet.</div></div>`;
   const scopeBtns = [['all','All time'], ...TT.seasons.map(s=>[s.id, s.name.replace(/\s*20\d\d/,'')])]
     .map(([id,lab])=>`<button data-scope="${id}"${id===sc?' class="active"':''}>${esc(lab)}</button>`).join('');
+  const oppCounts={};
+  games.forEach(f=>{ if(f.opponent) oppCounts[f.opponent]=(oppCounts[f.opponent]||0)+1; });
+  const mostFaced = Object.entries(oppCounts).sort((a,b)=> b[1]-a[1] || oppName(a[0]).localeCompare(oppName(b[0])))[0];
+  const oppsFaced = Object.keys(oppCounts).length;
   const facts=[
     `<li><strong>${gp}</strong> games played &mdash; ${w} won, ${l} lost</li>`,
     `<li><strong>${tf}</strong> tries scored, <strong>${ta}</strong> conceded (${(tf-ta)>0?'+':''}${tf-ta} difference)</li>`,
+    gp?`<li>Averaged <strong>${(tf/gp).toFixed(1)}</strong> tries scored and <strong>${(ta/gp).toFixed(1)}</strong> conceded per game</li>`:'',
+    mostFaced?`<li>Most played opponent: <strong>${esc(oppName(mostFaced[0]))}</strong> (${mostFaced[1]} meeting${mostFaced[1]===1?'':'s'})</li>`:'',
+    oppsFaced?`<li><strong>${oppsFaced}</strong> different opponents faced</li>`:'',
     `<li><strong>${scorers.length}</strong> different try scorers, <strong>${mvps.length}</strong> different MVP winners</li>`,
     allTime?`<li><strong>${TT.players.length}</strong> players turned out across the club</li>`:'',
     `<li>Leading scorer: <strong>${scorers.length?esc(playerName(scorers[0].id))+' ('+scorers[0].n+' tries)':'—'}</strong></li>`
   ].filter(Boolean).join('');
   host.innerHTML = `
     <div class="seg stats-seg" role="tablist" aria-label="Stats period" style="margin-bottom:16px">${scopeBtns}</div>
-    <h2 class="section-t">Club stats &mdash; ${allTime?'all time':esc(scopeSeason?scopeSeason.name:sc)}</h2>
+    <h2 class="section-t">Club stats${allTime?'':' &mdash; '+esc(scopeSeason?scopeSeason.name:sc)}</h2>
     <p class="section-s">${allTime?'Across every game played so far, both seasons and the play-offs.':`Just ${esc(scopeSeason?scopeSeason.name:sc)}, league and play-offs.`}</p>
     <div class="kpis">${kpis}</div>
     <h2 class="section-t">Records</h2>
@@ -1161,7 +1193,7 @@ function renderStats(){
       ${recCard('Narrowest defeat', narrowest, narrowest?'lost by '+(narrowest.oppScore-narrowest.ttScore):'')}
       ${recCard('Heaviest defeat', heaviest, heaviest?'lost by '+(heaviest.oppScore-heaviest.ttScore):'')}
     </div>
-    <h2 class="section-t">${esc(scopeShort)} leaderboards</h2>
+    <h2 class="section-t">${allTime?'Leaderboards':esc(scopeShort)+' leaderboards'}</h2>
     <div class="grid g2">
       <div class="card"><h3>Top try scorers</h3>${barChart(scorers,i=>playerName(i.id),'No try scorers yet.')}${unatt?`<p class="muted" style="margin:11px 0 0;font-size:12.5px">Plus ${unatt} unattributed tries.</p>`:''}</div>
       <div class="card"><h3>Most MVP awards</h3>${barChart(mvps,i=>playerName(i.id),'No MVPs yet.')}</div>
@@ -1336,13 +1368,8 @@ function boot(){
   // crest
   $('#crest').innerHTML=crestSVG();
   $('#wordmark').innerHTML=wordmarkSVG();
-  // season toggle
+  // default season (each season-scoped tab renders its own toggle)
   curSeason = (TT.seasons.find(s=>s.status==='active')||TT.seasons[0]).id;
-  const sseg=$('#season-seg');
-  sseg.innerHTML = TT.seasons.map(s=>`<button data-season="${s.id}">${esc(s.name.replace(/\s*20\d\d/,''))}</button>`).join('');
-  const syncSeason=()=>$$('#season-seg button').forEach(b=>b.classList.toggle('active', b.dataset.season===curSeason));
-  $$('#season-seg button').forEach(b=>b.addEventListener('click',()=>{ curSeason=b.dataset.season; syncSeason(); renderAll(); route(); }));
-  syncSeason();
   // nav
   $$('#seg button').forEach(b=>b.addEventListener('click',()=>{ location.hash='#'+b.dataset.nav; }));
 
