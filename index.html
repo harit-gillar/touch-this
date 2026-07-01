@@ -149,6 +149,15 @@
   .tie .trow.win{background:color-mix(in srgb,var(--win) 12%,transparent);font-weight:640}
   .tie .tlabel{padding:8px 15px;font-size:11.5px;color:var(--muted);background:var(--panel-2);text-transform:uppercase;letter-spacing:.05em}
 
+  .statline{display:flex;gap:30px;flex-wrap:wrap;margin:0 0 6px}
+  .statline .s .sv{font-size:20px;font-weight:680;letter-spacing:-.02em}
+  .statline .s .sl{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .h2h-list{margin-top:4px}
+  .h2h-meet{display:flex;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px}
+  .h2h-meet .d{width:92px;flex:none;color:var(--muted)}
+  .h2h-meet .sc{font-variant-numeric:tabular-nums;font-weight:600}
+  .h2h-meet .mvp-tag{margin-left:auto;font-size:11.5px;color:var(--muted)}
+  .h2h-more{display:inline-block;margin-top:12px;font-size:13px}
   .empty{padding:18px;text-align:center;color:var(--muted);font-size:13.5px;border:1px dashed var(--line);border-radius:12px;background:var(--panel-2)}
   .back{display:inline-flex;align-items:center;gap:6px;font-size:13px;margin-bottom:6px}
 
@@ -569,9 +578,33 @@ function renderHome(){
           <div class="opp">${nf.opponent? esc(oppName(nf.opponent)) : 'Opponent TBC'}</div>
           <div class="meta">${nf.competition==='playoff'?'Play-off · ':''}${fmtDate(nf.date)}${nf.time?' at '+esc(nf.time):''}${nf.venue?' · '+esc(nf.venue):''}${nf.week?' · Week '+nf.week:''}</div>
         </div>
-        ${nf.opponent? `<a class="cta" href="#opponent/${nf.opponent}">View head-to-head &rarr;</a>`
-                     : `<span class="cta muted">Tell Claude the date &amp; opponent to fill this in</span>`}
+        ${nf.opponent? '' : `<span class="cta muted">Tell Claude the date &amp; opponent to fill this in</span>`}
       </div>
+    </div>` : '';
+
+  const h2h = nf && nf.opponent ? headToHead(nf.opponent) : null;
+  const h2hCard = h2h ? `
+    <div class="card mt">
+      <h3>Head-to-head vs ${esc(oppName(nf.opponent))}</h3>
+      ${h2h.played.length ? `
+        <div class="statline">
+          <div class="s"><div class="sv">${h2h.played.length}</div><div class="sl">Played</div></div>
+          <div class="s"><div class="sv">${h2h.w}–${h2h.l}</div><div class="sl">Won-Lost</div></div>
+          <div class="s"><div class="sv">${withUnknown(h2h.tf,h2h.tfU)}</div><div class="sl">Tries for</div></div>
+          <div class="s"><div class="sv">${withUnknown(h2h.ta,h2h.taU)}</div><div class="sl">Tries against</div></div>
+        </div>
+        <div class="h2h-list">
+          ${h2h.played.map(f=>`
+            <div class="h2h-meet">
+              <span class="d">${fmtDate(f.date)}</span>
+              ${compPill(f)}
+              <span class="sc">${scoreText(f)}</span>
+              ${resBadge(fxResult(f))}
+              ${f.mvp?`<span class="mvp-tag">MVP ${esc(playerShort(f.mvp.player))}</span>`:''}
+            </div>`).join('')}
+        </div>
+        <a href="#opponent/${nf.opponent}" class="h2h-more">Full record &amp; scouting notes &rarr;</a>`
+      : `<p class="muted" style="margin:0">First-ever meeting &mdash; no previous games against ${esc(oppName(nf.opponent))}. <a href="#opponent/${nf.opponent}">Scouting notes &rarr;</a></p>`}
     </div>` : '';
 
   const bestLine = best
@@ -586,6 +619,7 @@ function renderHome(){
       <p class="story">${esc(s?s.summary:'')}</p>
     </div>
     ${nextCard}
+    ${h2hCard}
     <div class="kpis mt">${kpis}</div>
     <div class="grid g2 mt">
       <div class="card">
