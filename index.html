@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="en-GB" data-theme="auto">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Touch This — Team Dashboard</title>
+<style>
+  :root{
+    --bg:#faf7f2; --panel:#ffffff; --panel-2:#fbf8f4; --ink:#1c1418; --muted:#8a7d80;
+    --line:#eadfd4; --accent:#7b2d3b; --accent-soft:#a24a58; --cream:#f4ecd8;
+    --win:#3f9d6d; --loss:#b0546b; --draw:#c8912f; --pending:#8a7d80;
+    --shadow:0 1px 2px rgba(60,20,30,.05),0 6px 22px rgba(60,20,30,.06);
+    --radius:16px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root[data-theme="auto"]{
+      --bg:#161014; --panel:#1e161a; --panel-2:#231a1f; --ink:#f0e8ea; --muted:#a99ca0;
+      --line:#2e2228; --accent:#c96a78; --accent-soft:#d98a95; --cream:#2a2024;
+      --win:#4bb87f; --loss:#d17d90; --draw:#e0b354; --shadow:none;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#161014; --panel:#1e161a; --panel-2:#231a1f; --ink:#f0e8ea; --muted:#a99ca0;
+    --line:#2e2228; --accent:#c96a78; --accent-soft:#d98a95; --cream:#2a2024;
+    --win:#4bb87f; --loss:#d17d90; --draw:#e0b354; --shadow:none;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  .wrap{max-width:1080px;margin:0 auto;padding:30px 20px 70px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .muted{color:var(--muted)}
+  h1,h2,h3{letter-spacing:-.02em}
+
+  /* Hero */
+  .hero{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .hero .crest{width:56px;height:62px;flex:none}
+  .hero h1{margin:0;font-size:27px;font-weight:680}
+  .hero .motto{margin:2px 0 0;color:var(--accent-soft);font-style:italic;font-size:14px}
+  .hero .sub{margin:2px 0 0;color:var(--muted);font-size:13px}
+  .hero-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+  select{font:inherit;font-size:13px;color:var(--ink);background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:8px 11px;cursor:pointer}
+  .icon-btn{width:38px;height:38px;border:1px solid var(--line);background:var(--panel);border-radius:10px;
+    cursor:pointer;color:var(--muted);font-size:16px;display:inline-flex;align-items:center;justify-content:center}
+  .icon-btn:hover{color:var(--ink)}
+
+  /* Segmented nav */
+  .nav{margin:22px 0 8px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .seg{display:inline-flex;background:color-mix(in srgb,var(--accent) 7%, var(--panel));
+    border:1px solid var(--line);border-radius:13px;padding:4px;gap:2px}
+  .seg button{border:none;background:transparent;color:var(--muted);font:inherit;font-weight:550;font-size:13.5px;
+    padding:8px 17px;border-radius:10px;cursor:pointer;white-space:nowrap;transition:background .18s,color .18s}
+  .seg button:hover{color:var(--ink)}
+  .seg button.active{background:var(--panel);color:var(--accent);box-shadow:var(--shadow)}
+
+  /* Cards + grid */
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;box-shadow:var(--shadow)}
+  .card h3{margin:0 0 14px;font-size:11.5px;font-weight:650;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.06em}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr 1fr 1fr}
+  .mt{margin-top:16px}
+  .section-t{margin:34px 0 4px;font-size:19px;font-weight:640}
+  .section-s{margin:0 0 14px;color:var(--muted);font-size:13.5px}
+
+  /* KPIs */
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 15px;box-shadow:var(--shadow)}
+  .kpi .v{font-size:23px;font-weight:680;letter-spacing:-.03em}
+  .kpi .l{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.3}
+
+  /* Hero standing strip */
+  .hero-card{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 12%,var(--panel)),var(--panel));
+    border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);
+    position:relative;overflow:hidden;margin-top:18px}
+  .hero-card .wm{position:absolute;right:-14px;bottom:-24px;width:150px;height:165px;opacity:.06;pointer-events:none}
+  .hero-card .lead{font-size:14px;color:var(--muted);margin:0 0 6px}
+  .hero-card .big{font-size:22px;font-weight:660;margin:0}
+  .hero-card .story{margin:10px 0 0;max-width:640px;font-size:13.5px;color:var(--ink)}
+
+  /* Next fixture */
+  .next{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .next .vs{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .next .opp{font-size:20px;font-weight:640;margin:2px 0 0}
+  .next .meta{color:var(--muted);font-size:13px;margin-top:3px}
+  .next .cta{margin-left:auto}
+
+  /* Form chips */
+  .form{display:flex;gap:6px;align-items:center}
+  .chip{width:26px;height:26px;border-radius:8px;font-size:12px;font-weight:650;
+    display:inline-flex;align-items:center;justify-content:center}
+  .chip.w{background:color-mix(in srgb,var(--win) 20%,transparent);color:var(--win)}
+  .chip.l{background:color-mix(in srgb,var(--loss) 20%,transparent);color:var(--loss)}
+  .chip.d{background:color-mix(in srgb,var(--draw) 22%,transparent);color:var(--draw)}
+  .chip.tbd{background:var(--line);color:var(--muted)}
+
+  /* Tables */
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  table{width:100%;border-collapse:collapse;background:var(--panel)}
+  th,td{padding:11px 13px;text-align:left;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:middle;white-space:nowrap}
+  th{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);user-select:none}
+  th.sortable{cursor:pointer}
+  th.sortable:hover{color:var(--ink)}
+  th .arrow{opacity:.5;font-size:9px;margin-left:2px}
+  td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.clickable{cursor:pointer}
+  tbody tr.clickable:hover{background:var(--panel-2)}
+  .hl{background:color-mix(in srgb,var(--accent) 6%,var(--panel))}
+
+  /* Pills / result badges */
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;line-height:1.6;white-space:nowrap;
+    background:var(--line);color:var(--muted)}
+  .pill.league{background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent)}
+  .pill.playoff{background:color-mix(in srgb,var(--draw) 22%,transparent);color:var(--draw)}
+  .pill.up{background:color-mix(in srgb,var(--pending) 18%,transparent);color:var(--muted)}
+  .res{display:inline-flex;min-width:24px;height:24px;padding:0 6px;border-radius:7px;font-size:11.5px;font-weight:650;
+    align-items:center;justify-content:center}
+  .res.w{background:color-mix(in srgb,var(--win) 18%,transparent);color:var(--win)}
+  .res.l{background:color-mix(in srgb,var(--loss) 18%,transparent);color:var(--loss)}
+  .res.d{background:color-mix(in srgb,var(--draw) 20%,transparent);color:var(--draw)}
+  .res.tbd{background:var(--line);color:var(--muted)}
+
+  /* Bar leaderboard */
+  .bar-row{display:flex;align-items:center;gap:12px;margin:9px 0}
+  .bar-row .name{width:130px;flex:none;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bar-track{flex:1;background:var(--line);border-radius:7px;height:20px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:7px;background:linear-gradient(90deg,var(--accent),var(--accent-soft));
+    min-width:3px;transition:width .3s ease}
+  .bar-row .val{width:38px;flex:none;text-align:right;font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted)}
+
+  /* Roster */
+  .roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+  .pcard{border:1px solid var(--line);border-radius:13px;padding:13px 15px;background:var(--panel-2);display:flex;gap:12px;align-items:center}
+  .avatar{width:38px;height:38px;border-radius:50%;flex:none;background:var(--accent);color:var(--cream);
+    display:inline-flex;align-items:center;justify-content:center;font-weight:660;font-size:14px}
+  .pcard .pn{font-weight:600;font-size:14px}
+  .pcard .pr{font-size:12px;color:var(--muted)}
+
+  /* Bracket */
+  .bracket{display:flex;flex-direction:column;gap:14px}
+  .tie{border:1px solid var(--line);border-radius:13px;overflow:hidden;max-width:360px;background:var(--panel)}
+  .tie .trow{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-bottom:1px solid var(--line);font-size:14px}
+  .tie .trow:last-child{border-bottom:none}
+  .tie .trow.win{background:color-mix(in srgb,var(--win) 12%,transparent);font-weight:640}
+  .tie .tlabel{padding:8px 15px;font-size:11.5px;color:var(--muted);background:var(--panel-2);text-transform:uppercase;letter-spacing:.05em}
+
+  .empty{padding:18px;text-align:center;color:var(--muted);font-size:13.5px;border:1px dashed var(--line);border-radius:12px;background:var(--panel-2)}
+  .back{display:inline-flex;align-items:center;gap:6px;font-size:13px;margin-bottom:6px}
+
+  .foot{margin-top:40px;color:var(--muted);font-size:12px;line-height:1.6}
+  .foot code{background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:11.5px}
+
+  @media (max-width:820px){
+    .kpis{grid-template-columns:repeat(3,1fr)}
+    .g2,.g3{grid-template-columns:1fr}
+    .hero h1{font-size:23px}
+    .next .cta{margin-left:0;width:100%}
+  }
+  @media (max-width:480px){
+    .kpis{grid-template-columns:repeat(2,1fr)}
+    .bar-row .name{width:96px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="crest" id="crest"></div>
+    <div>
+      <h1>Touch This</h1>
+      <p class="motto">Tango ergo sum</p>
+      <p class="sub">GO Mammoth (London) · mixed 6-a-side touch rugby</p>
+    </div>
+    <div class="hero-right">
+      <select id="season" aria-label="Season"></select>
+      <button class="icon-btn" id="theme" title="Toggle light / dark">◐</button>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <div class="seg" id="seg">
+      <button data-nav="home">Overview</button>
+      <button data-nav="fixtures">Fixtures</button>
+      <button data-nav="table">Table</button>
+      <button data-nav="playoffs">Play-offs</button>
+      <button data-nav="players">Players</button>
+    </div>
+  </nav>
+
+  <main>
+    <section data-view="home"></section>
+    <section data-view="fixtures" hidden></section>
+    <section data-view="table" hidden></section>
+    <section data-view="playoffs" hidden></section>
+    <section data-view="players" hidden></section>
+    <section data-view="opponent" hidden></section>
+  </main>
+
+  <footer class="foot" id="foot"></footer>
+</div>
+
+<script>
+/* ============================================================================
+   DATA — this is the only thing you edit.
+   HOW TO ADD A WEEK (Season 2):
+     1. Find the matching s2-wN stub in fixtures[] below (or copy one).
+     2. Fill: date ("YYYY-MM-DD"), opponent (a slug from opponents[]),
+        played:true, ttScore, oppScore, result ("W"/"L"/"D"),
+        scorers:[{player:"franny",tries:2}, ...]  (or [] if nobody scored),
+        mvp:"franny", notes:"...".
+     3. If a new opponent/player appears, add them to opponents[] / players[].
+   Missing data: use null. score null -> "TBD"; scorers null -> "Not recorded";
+   scorers [] -> genuinely nobody scored; played:false -> upcoming fixture.
+   Everything (table, head-to-head, leaderboards, form) recomputes automatically.
+   ==========================================================================*/
+/* ====== DATA ====== */
+const TT = {
+  team: {
+    name: "Touch This", short: "TT", motto: "Tango ergo sum",
+    league: "GO Mammoth (London) — mixed 6-a-side",
+    rules: { onPitch:6, touches:6, halves:2, halfMins:17, minFemaleOnPitch:2, kicking:false,
+             points:{ win:3, loss:1, bye:0 } }
+  },
+
+  players: [
+    { id:"harit",   name:"Harit",            nickname:null,     role:"Founder / Coach", active:true },
+    { id:"gayatri", name:"Gayatri",          nickname:null,     role:"Player",          active:true },
+    { id:"franny",  name:"Francisco Aruta",  nickname:"Franny", role:"Player",          active:true }
+    // TODO: full squad not recorded yet — add the rest of the team here.
+  ],
+
+  opponents: [
+    { id:"touchdown-titans", name:"Touchdown Titans", colours:null,
+      notes:"TT's first-ever opponent (Week 1, 22 Apr) and the Season 1 5th-place play-off opponent." },
+    { id:"dirty-dogs", name:"Dirty Dogs", colours:null,
+      notes:"Inflicted TT's heaviest defeat of Season 1 (0 to 11)." },
+    { id:"scoregasms", name:"Scoregasms", colours:null,
+      notes:"TT scored their first try of the season in this game." },
+    { id:"churchills", name:"Churchills", colours:null,
+      notes:"Had the league's tightest defence in Season 1." },
+    { id:"wandsworth-wasps", name:"Wandsworth Wasps", colours:null,
+      notes:"27 May shootout for 6th place. Wasps finished 7th overall after a 150 to 2 play-off semi-final loss to Touchdown Titans, which locked TT above them." },
+    { id:"try-hard-2", name:"Try Hard 2", colours:null,
+      notes:"Finished 2nd. TT's best display of the season came here: lost just 7 to 8." }
+  ],
+
+  seasons: [
+    { id:"2026-spring", name:"2026 Spring", status:"finished", finalPosition:7, teamsInLeague:7, points:6,
+      summary:"A winless league campaign, but the scoring trajectory told the real story: from 0 tries against Dirty Dogs the team went 1, then 2, then 3, and put up 7 against 2nd-placed Try Hard 2 in the final game, losing only 7 to 8." },
+    { id:"2026-summer", name:"2026 Summer", status:"active", finalPosition:null, teamsInLeague:null, points:null,
+      summary:"Season 2 kicks off this week. Fixtures fill in as the schedule is confirmed." }
+  ],
+
+  fixtures: [
+    // ---- Season 1 (2026 Spring) — league ----
+    { id:"s1-w1", season:"2026-spring", week:1, date:"2026-04-22", competition:"league",
+      opponent:"touchdown-titans", venue:null, played:true, ttScore:3, oppScore:7, result:"L",
+      scorers:null, mvp:null, lineup:null, notes:"Opening game of the season." },
+    { id:"s1-w2", season:"2026-spring", week:2, date:"2026-05-06", competition:"league",
+      opponent:"dirty-dogs", venue:null, played:true, ttScore:0, oppScore:11, result:"L",
+      scorers:[], mvp:null, lineup:null, notes:"Heaviest defeat of the season; no tries scored." },
+    { id:"s1-w3", season:"2026-spring", week:3, date:"2026-05-13", competition:"league",
+      opponent:"scoregasms", venue:null, played:true, ttScore:1, oppScore:9, result:"L",
+      scorers:null, mvp:null, lineup:null, notes:"First try of the season." },
+    { id:"s1-w4", season:"2026-spring", week:4, date:"2026-05-20", competition:"league",
+      opponent:"churchills", venue:null, played:true, ttScore:2, oppScore:9, result:"L",
+      scorers:null, mvp:null, lineup:null, notes:"Up against the league's tightest defence." },
+    { id:"s1-w5", season:"2026-spring", week:5, date:"2026-05-27", competition:"league",
+      opponent:"wandsworth-wasps", venue:null, played:true, ttScore:null, oppScore:null, result:"L",
+      scorers:null, mvp:null, lineup:null,
+      notes:"Shootout for 6th place — lost and locked in 7th. Exact score not recorded." },
+    { id:"s1-w6", season:"2026-spring", week:6, date:"2026-06-03", competition:"league",
+      opponent:"try-hard-2", venue:null, played:true, ttScore:7, oppScore:8, result:"L",
+      scorers:null, mvp:null, lineup:null,
+      notes:"Best display of the season: 7 tries against the 2nd-placed side, lost by one." },
+    // ---- Season 1 play-off ----
+    { id:"s1-po", season:"2026-spring", week:null, date:"2026-06-17", competition:"playoff",
+      playoffRound:"5th/6th place", opponent:"touchdown-titans", venue:null, played:true,
+      ttScore:null, oppScore:null, result:null, scorers:null, mvp:null, lineup:null,
+      notes:"5th-place play-off against the season's very first opponent. Win = 5th, loss = 6th. Result not recorded yet." },
+
+    // ---- Season 2 (2026 Summer) — upcoming (fill in as fixtures are confirmed) ----
+    { id:"s2-w1", season:"2026-summer", week:1, date:null, competition:"league",
+      opponent:null, venue:null, played:false, ttScore:null, oppScore:null, result:null,
+      scorers:null, mvp:null, lineup:null, notes:"Season 2 opener — tell Claude the date + opponent." },
+    { id:"s2-w2", season:"2026-summer", week:2, date:null, competition:"league",
+      opponent:null, venue:null, played:false, ttScore:null, oppScore:null, result:null,
+      scorers:null, mvp:null, lineup:null, notes:null },
+    { id:"s2-w3", season:"2026-summer", week:3, date:null, competition:"league",
+      opponent:null, venue:null, played:false, ttScore:null, oppScore:null, result:null,
+      scorers:null, mvp:null, lineup:null, notes:null },
+    { id:"s2-w4", season:"2026-summer", week:4, date:null, competition:"league",
+      opponent:null, venue:null, played:false, ttScore:null, oppScore:null, result:null,
+      scorers:null, mvp:null, lineup:null, notes:null },
+    { id:"s2-w5", season:"2026-summer", week:5, date:null, competition:"league",
+      opponent:null, venue:null, played:false, ttScore:null, oppScore:null, result:null,
+      scorers:null, mvp:null, lineup:null, notes:null },
+    { id:"s2-w6", season:"2026-summer", week:6, date:null, competition:"league",
+      opponent:null, venue:null, played:false, ttScore:null, oppScore:null, result:null,
+      scorers:null, mvp:null, lineup:null, notes:null }
+  ]
+};
+/* ====== /DATA ====== */
+
+/* ---------- helpers ---------- */
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = s => (s==null?'':String(s)).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const byId = (arr,id) => arr.find(x=>x.id===id);
+const opp = id => byId(TT.opponents,id);
+const player = id => byId(TT.players,id);
+const season = id => byId(TT.seasons,id);
+const oppName = id => (opp(id)?.name) || 'TBC';
+const playerName = id => { const p=player(id); return p ? p.name : id; };
+const playerShort = id => { const p=player(id); return p ? (p.nickname||p.name.split(' ')[0]) : id; };
+const initials = n => n.split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+const NR = '<span class="muted">Not recorded</span>';
+
+function fmtDate(d){
+  if(!d) return 'TBC';
+  const dt=new Date(d+'T00:00:00');
+  return isNaN(dt)? 'TBC' : dt.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+}
+function fxResult(f){
+  if(f.result) return f.result;
+  if(f.ttScore!=null && f.oppScore!=null)
+    return f.ttScore>f.oppScore?'W':f.ttScore<f.oppScore?'L':'D';
+  return null;
+}
+function resBadge(r){
+  if(r==='W') return '<span class="res w">W</span>';
+  if(r==='L') return '<span class="res l">L</span>';
+  if(r==='D') return '<span class="res d">D</span>';
+  return '<span class="res tbd">–</span>';
+}
+function scoreText(f){
+  if(!f.played) return '<span class="muted">Upcoming</span>';
+  if(f.ttScore==null || f.oppScore==null) return '<span class="muted">TBD</span>';
+  return f.ttScore+'&ndash;'+f.oppScore;
+}
+function compPill(f){
+  if(f.competition==='playoff') return '<span class="pill playoff">Play-off</span>';
+  if(!f.played) return '<span class="pill up">Upcoming</span>';
+  return '<span class="pill league">League</span>';
+}
+function scorersText(f){
+  if(f.scorers==null) return NR;
+  if(f.scorers.length===0) return '<span class="muted">&mdash;</span>';
+  return f.scorers.map(s=>{
+    const pid=typeof s==='string'?s:s.player, t=typeof s==='string'?1:(s.tries||1);
+    return esc(playerShort(pid))+(t>1?' &times;'+t:'');
+  }).join(', ');
+}
+function mvpText(f){ return f.mvp ? esc(playerName(f.mvp)) : NR; }
+function oppLink(id){ return id ? `<a href="#opponent/${id}">${esc(oppName(id))}</a>` : '<span class="muted">TBC</span>'; }
+
+/* ---------- computations (pure over TT.fixtures) ---------- */
+function inScope(f,sid){ return sid==='all' || f.season===sid; }
+
+function teamRecord(sid){
+  const fx = TT.fixtures.filter(f=>inScope(f,sid) && f.competition==='league' && f.played);
+  let w=0,l=0,d=0,tf=0,ta=0,tfU=false,taU=false;
+  fx.forEach(f=>{
+    const r=fxResult(f);
+    if(r==='W')w++; else if(r==='L')l++; else if(r==='D')d++;
+    if(f.ttScore!=null) tf+=f.ttScore; else tfU=true;
+    if(f.oppScore!=null) ta+=f.oppScore; else taU=true;
+  });
+  const pts = w*TT.team.rules.points.win + l*TT.team.rules.points.loss;
+  return { played:fx.length, w,l,d, tf,ta, tfU,taU, pts, diff:tf-ta };
+}
+function bestPerf(sid){
+  const fx = TT.fixtures.filter(f=>inScope(f,sid) && f.played && f.ttScore!=null);
+  if(!fx.length) return null;
+  return fx.slice().sort((a,b)=> b.ttScore-a.ttScore || (b.ttScore-b.oppScore)-(a.ttScore-a.oppScore))[0];
+}
+function formGuide(sid,n=5){
+  return TT.fixtures.filter(f=>inScope(f,sid) && f.competition==='league' && f.played)
+    .sort((a,b)=>(a.date||'')<(b.date||'')?-1:1).slice(-n).map(fxResult);
+}
+function nextFixture(){
+  return TT.fixtures.filter(f=>!f.played)
+    .sort((a,b)=>(a.date||'9999-99-99')<(b.date||'9999-99-99')?-1:1)[0] || null;
+}
+function headToHead(oppId){
+  const all = TT.fixtures.filter(f=>f.opponent===oppId)
+    .sort((a,b)=>(a.date||'9999')<(b.date||'9999')?-1:1);
+  const played = all.filter(f=>f.played);
+  let w=0,l=0,d=0,tf=0,ta=0,tfU=false,taU=false;
+  played.forEach(f=>{
+    const r=fxResult(f);
+    if(r==='W')w++; else if(r==='L')l++; else if(r==='D')d++;
+    if(f.ttScore!=null) tf+=f.ttScore; else tfU=true;
+    if(f.oppScore!=null) ta+=f.oppScore; else taU=true;
+  });
+  return { all, played, upcoming:all.filter(f=>!f.played), w,l,d, tf,ta, tfU,taU };
+}
+function tallyScorers(sid){
+  const m={};
+  TT.fixtures.filter(f=>inScope(f,sid) && Array.isArray(f.scorers)).forEach(f=>{
+    f.scorers.forEach(s=>{ const pid=typeof s==='string'?s:s.player, t=typeof s==='string'?1:(s.tries||1); m[pid]=(m[pid]||0)+t; });
+  });
+  return Object.entries(m).map(([id,n])=>({id,n})).sort((a,b)=>b.n-a.n);
+}
+function tallyMvp(sid){
+  const m={};
+  TT.fixtures.filter(f=>inScope(f,sid) && f.mvp).forEach(f=>{ m[f.mvp]=(m[f.mvp]||0)+1; });
+  return Object.entries(m).map(([id,n])=>({id,n})).sort((a,b)=>b.n-a.n);
+}
+function tallyApps(sid){
+  const m={}; let any=false;
+  TT.fixtures.filter(f=>inScope(f,sid) && f.played && Array.isArray(f.lineup)).forEach(f=>{
+    any=true; f.lineup.forEach(pid=>m[pid]=(m[pid]||0)+1);
+  });
+  return { any, list:Object.entries(m).map(([id,n])=>({id,n})).sort((a,b)=>b.n-a.n) };
+}
+function withUnknown(n,unknown){ return unknown ? (n+'+') : String(n); }
+
+/* ---------- crest (fixed brand colours, crisp in both themes) ---------- */
+function crestSVG(){
+  return `<svg viewBox="0 0 100 112" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" aria-label="Touch This crest">
+    <path d="M50 4 L94 18 V54 C94 82 74 100 50 108 C26 100 6 82 6 54 V18 Z"
+      fill="#7b2d3b" stroke="#f4ecd8" stroke-width="3"/>
+    <path d="M50 12 L86 23 V54 C86 77 70 92 50 100 C30 92 14 77 14 54 V23 Z"
+      fill="none" stroke="#f4ecd8" stroke-width="1" opacity="0.55"/>
+    <text x="50" y="62" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+      font-size="34" font-weight="700" fill="#f4ecd8" letter-spacing="-1">TT</text>
+  </svg>`;
+}
+
+/* ---------- bar leaderboard ---------- */
+function barChart(items, nameFn, emptyMsg){
+  if(!items.length) return `<div class="empty">${esc(emptyMsg)}</div>`;
+  const max = Math.max(...items.map(i=>i.n));
+  return items.map(i=>`
+    <div class="bar-row">
+      <div class="name">${esc(nameFn(i))}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(i.n/max*100)}%"></div></div>
+      <div class="val">${i.n}</div>
+    </div>`).join('');
+}
+
+/* ---------- views ---------- */
+const cur = () => $('#season').value;
+
+function renderHome(){
+  const sid = cur();
+  const s = season(sid);
+  const rec = teamRecord(sid);
+  const best = bestPerf(sid);
+  const nf = nextFixture();
+  const form = formGuide(sid);
+  const standing = (s && s.finalPosition)
+    ? `${ordinal(s.finalPosition)} of ${s.teamsInLeague} · ${s.points} pts`
+    : (sid==='all' ? 'Career record' : (s?`${s.name} in progress`:''));
+
+  const kpis = [
+    ['League games', rec.played],
+    ['Record (W-L)', `${rec.w}–${rec.l}`],
+    ['Points', rec.pts],
+    ['Tries for', withUnknown(rec.tf,rec.tfU)],
+    ['Tries against', withUnknown(rec.ta,rec.taU)],
+    ['Best haul', best? best.ttScore : '–']
+  ].map(([l,v])=>`<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
+
+  const nextCard = nf ? `
+    <div class="card hero-card mt">
+      <div class="next">
+        <div>
+          <div class="vs">Next up</div>
+          <div class="opp">${nf.opponent? esc(oppName(nf.opponent)) : 'Opponent TBC'}</div>
+          <div class="meta">${nf.competition==='playoff'?'Play-off · ':''}${fmtDate(nf.date)}${nf.season==='2026-summer'?' · Season 2, week '+nf.week:''}</div>
+        </div>
+        ${nf.opponent? `<a class="cta" href="#opponent/${nf.opponent}">View head-to-head &rarr;</a>`
+                     : `<span class="cta muted">Tell Claude the date &amp; opponent to fill this in</span>`}
+      </div>
+    </div>` : '';
+
+  const bestLine = best
+    ? `Best performance: <strong>${best.ttScore} ${best.ttScore===1?'try':'tries'}</strong> vs ${esc(oppName(best.opponent))} (${resBadge(fxResult(best))} ${best.ttScore!=null&&best.oppScore!=null?best.ttScore+'–'+best.oppScore:''})`
+    : 'No games recorded for this season yet.';
+
+  $('[data-view="home"]').innerHTML = `
+    <div class="card hero-card">
+      <div class="wm">${crestSVG()}</div>
+      <p class="lead">${esc(s?s.name:'All seasons')}${s&&s.status?` · ${s.status}`:''}</p>
+      <p class="big">${standing}</p>
+      <p class="story">${esc(s?s.summary:'')}</p>
+    </div>
+    ${nextCard}
+    <div class="kpis mt">${kpis}</div>
+    <div class="grid g2 mt">
+      <div class="card">
+        <h3>Form (last 5 league)</h3>
+        ${form.length? `<div class="form">${form.map(r=>`<span class="chip ${(r||'tbd').toLowerCase()}">${r||'–'}</span>`).join('')}</div>`
+                     : `<div class="empty">No league games played yet.</div>`}
+        <p class="muted" style="margin:12px 0 0;font-size:13px">${bestLine}</p>
+      </div>
+      <div class="card">
+        <h3>Season snapshot</h3>
+        <div class="bar-row"><div class="name">Played</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="val">${rec.played}</div></div>
+        <div class="bar-row"><div class="name">Won</div><div class="bar-track"><div class="bar-fill" style="width:${pct(rec.w,rec.played)}%"></div></div><div class="val">${rec.w}</div></div>
+        <div class="bar-row"><div class="name">Lost</div><div class="bar-track"><div class="bar-fill" style="width:${pct(rec.l,rec.played)}%"></div></div><div class="val">${rec.l}</div></div>
+        <div class="bar-row"><div class="name">Try diff</div><div class="bar-track"><div class="bar-fill" style="width:${rec.played?50:0}%"></div></div><div class="val">${(rec.diff>0?'+':'')+rec.diff}${rec.tfU||rec.taU?'*':''}</div></div>
+      </div>
+    </div>`;
+}
+const pct = (n,d)=> d? Math.round(n/d*100):0;
+function ordinal(n){ const s=['th','st','nd','rd'], v=n%100; return n+(s[(v-20)%10]||s[v]||s[0]); }
+
+function renderFixtures(){
+  const host = $('[data-view="fixtures"]');
+  const sf = fxState.season, cf = fxState.comp;
+  let rows = TT.fixtures.filter(f=>{
+    if(sf!=='all' && f.season!==sf) return false;
+    if(cf!=='all' && f.competition!==cf) return false;
+    return true;
+  });
+  rows = sortFixtures(rows);
+
+  const body = rows.map(f=>`
+    <tr class="${f.opponent?'clickable':''}" ${f.opponent?`onclick="location.hash='#opponent/${f.opponent}'"`:''}>
+      <td>${fmtDate(f.date)}</td>
+      <td class="muted">${esc(season(f.season)?.name||f.season)}</td>
+      <td>${compPill(f)}</td>
+      <td>${oppLink(f.opponent)}</td>
+      <td class="num">${scoreText(f)}</td>
+      <td class="num">${resBadge(fxResult(f))}</td>
+      <td>${scorersText(f)}</td>
+      <td>${mvpText(f)}</td>
+    </tr>`).join('') || `<tr><td colspan="8"><div class="empty">No fixtures match these filters.</div></td></tr>`;
+
+  const arrow = k => fxState.key===k ? `<span class="arrow">${fxState.dir>0?'▲':'▼'}</span>` : '';
+
+  host.innerHTML = `
+    <h2 class="section-t">Every game</h2>
+    <p class="section-s">All fixtures across both seasons. Click a row to open the opponent's head-to-head.</p>
+    <div class="grid" style="grid-template-columns:auto auto;justify-content:start;margin-bottom:14px">
+      <span><label class="muted" style="font-size:12px;margin-right:6px">Season</label>
+        <select id="fx-season"></select></span>
+      <span><label class="muted" style="font-size:12px;margin-right:6px">Competition</label>
+        <select id="fx-comp">
+          <option value="all">All</option>
+          <option value="league">League</option>
+          <option value="playoff">Play-offs</option>
+        </select></span>
+    </div>
+    <div class="tablewrap"><table>
+      <thead><tr>
+        <th class="sortable" data-sort="date">Date ${arrow('date')}</th>
+        <th>Season</th><th>Comp</th>
+        <th class="sortable" data-sort="opponent">Opponent ${arrow('opponent')}</th>
+        <th class="num sortable" data-sort="score">Score ${arrow('score')}</th>
+        <th class="num sortable" data-sort="result">Res ${arrow('result')}</th>
+        <th>Try scorers</th><th>MVP</th>
+      </tr></thead>
+      <tbody>${body}</tbody>
+    </table></div>`;
+
+  // season options
+  const fss=$('#fx-season');
+  fss.innerHTML = '<option value="all">All seasons</option>'+TT.seasons.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('');
+  fss.value=sf; $('#fx-comp').value=cf;
+  fss.addEventListener('change',()=>{fxState.season=fss.value;renderFixtures();});
+  $('#fx-comp').addEventListener('change',e=>{fxState.comp=e.target.value;renderFixtures();});
+  $$('[data-view="fixtures"] th.sortable').forEach(th=>th.addEventListener('click',()=>{
+    const k=th.dataset.sort;
+    if(fxState.key===k) fxState.dir*=-1; else {fxState.key=k;fxState.dir=1;}
+    renderFixtures();
+  }));
+}
+const fxState = { season:'all', comp:'all', key:'date', dir:1 };
+function sortFixtures(rows){
+  const k=fxState.key, d=fxState.dir;
+  const val=f=> k==='date'?(f.date||'9999-99-99')
+            : k==='opponent'?(oppName(f.opponent)||'')
+            : k==='score'?(f.ttScore==null?-1:f.ttScore)
+            : k==='result'?({W:3,D:2,L:1}[fxResult(f)]||0):0;
+  return rows.slice().sort((a,b)=>{ const x=val(a),y=val(b); return (x<y?-1:x>y?1:0)*d; });
+}
+
+function renderTable(){
+  const host=$('[data-view="table"]');
+  let sid=cur(); if(sid==='all') sid = TT.seasons.filter(s=>s.status==='finished').slice(-1)[0]?.id || TT.seasons[0].id;
+  const s=season(sid); const rec=teamRecord(sid);
+  const known = TT.opponents.map(o=>o.name);
+  const posNote = (s&&s.finalPosition)
+    ? `Touch This finished <strong>${ordinal(s.finalPosition)} of ${s.teamsInLeague}</strong> on ${s.points} points.`
+    : 'Standings build up as games are played.';
+  host.innerHTML = `
+    <h2 class="section-t">League table &mdash; ${esc(s?s.name:'')}</h2>
+    <p class="section-s">${posNote} Rivals' full records were not logged, so only Touch This's computed row is shown.</p>
+    <div class="tablewrap"><table>
+      <thead><tr>
+        <th class="num">Pos</th><th>Team</th>
+        <th class="num">P</th><th class="num">W</th><th class="num">L</th><th class="num">D</th>
+        <th class="num">TF</th><th class="num">TA</th><th class="num">Diff</th><th class="num">Pts</th>
+      </tr></thead>
+      <tbody>
+        <tr class="hl">
+          <td class="num">${s&&s.finalPosition?s.finalPosition:'–'}</td>
+          <td><strong>Touch This</strong></td>
+          <td class="num">${rec.played}</td><td class="num">${rec.w}</td><td class="num">${rec.l}</td><td class="num">${rec.d}</td>
+          <td class="num">${withUnknown(rec.tf,rec.tfU)}</td>
+          <td class="num">${withUnknown(rec.ta,rec.taU)}</td>
+          <td class="num">${(rec.diff>0?'+':'')+rec.diff}${rec.tfU||rec.taU?'*':''}</td>
+          <td class="num"><strong>${rec.pts}</strong></td>
+        </tr>
+      </tbody>
+    </table></div>
+    <div class="card mt">
+      <h3>League make-up</h3>
+      <p class="muted" style="margin:0;font-size:13.5px">Season opponents on record: ${known.map(n=>esc(n)).join(' · ')}.
+      Points are ${TT.team.rules.points.win} for a win, ${TT.team.rules.points.loss} for a loss, ${TT.team.rules.points.bye} for a bye.
+      ${rec.tfU||rec.taU?'<br><span style="font-size:12.5px">* one Season 1 score (vs Wandsworth Wasps) was not recorded, so try totals are a known minimum.</span>':''}</p>
+    </div>`;
+}
+
+function renderPlayoffs(){
+  const host=$('[data-view="playoffs"]');
+  const pos = TT.fixtures.filter(f=>f.competition==='playoff')
+    .sort((a,b)=>(a.date||'9999')<(b.date||'9999')?-1:1);
+  if(!pos.length){ host.innerHTML=`<h2 class="section-t">Play-offs</h2><div class="empty">No play-off fixtures recorded yet.</div>`; return; }
+  const ties = pos.map(f=>{
+    const r=fxResult(f);
+    const ttWin = r==='W', oppWin = r==='L';
+    const ttSc = f.ttScore==null?'':f.ttScore, opSc=f.oppScore==null?'':f.oppScore;
+    return `<div class="tie">
+      <div class="tlabel">${esc(f.playoffRound||'Play-off')} · ${fmtDate(f.date)}</div>
+      <div class="trow ${ttWin?'win':''}"><span>Touch This</span><span>${ttSc!==''?ttSc:'&mdash;'}</span></div>
+      <div class="trow ${oppWin?'win':''}"><span>${esc(oppName(f.opponent))}</span><span>${opSc!==''?opSc:'&mdash;'}</span></div>
+      ${r?'':'<div class="tlabel" style="text-transform:none;letter-spacing:0">Result not recorded yet</div>'}
+    </div>`;
+  }).join('');
+  host.innerHTML = `
+    <h2 class="section-t">Play-offs</h2>
+    <p class="section-s">Knockout re-seeding after the regular season.</p>
+    <div class="bracket">${ties}</div>
+    <div class="card mt">
+      <h3>How Season 1 shook out</h3>
+      <p class="muted" style="margin:0;font-size:13.5px">Touch This came last in the league but was guaranteed to finish above Wandsworth Wasps: Wasps lost their semi-final heavily to Touchdown Titans (a 150 to 2 table blunder) and were locked into 7th overall. On 17 June TT met Touchdown Titans &mdash; their very first opponent of the season &mdash; in the 5th-place play-off, with a win meaning 5th and a loss meaning 6th.</p>
+    </div>`;
+}
+
+function renderPlayers(){
+  const host=$('[data-view="players"]'); const sid=cur();
+  const scorers=tallyScorers(sid), mvps=tallyMvp(sid), apps=tallyApps(sid);
+  const roster = TT.players.map(p=>`
+    <div class="pcard">
+      <span class="avatar">${esc(initials(p.name))}</span>
+      <div><div class="pn">${esc(p.name)}${p.nickname?` <span class="muted">(${esc(p.nickname)})</span>`:''}</div>
+      <div class="pr">${esc(p.role)}</div></div>
+    </div>`).join('');
+  host.innerHTML = `
+    <h2 class="section-t">Players &amp; stats</h2>
+    <p class="section-s">Leaderboards for ${esc(sid==='all'?'all seasons':season(sid)?.name)}. Populated automatically as scorers and MVPs are logged each week.</p>
+    <div class="grid g3">
+      <div class="card"><h3>Top try scorers</h3>${barChart(scorers,i=>playerName(i.id),'No try scorers logged yet. Add scorers to fixtures to populate this.')}</div>
+      <div class="card"><h3>MVP awards</h3>${barChart(mvps,i=>playerName(i.id),'No MVPs logged yet.')}</div>
+      <div class="card"><h3>Appearances</h3>${apps.any?barChart(apps.list,i=>playerName(i.id),''):'<div class="empty">No line-ups logged yet. Add a <code>lineup</code> to fixtures to track appearances.</div>'}</div>
+    </div>
+    <h2 class="section-t">Squad</h2>
+    <p class="section-s">Only three players are on record so far &mdash; the full squad list is still to be added.</p>
+    <div class="roster">${roster}</div>`;
+}
+
+function renderOpponent(id){
+  const host=$('[data-view="opponent"]'); const o=opp(id);
+  if(!o){ host.innerHTML=`<a class="back" href="#fixtures">&larr; Back</a><div class="empty">Unknown opponent.</div>`; return; }
+  const h=headToHead(id);
+  const kpis=[
+    ['Played', h.played.length],
+    ['Record (W-L)', `${h.w}–${h.l}`],
+    ['Tries for', withUnknown(h.tf,h.tfU)],
+    ['Tries against', withUnknown(h.ta,h.taU)]
+  ].map(([l,v])=>`<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
+
+  const meetings = h.played.map(f=>`
+    <tr>
+      <td>${fmtDate(f.date)}</td><td>${compPill(f)}</td>
+      <td class="num">${scoreText(f)}</td><td class="num">${resBadge(fxResult(f))}</td>
+      <td>${scorersText(f)}</td><td>${mvpText(f)}</td>
+    </tr>`).join('') || `<tr><td colspan="6"><div class="empty">No completed meetings yet.</div></td></tr>`;
+
+  const up = h.upcoming.length ? `
+    <div class="card hero-card mt">
+      <div class="wm">${crestSVG()}</div>
+      <p class="lead">Next meeting</p>
+      <p class="big">${fmtDate(h.upcoming[0].date)}</p>
+      <p class="story">${h.upcoming[0].competition==='playoff'?'Play-off. ':''}Season ${h.upcoming[0].season==='2026-summer'?'2':'1'}, week ${h.upcoming[0].week||'&ndash;'}.</p>
+    </div>` : '';
+
+  host.innerHTML = `
+    <a class="back" href="#fixtures">&larr; All fixtures</a>
+    <h2 class="section-t">${esc(o.name)}</h2>
+    <p class="section-s">${o.notes?esc(o.notes):'Head-to-head record and previous meetings.'}</p>
+    <div class="kpis" style="grid-template-columns:repeat(4,1fr)">${kpis}</div>
+    ${up}
+    <h2 class="section-t">Previous meetings</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Date</th><th>Comp</th><th class="num">Score</th><th class="num">Res</th><th>Try scorers</th><th>MVP</th></tr></thead>
+      <tbody>${meetings}</tbody>
+    </table></div>`;
+}
+
+/* ---------- router + boot ---------- */
+const VIEWS=['home','fixtures','table','playoffs','players'];
+function renderAll(){ renderHome(); renderFixtures(); renderTable(); renderPlayoffs(); renderPlayers(); }
+function route(){
+  const [view,arg]=(location.hash.replace(/^#/,'')||'home').split('/');
+  const v = view==='opponent' ? 'opponent' : (VIEWS.includes(view)?view:'home');
+  $$('[data-view]').forEach(sec=>sec.hidden = sec.dataset.view!==v);
+  $$('#seg button').forEach(b=>b.classList.toggle('active', b.dataset.nav===v));
+  if(v==='opponent') renderOpponent(arg);
+  window.scrollTo(0,0);
+}
+
+function boot(){
+  // crest
+  $('#crest').innerHTML=crestSVG();
+  // season selector
+  const sel=$('#season');
+  sel.innerHTML = TT.seasons.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('')+'<option value="all">All seasons</option>';
+  const finished = TT.seasons.filter(s=>s.status==='finished').slice(-1)[0];
+  sel.value = finished ? finished.id : TT.seasons[0].id;
+  sel.addEventListener('change',()=>{ renderAll(); route(); });
+  // nav
+  $$('#seg button').forEach(b=>b.addEventListener('click',()=>{ location.hash='#'+b.dataset.nav; }));
+  // theme toggle (auto -> light -> dark -> auto)
+  const root=document.documentElement;
+  const saved=localStorage.getItem('tt-theme'); if(saved) root.setAttribute('data-theme',saved);
+  $('#theme').addEventListener('click',()=>{
+    const order=['auto','light','dark'];
+    const next=order[(order.indexOf(root.getAttribute('data-theme')||'auto')+1)%3];
+    root.setAttribute('data-theme',next); localStorage.setItem('tt-theme',next);
+    $('#theme').title='Theme: '+next;
+  });
+  // footer
+  $('#foot').innerHTML = `Touch This team dashboard · lives in the vault at <code>🧠 wiki/health/touch-this-dashboard.html</code>.
+    To update: tell Claude the week's result, try scorers and MVP, and it edits the <code>DATA</code> block and redeploys. Placeholders read “Not recorded” / “TBD” until data is added.`;
+
+  renderAll();
+  window.addEventListener('hashchange',route);
+  route();
+}
+boot();
+</script>
+</body>
+</html>
