@@ -136,8 +136,8 @@
   .bar-row .val{width:38px;flex:none;text-align:right;font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted)}
 
   /* Roster */
-  .roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
-  .pcard{border:1px solid var(--line);border-radius:13px;padding:13px 15px;background:var(--panel-2);display:flex;gap:12px;align-items:center}
+  .roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+  .pcard{border:1px solid var(--line);border-radius:13px;padding:13px 15px;background:var(--panel-2);display:flex;gap:12px;align-items:flex-start}
   .avatar{width:38px;height:38px;border-radius:50%;flex:none;background:var(--accent);color:var(--cream);
     display:inline-flex;align-items:center;justify-content:center;font-weight:660;font-size:14px}
   .pcard .pn{font-weight:600;font-size:14px}
@@ -145,6 +145,16 @@
 
   /* Bracket */
   .bracket{display:flex;flex-direction:column;gap:14px}
+  .bracket-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+  .tie.tie-tt{border-color:var(--accent);box-shadow:0 0 0 1.5px var(--accent)}
+  .placings{list-style:none;padding:0;margin:0;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:var(--panel);max-width:440px;box-shadow:var(--shadow)}
+  .placings li{display:flex;gap:12px;align-items:center;padding:9px 14px;border-bottom:1px solid var(--line);font-size:14px}
+  .placings li:last-child{border-bottom:none}
+  .placings li.tt{background:color-mix(in srgb,var(--accent) 9%,transparent);font-weight:640}
+  .placings .pp{width:20px;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+  .ptype{display:inline-block;font-size:9.5px;font-weight:650;letter-spacing:.04em;text-transform:uppercase;padding:1px 6px;border-radius:5px;background:var(--line);color:var(--muted);vertical-align:middle}
+  .ptype.core{background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent)}
+  .ptype.regular{background:color-mix(in srgb,var(--draw) 24%,transparent);color:var(--draw)}
   .tie{border:1px solid var(--line);border-radius:13px;overflow:hidden;max-width:360px;background:var(--panel)}
   .tie .trow{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-bottom:1px solid var(--line);font-size:14px}
   .tie .trow:last-child{border-bottom:none}
@@ -229,25 +239,38 @@ const TT = {
   },
 
   players: [
-    { id:"harit",   name:"Harit",            nickname:null,     role:"Founder / Coach", active:true },
-    { id:"gayatri", name:"Gayatri",          nickname:null,     role:"Player",          active:true },
-    { id:"franny",  name:"Francisco Aruta",  nickname:"Franny", role:"Player",          active:true }
-    // TODO: full squad not recorded yet — add the rest of the team here.
+    { id:"gayatri",  name:"Gayatri",           nickname:"G",           type:"core",    role:"Co-organiser and captain. Founded the team, paid the league fee, designed the kit." },
+    { id:"ella",     name:"Ella",              nickname:"El Capitan",  type:"core",    role:"Co-captain. Guested for the Wasps in Match 5." },
+    { id:"harit",    name:"Harit",             nickname:null,          type:"core",    role:"Player. Ran scouting, tactics and the match reports." },
+    { id:"franny",   name:"Francisco",         nickname:"Fran",        type:"core",    role:"Player. Top try scorer of the season." },
+    { id:"sarah",    name:"Sarah",             nickname:null,          type:"core",    role:"Player." },
+    { id:"max",      name:"Max Gutsche",       nickname:null,          type:"core",    role:"Player." },
+    { id:"helena",   name:"Helena Murray",     nickname:null,          type:"core",    role:"Player." },
+    { id:"robert",   name:"Robert Hutchinson", nickname:"Rob",         type:"squad",   role:"Squad player. Sideline support early, then started and starred in Match 7." },
+    { id:"bex",      name:"Bex Dunnet",        nickname:"Bex",         type:"squad",   role:"Squad player." },
+    { id:"sam",      name:"Sam",               nickname:null,          type:"regular", role:"Season regular via Fran from 26 Apr. Two standout shifts." },
+    { id:"martin",   name:"Martin",            nickname:null,          type:"ringer",  role:"Sub. Quick try scorer." },
+    { id:"kingsley", name:"Kingsley",          nickname:null,          type:"ringer",  role:"Sub. Double interception in Match 6." },
+    { id:"ieuan",    name:"Ieuan",             nickname:null,          type:"ringer",  role:"Sub in Match 2." },
+    { id:"charlotte",name:"Charlotte",         nickname:null,          type:"ringer",  role:"Sub in Match 6." },
+    { id:"henry",    name:"Henry",             nickname:null,          type:"ringer",  role:"Sub in Match 7." },
+    { id:"sophie",   name:"Sophie",            nickname:null,          type:"ringer",  role:"Sub in Match 7." },
+    { id:"moustache-man", name:"Mystery sub",  nickname:"moustache man", type:"ringer", role:"Sub in Match 2, reportedly very fast." }
   ],
 
   opponents: [
-    { id:"touchdown-titans", name:"Touchdown Titans", colours:null,
-      notes:"TT's first-ever opponent (Week 1, 22 Apr) and the Early Summer 5th-place play-off opponent." },
-    { id:"dirty-dogs", name:"Dirty Dogs", colours:null,
-      notes:"Inflicted TT's heaviest defeat of the Early Summer season (0 to 11)." },
-    { id:"scoregasms", name:"Scoregasms", colours:null,
-      notes:"TT scored their first try of the season in this game." },
-    { id:"churchills", name:"Sponsored by Churchills", colours:null,
-      notes:"Had the league's tightest defence in the Early Summer season (lost 2 to 9). Rematch in Late Summer on 22 Jul." },
-    { id:"wandsworth-wasps", name:"Wandsworth Wasps", colours:null,
-      notes:"27 May shootout for 6th place. Wasps finished 7th overall after a 150 to 2 play-off semi-final loss to Touchdown Titans, which locked TT above them." },
-    { id:"try-hard-2", name:"Try Hard 2", colours:null,
-      notes:"Finished 2nd. TT's best display of the season came here: lost just 7 to 8." },
+    { id:"touchdown-titans", name:"Touchdown Titans v2", finish:5, colours:null,
+      notes:"Finished 5th. TT's first opponent (Match 1) and the 5th/6th play-off opponent (Match 7) — the same 3 to 7 scoreline both times." },
+    { id:"dirty-dogs", name:"The Dirty Dogs", finish:4, colours:null,
+      notes:"Finished 4th. Inflicted TT's heaviest defeat, 0 to 11 (Match 2)." },
+    { id:"scoregasms", name:"Scoregasms", finish:1, colours:null,
+      notes:"Won the league and the play-off final (1st). Held TT to a single try in heavy rain (Match 3), TT's best defensive display." },
+    { id:"churchills", name:"Sponsored by Churchills", finish:2, colours:null,
+      notes:"Finished 2nd with the division's best defence. TT still scored twice (Match 4). Rematch in Late Summer on 22 Jul." },
+    { id:"wandsworth-wasps", name:"Wandsworth Wasps", finish:7, colours:null,
+      notes:"The designated rivals. Beat TT 5 to 3 in the 6th-vs-7th shootout (Match 5) but finished 7th, below TT, after losing their play-off semi heavily. Ella guested for them that week." },
+    { id:"try-hard-2", name:"Try Hard 2: Try Harder", finish:3, colours:null,
+      notes:"Finished 3rd. TT's best attacking game came here: 7 tries, lost 7 to 8 (Match 6)." },
     { id:"tag-me-if-you-can", name:"Tag Me If You Can", colours:null,
       notes:"New Late Summer opponent. First meeting on 15 Jul." },
     { id:"touching-wands", name:"Touching Wands", colours:null,
@@ -257,39 +280,84 @@ const TT = {
   ],
 
   seasons: [
-    { id:"2026-spring", name:"Early Summer 2026", status:"finished", finalPosition:7, teamsInLeague:7, points:6,
-      summary:"A winless league campaign, but the scoring trajectory told the real story: from 0 tries against Dirty Dogs the team went 1, then 2, then 3, and put up 7 against 2nd-placed Try Hard 2 in the final game, losing only 7 to 8." },
-    { id:"2026-summer", name:"Late Summer 2026", status:"active", finalPosition:null, teamsInLeague:null, points:null,
+    { id:"2026-spring", name:"Early Summer 2026", status:"finished", finalPosition:7, teamsInLeague:7, points:6, finalPlacing:6,
+      summary:"Finished 7th of 7 in the league on 6 points, then 6th overall after the play-off. Winless, but the attack grew every week: tries per game went 0, 1, 2, 3, 7, and a different player won the MVP award each week." },
+    { id:"2026-summer", name:"Late Summer 2026", status:"active", finalPosition:null, teamsInLeague:null, points:null, finalPlacing:null,
       summary:"The late summer campaign. Results fill in week by week as games are played." }
   ],
 
+  // Final regular-season league table (all seven teams) — from the official record.
+  standings: {
+    "2026-spring": [
+      { pos:1, team:"Scoregasms",              p:6, w:5, l:1, tf:36, ta:17, pts:16 },
+      { pos:2, team:"Try Hard 2: Try Harder",  p:6, w:4, l:2, tf:41, ta:25, pts:14 },
+      { pos:3, team:"Sponsored by Churchills", p:6, w:4, l:2, tf:34, ta:21, pts:14 },
+      { pos:4, team:"The Dirty Dogs",          p:6, w:4, l:2, tf:36, ta:25, pts:14 },
+      { pos:5, team:"Touchdown Titans v2",     p:6, w:3, l:3, tf:33, ta:27, pts:12 },
+      { pos:6, team:"Wandsworth Wasps",        p:6, w:1, l:5, tf:13, ta:45, pts:8 },
+      { pos:7, team:"Touch This (TT)",         p:6, w:0, l:6, tf:16, ta:49, pts:6, tt:true }
+    ]
+  },
+
+  // Play-off bracket (semis 10 Jun, finals 24 Jun).
+  playoffs: {
+    "2026-spring": [
+      { stage:"Semi-final 1", date:"2026-06-10", t1:"Scoregasms",             s1:5,  t2:"The Dirty Dogs",          s2:4 },
+      { stage:"Semi-final 2", date:"2026-06-10", t1:"Try Hard 2: Try Harder", s1:3,  t2:"Sponsored by Churchills", s2:6 },
+      { stage:"Semi-final 3", date:"2026-06-10", t1:"Touchdown Titans v2",    s1:15, t2:"Wandsworth Wasps",        s2:2, note:"Logged on the site as 150 to 2, an obvious typo, read as 15 to 2." },
+      { stage:"Final",        date:"2026-06-24", t1:"Scoregasms",             s1:9,  t2:"Sponsored by Churchills", s2:6 },
+      { stage:"3rd / 4th",    date:"2026-06-24", t1:"The Dirty Dogs",         s1:3,  t2:"Try Hard 2: Try Harder",  s2:5 },
+      { stage:"5th / 6th",    date:"2026-06-24", t1:"Touch This (TT)",        s1:3,  t2:"Touchdown Titans v2",     s2:7, tt:true }
+    ]
+  },
+
+  finalPlacings: {
+    "2026-spring": ["Scoregasms","Sponsored by Churchills","Try Hard 2: Try Harder","The Dirty Dogs","Touchdown Titans v2","Touch This (TT)","Wandsworth Wasps"]
+  },
+
   fixtures: [
-    // ---- Season 1 (2026 Spring) — league ----
-    { id:"s1-w1", season:"2026-spring", week:1, date:"2026-04-22", competition:"league",
-      opponent:"touchdown-titans", venue:null, played:true, ttScore:3, oppScore:7, result:"L",
-      scorers:null, mvp:null, lineup:null, notes:"Opening game of the season." },
-    { id:"s1-w2", season:"2026-spring", week:2, date:"2026-05-06", competition:"league",
-      opponent:"dirty-dogs", venue:null, played:true, ttScore:0, oppScore:11, result:"L",
-      scorers:[], mvp:null, lineup:null, notes:"Heaviest defeat of the season; no tries scored." },
-    { id:"s1-w3", season:"2026-spring", week:3, date:"2026-05-13", competition:"league",
-      opponent:"scoregasms", venue:null, played:true, ttScore:1, oppScore:9, result:"L",
-      scorers:null, mvp:null, lineup:null, notes:"First try of the season." },
-    { id:"s1-w4", season:"2026-spring", week:4, date:"2026-05-20", competition:"league",
-      opponent:"churchills", venue:null, played:true, ttScore:2, oppScore:9, result:"L",
-      scorers:null, mvp:null, lineup:null, notes:"Up against the league's tightest defence." },
-    { id:"s1-w5", season:"2026-spring", week:5, date:"2026-05-27", competition:"league",
-      opponent:"wandsworth-wasps", venue:null, played:true, ttScore:null, oppScore:null, result:"L",
-      scorers:null, mvp:null, lineup:null,
-      notes:"Shootout for 6th place — lost and locked in 7th. Exact score not recorded." },
-    { id:"s1-w6", season:"2026-spring", week:6, date:"2026-06-03", competition:"league",
-      opponent:"try-hard-2", venue:null, played:true, ttScore:7, oppScore:8, result:"L",
-      scorers:null, mvp:null, lineup:null,
-      notes:"Best display of the season: 7 tries against the 2nd-placed side, lost by one." },
-    // ---- Season 1 play-off ----
-    { id:"s1-po", season:"2026-spring", week:null, date:"2026-06-17", competition:"playoff",
-      playoffRound:"5th/6th place", opponent:"touchdown-titans", venue:null, played:true,
-      ttScore:null, oppScore:null, result:null, scorers:null, mvp:null, lineup:null,
-      notes:"5th-place play-off against the season's very first opponent. Win = 5th, loss = 6th. Result not recorded yet." },
+    // ---- Early Summer 2026 (season 1) — regular season ----
+    { id:"s1-w1", season:"2026-spring", week:1, date:"2026-04-22", time:"19:10", competition:"league",
+      opponent:"touchdown-titans", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
+      ttScore:3, oppScore:7, result:"L", scorers:[{player:"franny",tries:2}], unattributed:1,
+      mvp:{player:"franny",award:"MOM"},
+      notes:"Opening game. Reported as 2 to 7 on the night; official 3 to 7, so one try went unattributed. Bex dislocated a finger and still made it to the pub." },
+    { id:"s1-bye", season:"2026-spring", week:null, date:"2026-04-29", competition:"bye",
+      opponent:null, venue:null, played:false, ttScore:null, oppScore:null, result:null,
+      scorers:null, unattributed:0, mvp:null, notes:"Bye week. Poor weather; the team chose to rest." },
+    { id:"s1-w2", season:"2026-spring", week:2, date:"2026-05-06", time:"18:30", competition:"league",
+      opponent:"dirty-dogs", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
+      ttScore:0, oppScore:11, result:"L", scorers:[], unattributed:0,
+      mvp:{player:"sarah",award:"MOM"},
+      notes:"Heaviest defeat. Called 8 to 0 on the night, corrected to 11 to 0. Opponent confirmed as The Dirty Dogs via the official results." },
+    { id:"s1-w3", season:"2026-spring", week:3, date:"2026-05-13", time:"18:30", competition:"league",
+      opponent:"scoregasms", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
+      ttScore:1, oppScore:9, result:"L", scorers:[{player:"harit",tries:1}], unattributed:0,
+      mvp:{player:"harit",award:"MOM"},
+      notes:"Heavy rain, nearly cancelled for lightning. Widely felt to be the team's best performance despite the scoreline — and against the eventual league winners." },
+    { id:"s1-w4", season:"2026-spring", week:4, date:"2026-05-20", time:"19:10", competition:"league",
+      opponent:"churchills", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
+      ttScore:2, oppScore:9, result:"L", scorers:[{player:"franny",tries:1},{player:"harit",tries:1}], unattributed:0,
+      mvp:{player:"max",award:"MOTM"},
+      notes:"Scored twice against the division's best defence (2nd place, unbeaten in three). Harit intercepted and ran the full length of the pitch." },
+    { id:"s1-w5", season:"2026-spring", week:5, date:"2026-05-27", time:"19:50", competition:"league",
+      opponent:"wandsworth-wasps", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
+      ttScore:3, oppScore:5, result:"L",
+      scorers:[{player:"sarah",tries:1},{player:"franny",tries:1},{player:"martin",tries:1}], unattributed:0,
+      mvp:{player:"sam",award:"MOTM"},
+      notes:"The 6th-vs-7th grudge match. Strong first half, faded in the second. Ella guested for the Wasps — the only person connected to TT to win a game of touch all season." },
+    { id:"s1-w6", season:"2026-spring", week:6, date:"2026-06-03", time:"19:10", competition:"league",
+      opponent:"try-hard-2", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
+      ttScore:7, oppScore:8, result:"L",
+      scorers:[{player:"martin",tries:1},{player:"kingsley",tries:1},{player:"sam",tries:1}], unattributed:4,
+      mvp:{player:"helena",award:"MVP"},
+      notes:"Closest and highest-scoring game of the season: 7 tries against the eventual 3rd-placed side, lost by one. Only 3 scorers were named, so 4 tries are unattributed. Kingsley made a double interception." },
+    // ---- Early Summer 2026 — play-off (5th/6th). Set for 17 Jun, cancelled (no referee), replayed 24 Jun ----
+    { id:"s1-po", season:"2026-spring", week:null, date:"2026-06-24", time:"19:50", competition:"playoff",
+      playoffRound:"5th/6th place", opponent:"touchdown-titans", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
+      ttScore:3, oppScore:7, result:"L", scorers:[{player:"robert",tries:1}], unattributed:1,
+      mvp:{player:"robert",award:"MVP"},
+      notes:"Full-circle rematch with the opening opponent, ending on the same 3 to 7 scoreline. Robert scored on his debut (possibly a second). A win meant 5th; the loss meant 6th. Played in 37 degrees. Originally set for 17 Jun but cancelled — no referee." },
 
     // ---- Season 2 (2026 Summer) — GO Mammoth summer league, Clapham Wandsworth, Pitch 2 (Touch) ----
     { id:"s2-w1", season:"2026-summer", week:1, date:"2026-07-01", time:"19:50", competition:"league",
@@ -363,14 +431,16 @@ function compPill(f){
   return '<span class="pill league">League</span>';
 }
 function scorersText(f){
-  if(f.scorers==null) return NR;
-  if(f.scorers.length===0) return '<span class="muted">&mdash;</span>';
-  return f.scorers.map(s=>{
+  const un = f.unattributed||0;
+  if(f.scorers==null && !un) return NR;
+  const named = Array.isArray(f.scorers) ? f.scorers.map(s=>{
     const pid=typeof s==='string'?s:s.player, t=typeof s==='string'?1:(s.tries||1);
     return esc(playerShort(pid))+(t>1?' &times;'+t:'');
-  }).join(', ');
+  }) : [];
+  if(un) named.push('<span class="muted">+'+un+' unattributed</span>');
+  return named.length ? named.join(', ') : '<span class="muted">&mdash;</span>';
 }
-function mvpText(f){ return f.mvp ? esc(playerName(f.mvp)) : NR; }
+function mvpText(f){ return f.mvp ? esc(playerName(f.mvp.player))+' <span class="muted">('+esc(f.mvp.award)+')</span>' : NR; }
 function oppLink(id){ return id ? `<a href="#opponent/${id}">${esc(oppName(id))}</a>` : '<span class="muted">TBC</span>'; }
 
 /* ---------- computations (pure over TT.fixtures) ---------- */
@@ -398,7 +468,7 @@ function formGuide(sid,n=5){
     .sort((a,b)=>(a.date||'')<(b.date||'')?-1:1).slice(-n).map(fxResult);
 }
 function nextFixture(){
-  return TT.fixtures.filter(f=>!f.played)
+  return TT.fixtures.filter(f=>!f.played && f.competition!=='bye')
     .sort((a,b)=>(a.date||'9999-99-99')<(b.date||'9999-99-99')?-1:1)[0] || null;
 }
 function headToHead(oppId){
@@ -423,8 +493,11 @@ function tallyScorers(sid){
 }
 function tallyMvp(sid){
   const m={};
-  TT.fixtures.filter(f=>inScope(f,sid) && f.mvp).forEach(f=>{ m[f.mvp]=(m[f.mvp]||0)+1; });
+  TT.fixtures.filter(f=>inScope(f,sid) && f.mvp && f.mvp.player).forEach(f=>{ m[f.mvp.player]=(m[f.mvp.player]||0)+1; });
   return Object.entries(m).map(([id,n])=>({id,n})).sort((a,b)=>b.n-a.n);
+}
+function totalUnattributed(sid){
+  return TT.fixtures.filter(f=>inScope(f,sid)).reduce((s,f)=>s+(f.unattributed||0),0);
 }
 function tallyApps(sid){
   const m={}; let any=false;
@@ -490,7 +563,7 @@ function renderHome(){
   const nf = nextFixture();
   const form = formGuide(sid);
   const standing = (s && s.finalPosition)
-    ? `${ordinal(s.finalPosition)} of ${s.teamsInLeague} · ${s.points} pts`
+    ? `${ordinal(s.finalPosition)} of ${s.teamsInLeague} · ${s.points} pts${s.finalPlacing?` · ${ordinal(s.finalPlacing)} after play-offs`:''}`
     : (sid==='all' ? 'Career record' : (s?`${s.name} in progress`:''));
 
   const kpis = [
@@ -557,7 +630,17 @@ function renderFixtures(){
   });
   rows = sortFixtures(rows);
 
-  const body = rows.map(f=>`
+  const body = rows.map(f=>{
+    if(f.competition==='bye') return `
+    <tr>
+      <td>${fmtDate(f.date)}</td>
+      <td class="muted">${esc(season(f.season)?.name||f.season)}</td>
+      <td><span class="pill">Bye</span></td>
+      <td class="muted">&mdash;</td>
+      <td class="num muted">&mdash;</td><td class="num muted">&mdash;</td>
+      <td class="muted">&mdash;</td><td class="muted">&mdash;</td>
+    </tr>`;
+    return `
     <tr class="${f.opponent?'clickable':''}" ${f.opponent?`onclick="location.hash='#opponent/${f.opponent}'"`:''}>
       <td>${fmtDate(f.date)}${f.time?`<div class="muted" style="font-size:12px">${esc(f.time)}</div>`:''}</td>
       <td class="muted">${esc(season(f.season)?.name||f.season)}</td>
@@ -567,7 +650,8 @@ function renderFixtures(){
       <td class="num">${resBadge(fxResult(f))}</td>
       <td>${scorersText(f)}</td>
       <td>${mvpText(f)}</td>
-    </tr>`).join('') || `<tr><td colspan="8"><div class="empty">No fixtures match these filters.</div></td></tr>`;
+    </tr>`;
+  }).join('') || `<tr><td colspan="8"><div class="empty">No fixtures match these filters.</div></td></tr>`;
 
   const arrow = k => fxState.key===k ? `<span class="arrow">${fxState.dir>0?'▲':'▼'}</span>` : '';
 
@@ -621,85 +705,111 @@ function sortFixtures(rows){
 function renderTable(){
   const host=$('[data-view="table"]');
   let sid=cur(); if(sid==='all') sid = TT.seasons.filter(s=>s.status==='finished').slice(-1)[0]?.id || TT.seasons[0].id;
-  const s=season(sid); const rec=teamRecord(sid);
-  const known = TT.opponents.map(o=>o.name);
-  const posNote = (s&&s.finalPosition)
-    ? `Touch This finished <strong>${ordinal(s.finalPosition)} of ${s.teamsInLeague}</strong> on ${s.points} points.`
-    : 'Standings build up as games are played.';
+  const s=season(sid);
+  const table = TT.standings && TT.standings[sid];
+  if(table){
+    const rows = table.map(r=>`
+      <tr class="${r.tt?'hl':''}">
+        <td class="num">${r.pos}</td>
+        <td>${r.tt?`<strong>${esc(r.team)}</strong>`:esc(r.team)}</td>
+        <td class="num">${r.p}</td><td class="num">${r.w}</td><td class="num">${r.l}</td>
+        <td class="num">${r.tf}</td><td class="num">${r.ta}</td>
+        <td class="num">${(r.tf-r.ta>0?'+':'')+(r.tf-r.ta)}</td>
+        <td class="num"><strong>${r.pts}</strong></td>
+      </tr>`).join('');
+    host.innerHTML = `
+      <h2 class="section-t">League table &mdash; ${esc(s.name)}</h2>
+      <p class="section-s">Final regular-season standings. Touch This finished ${ordinal(s.finalPosition)} of ${table.length}${s.finalPlacing?`, then ${ordinal(s.finalPlacing)} overall after the play-offs`:''}.</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th class="num">Pos</th><th>Team</th><th class="num">P</th><th class="num">W</th><th class="num">L</th><th class="num">TF</th><th class="num">TA</th><th class="num">Diff</th><th class="num">Pts</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+      <p class="section-s" style="margin-top:12px">Points: ${TT.team.rules.points.win} for a win, ${TT.team.rules.points.loss} for a loss, ${TT.team.rules.points.bye} for a bye. One try equals one point in this league, so a team's tries are its match score.</p>`;
+    return;
+  }
+  const rec=teamRecord(sid);
   host.innerHTML = `
     <h2 class="section-t">League table &mdash; ${esc(s?s.name:'')}</h2>
-    <p class="section-s">${posNote} Rivals' full records were not logged, so only Touch This's computed row is shown.</p>
+    <p class="section-s">${s&&s.status==='active'?'Season in progress. The full table appears once results are in; the running Touch This row is shown below.':'Standings build up as games are played.'}</p>
     <div class="tablewrap"><table>
-      <thead><tr>
-        <th class="num">Pos</th><th>Team</th>
-        <th class="num">P</th><th class="num">W</th><th class="num">L</th><th class="num">D</th>
-        <th class="num">TF</th><th class="num">TA</th><th class="num">Diff</th><th class="num">Pts</th>
-      </tr></thead>
-      <tbody>
-        <tr class="hl">
-          <td class="num">${s&&s.finalPosition?s.finalPosition:'–'}</td>
-          <td><strong>Touch This</strong></td>
-          <td class="num">${rec.played}</td><td class="num">${rec.w}</td><td class="num">${rec.l}</td><td class="num">${rec.d}</td>
-          <td class="num">${withUnknown(rec.tf,rec.tfU)}</td>
-          <td class="num">${withUnknown(rec.ta,rec.taU)}</td>
-          <td class="num">${(rec.diff>0?'+':'')+rec.diff}${rec.tfU||rec.taU?'*':''}</td>
-          <td class="num"><strong>${rec.pts}</strong></td>
-        </tr>
-      </tbody>
-    </table></div>
-    <div class="card mt">
-      <h3>League make-up</h3>
-      <p class="muted" style="margin:0;font-size:13.5px">Season opponents on record: ${known.map(n=>esc(n)).join(' · ')}.
-      Points are ${TT.team.rules.points.win} for a win, ${TT.team.rules.points.loss} for a loss, ${TT.team.rules.points.bye} for a bye.
-      ${rec.tfU||rec.taU?'<br><span style="font-size:12.5px">* one Season 1 score (vs Wandsworth Wasps) was not recorded, so try totals are a known minimum.</span>':''}</p>
-    </div>`;
+      <thead><tr><th class="num">Pos</th><th>Team</th><th class="num">P</th><th class="num">W</th><th class="num">L</th><th class="num">D</th><th class="num">TF</th><th class="num">TA</th><th class="num">Diff</th><th class="num">Pts</th></tr></thead>
+      <tbody><tr class="hl">
+        <td class="num">${s&&s.finalPosition?s.finalPosition:'–'}</td>
+        <td><strong>Touch This</strong></td>
+        <td class="num">${rec.played}</td><td class="num">${rec.w}</td><td class="num">${rec.l}</td><td class="num">${rec.d}</td>
+        <td class="num">${withUnknown(rec.tf,rec.tfU)}</td><td class="num">${withUnknown(rec.ta,rec.taU)}</td>
+        <td class="num">${(rec.diff>0?'+':'')+rec.diff}</td><td class="num"><strong>${rec.pts}</strong></td>
+      </tr></tbody>
+    </table></div>`;
 }
 
 function renderPlayoffs(){
   const host=$('[data-view="playoffs"]');
-  const pos = TT.fixtures.filter(f=>f.competition==='playoff')
-    .sort((a,b)=>(a.date||'9999')<(b.date||'9999')?-1:1);
-  if(!pos.length){ host.innerHTML=`<h2 class="section-t">Play-offs</h2><div class="empty">No play-off fixtures recorded yet.</div>`; return; }
-  const ties = pos.map(f=>{
-    const r=fxResult(f);
-    const ttWin = r==='W', oppWin = r==='L';
-    const ttSc = f.ttScore==null?'':f.ttScore, opSc=f.oppScore==null?'':f.oppScore;
-    return `<div class="tie">
+  let sid=cur(); if(sid==='all') sid='2026-spring';
+  const s=season(sid);
+  const games = (TT.playoffs && TT.playoffs[sid]) || [];
+  const placings = TT.finalPlacings && TT.finalPlacings[sid];
+  if(!games.length){
+    const fx = TT.fixtures.filter(f=>f.competition==='playoff' && f.season===sid);
+    const t = fx.map(f=>`<div class="tie">
       <div class="tlabel">${esc(f.playoffRound||'Play-off')} · ${fmtDate(f.date)}</div>
-      <div class="trow ${ttWin?'win':''}"><span>Touch This</span><span>${ttSc!==''?ttSc:'&mdash;'}</span></div>
-      <div class="trow ${oppWin?'win':''}"><span>${esc(oppName(f.opponent))}</span><span>${opSc!==''?opSc:'&mdash;'}</span></div>
-      ${r?'':'<div class="tlabel" style="text-transform:none;letter-spacing:0">Result not recorded yet</div>'}
+      <div class="trow ${fxResult(f)==='W'?'win':''}"><span>Touch This</span><span>${f.ttScore==null?'&mdash;':f.ttScore}</span></div>
+      <div class="trow ${fxResult(f)==='L'?'win':''}"><span>${f.opponent?esc(oppName(f.opponent)):'TBC'}</span><span>${f.oppScore==null?'&mdash;':f.oppScore}</span></div>
+      ${fxResult(f)?'':'<div class="tlabel" style="text-transform:none;letter-spacing:0">To be played</div>'}
+    </div>`).join('') || '<div class="empty">No play-off fixtures for this season yet.</div>';
+    host.innerHTML = `<h2 class="section-t">Play-offs &mdash; ${esc(s?s.name:'')}</h2>
+      <p class="section-s">Knockout stage after the regular season.</p>
+      <div class="bracket-grid">${t}</div>`;
+    return;
+  }
+  const ties = games.map(g=>{
+    const w1=g.s1>g.s2, w2=g.s2>g.s1;
+    return `<div class="tie ${g.tt?'tie-tt':''}">
+      <div class="tlabel">${esc(g.stage)} · ${fmtDate(g.date)}</div>
+      <div class="trow ${w1?'win':''}"><span>${esc(g.t1)}</span><span>${g.s1}</span></div>
+      <div class="trow ${w2?'win':''}"><span>${esc(g.t2)}</span><span>${g.s2}</span></div>
+      ${g.note?`<div class="tlabel" style="text-transform:none;letter-spacing:0">${esc(g.note)}</div>`:''}
     </div>`;
   }).join('');
+  const placingsHtml = placings ? `
+    <h2 class="section-t">Final placings</h2>
+    <p class="section-s">Where every team finished after the play-offs.</p>
+    <ol class="placings">${placings.map((t,i)=>`<li class="${/Touch This/.test(t)?'tt':''}"><span class="pp">${i+1}</span><span>${esc(t)}</span></li>`).join('')}</ol>` : '';
   host.innerHTML = `
-    <h2 class="section-t">Play-offs</h2>
-    <p class="section-s">Knockout re-seeding after the regular season.</p>
-    <div class="bracket">${ties}</div>
+    <h2 class="section-t">Play-offs &mdash; ${esc(s.name)}</h2>
+    <p class="section-s">Knockout re-seeding after the regular season. Semis on 10 Jun, finals on 24 Jun.</p>
+    <div class="bracket-grid">${ties}</div>
+    ${placingsHtml}
     <div class="card mt">
       <h3>How the Early Summer season shook out</h3>
-      <p class="muted" style="margin:0;font-size:13.5px">Touch This came last in the league but was guaranteed to finish above Wandsworth Wasps: Wasps lost their semi-final heavily to Touchdown Titans (a 150 to 2 table blunder) and were locked into 7th overall. On 17 June TT met Touchdown Titans &mdash; their very first opponent of the season &mdash; in the 5th-place play-off, with a win meaning 5th and a loss meaning 6th.</p>
+      <p class="muted" style="margin:0;font-size:13.5px">Touch This came last in the league but finished above Wandsworth Wasps in the end: the Wasps lost their semi-final heavily to Touchdown Titans (logged as a 150 to 2 typo, really 15 to 2) and were locked into 7th. On 24 June TT met Touchdown Titans &mdash; their very first opponent of the season &mdash; in the 5th/6th play-off and lost by the same 3 to 7 scoreline, finishing 6th.</p>
     </div>`;
 }
 
 function renderPlayers(){
   const host=$('[data-view="players"]'); const sid=cur();
-  const scorers=tallyScorers(sid), mvps=tallyMvp(sid), apps=tallyApps(sid);
+  const scorers=tallyScorers(sid), mvps=tallyMvp(sid), unatt=totalUnattributed(sid);
+  const typeLabel={core:'Core',squad:'Squad',regular:'Regular',ringer:'Ringer'};
   const roster = TT.players.map(p=>`
     <div class="pcard">
       <span class="avatar">${esc(initials(p.name))}</span>
-      <div><div class="pn">${esc(p.name)}${p.nickname?` <span class="muted">(${esc(p.nickname)})</span>`:''}</div>
-      <div class="pr">${esc(p.role)}</div></div>
+      <div style="min-width:0">
+        <div class="pn">${esc(p.name)}${p.nickname?` <span class="muted">(${esc(p.nickname)})</span>`:''} ${p.type?`<span class="ptype ${esc(p.type)}">${esc(typeLabel[p.type]||p.type)}</span>`:''}</div>
+        <div class="pr">${esc(p.role)}</div>
+      </div>
     </div>`).join('');
   host.innerHTML = `
     <h2 class="section-t">Players &amp; stats</h2>
-    <p class="section-s">Leaderboards for ${esc(sid==='all'?'all seasons':season(sid)?.name)}. Populated automatically as scorers and MVPs are logged each week.</p>
+    <p class="section-s">Leaderboards for ${esc(sid==='all'?'all seasons':season(sid)?.name)}. One try equals one point in this league, so tries are the scoring stat.</p>
     <div class="grid g3">
-      <div class="card"><h3>Top try scorers</h3>${barChart(scorers,i=>playerName(i.id),'No try scorers logged yet. Add scorers to fixtures to populate this.')}</div>
-      <div class="card"><h3>MVP awards</h3>${barChart(mvps,i=>playerName(i.id),'No MVPs logged yet.')}</div>
-      <div class="card"><h3>Appearances</h3>${apps.any?barChart(apps.list,i=>playerName(i.id),''):'<div class="empty">No line-ups logged yet. Add a <code>lineup</code> to fixtures to track appearances.</div>'}</div>
+      <div class="card"><h3>Top try scorers</h3>${barChart(scorers,i=>playerName(i.id),'No try scorers logged yet.')}
+        ${unatt?`<p class="muted" style="margin:11px 0 0;font-size:12.5px">Plus ${unatt} ${unatt===1?'try':'tries'} scored but never attributed to a named player.</p>`:''}</div>
+      <div class="card"><h3>MVP awards</h3>${barChart(mvps,i=>playerName(i.id),'No MVPs logged yet.')}
+        ${mvps.length?'<p class="muted" style="margin:11px 0 0;font-size:12.5px">A different player won it every week.</p>':''}</div>
+      <div class="card"><h3>Appearances</h3><div class="empty">Line-ups were only partly recorded, so appearances are not tracked. The squad leaned heavily on subs and ringers.</div></div>
     </div>
     <h2 class="section-t">Squad</h2>
-    <p class="section-s">Only three players are on record so far &mdash; the full squad list is still to be added.</p>
+    <p class="section-s">The ${TT.players.length} players who turned out: core regulars, squad players, and the subs and ringers who filled in.</p>
     <div class="roster">${roster}</div>`;
 }
 
@@ -732,7 +842,7 @@ function renderOpponent(id){
   host.innerHTML = `
     <a class="back" href="#fixtures">&larr; All fixtures</a>
     <h2 class="section-t">${esc(o.name)}</h2>
-    <p class="section-s">${o.notes?esc(o.notes):'Head-to-head record and previous meetings.'}</p>
+    <p class="section-s">${o.finish?`Finished ${ordinal(o.finish)} in Early Summer 2026. `:''}${o.notes?esc(o.notes):'Head-to-head record and previous meetings.'}</p>
     <div class="kpis" style="grid-template-columns:repeat(4,1fr)">${kpis}</div>
     ${up}
     <h2 class="section-t">Previous meetings</h2>
