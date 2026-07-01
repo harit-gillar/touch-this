@@ -11,6 +11,7 @@
     --win:#3f9d6d; --loss:#b0546b; --draw:#c8912f; --pending:#8a7d80;
     --shadow:0 1px 2px rgba(60,20,30,.05),0 6px 22px rgba(60,20,30,.06);
     --radius:16px;
+    --kline:#c9b9a6;
   }
   *{box-sizing:border-box}
   html,body{margin:0}
@@ -143,6 +144,32 @@
   .ptype{display:inline-block;font-size:9.5px;font-weight:650;letter-spacing:.04em;text-transform:uppercase;padding:1px 6px;border-radius:5px;background:var(--line);color:var(--muted);vertical-align:middle}
   .ptype.core{background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent)}
   .ptype.regular{background:color-mix(in srgb,var(--draw) 24%,transparent);color:var(--draw)}
+  /* knockout bracket */
+  .ko{display:flex;align-items:stretch;overflow-x:auto;padding:10px 2px}
+  .ko-round{display:flex;flex-direction:column;flex:0 0 auto;min-width:212px}
+  .ko-round:not(:last-child){margin-right:46px}
+  .ko-pair{display:flex;flex-direction:column;flex:1;position:relative;min-height:250px}
+  .ko-pair > .ko-cell{flex:1;display:flex;align-items:center}
+  .ko-cell-center{flex:1;display:flex;align-items:center}
+  .ko-m{position:relative;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:11px;overflow:hidden;box-shadow:var(--shadow)}
+  .ko-mh{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:8px 12px 3px}
+  .ko-row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 12px;font-size:13.5px}
+  .ko-row + .ko-row{border-top:1px solid var(--line)}
+  .ko-row.w{font-weight:660;background:color-mix(in srgb,var(--win) 13%,transparent)}
+  .ko-row.ko-me{box-shadow:inset 3px 0 0 var(--accent)}
+  .ko-t{display:flex;align-items:center;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ko-seed{font-style:normal;min-width:15px;color:var(--muted);font-size:11px;margin-right:8px;text-align:center;flex:none}
+  .ko-s{font-variant-numeric:tabular-nums;font-weight:600;flex:none}
+  .ko-note{font-size:11px;color:var(--muted);padding:3px 12px 9px;line-height:1.45}
+  .ko-champ{border-color:var(--accent);box-shadow:0 0 0 1.5px var(--accent),var(--shadow)}
+  .ko-champ .ko-mh{color:var(--accent)}
+  .ko-champ-name{padding:6px 12px 12px;font-weight:680;font-size:16px;letter-spacing:-.01em}
+  .ko-pair > .ko-cell > .ko-m::after{content:'';position:absolute;left:100%;top:50%;width:20px;height:2px;background:var(--kline)}
+  .ko-pair::after{content:'';position:absolute;left:calc(100% + 20px);top:25%;bottom:25%;width:2px;background:var(--kline)}
+  .ko-pair::before{content:'';position:absolute;left:calc(100% + 20px);top:50%;width:26px;height:2px;background:var(--kline)}
+  .ko-round:not(:last-child) .ko-cell-center > .ko-m::after{content:'';position:absolute;left:100%;top:50%;width:46px;height:2px;background:var(--kline)}
+  .ko-consol{margin-top:16px;max-width:290px}
+  .ko-cap{color:var(--muted);font-size:12.5px;margin:10px 2px 0;max-width:660px;line-height:1.55}
   .tie{border:1px solid var(--line);border-radius:13px;overflow:hidden;max-width:360px;background:var(--panel)}
   .tie .trow{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-bottom:1px solid var(--line);font-size:14px}
   .tie .trow:last-child{border-bottom:none}
@@ -808,28 +835,75 @@ function renderPlayoffs(){
       <div class="bracket-grid">${t}</div>`;
     return;
   }
-  const ties = games.map(g=>{
-    const w1=g.s1>g.s2, w2=g.s2>g.s1;
-    return `<div class="tie ${g.tt?'tie-tt':''}">
-      <div class="tlabel">${esc(g.stage)} · ${fmtDate(g.date)}</div>
-      <div class="trow ${w1?'win':''}"><span>${esc(g.t1)}</span><span>${g.s1}</span></div>
-      <div class="trow ${w2?'win':''}"><span>${esc(g.t2)}</span><span>${g.s2}</span></div>
-      ${g.note?`<div class="tlabel" style="text-transform:none;letter-spacing:0">${esc(g.note)}</div>`:''}
+  // ---- proper knockout bracket ----
+  const seedMap={}; (TT.standings[sid]||[]).forEach(r=>{ if(r.pos) seedMap[r.team]=r.pos; });
+  const G = st => games.find(g=>g.stage===st);
+  const winner = g => g ? (g.s1>g.s2?g.t1:g.t2) : null;
+  const sf1=G('Semi-final 1'), sf2=G('Semi-final 2'), sf3=G('Semi-final 3'),
+        fin=G('Final'), bronze=G('3rd / 4th'), fifth=G('5th / 6th');
+  const row = (name,score,win)=>`
+      <div class="ko-row ${win?'w':''} ${/Touch This/.test(name)?'ko-me':''}">
+        <span class="ko-t">${seedMap[name]?`<i class="ko-seed">${seedMap[name]}</i>`:''}${esc(name)}</span>
+        <span class="ko-s">${score==null?'':score}</span></div>`;
+  const mcard = (g,label)=> g ? `
+    <div class="ko-m">
+      <div class="ko-mh">${esc(label||g.stage)} · ${fmtDate(g.date)}</div>
+      ${row(g.t1,g.s1,g.s1>g.s2)}
+      ${row(g.t2,g.s2,g.s2>g.s1)}
+      ${g.note?`<div class="ko-note">${esc(g.note)}</div>`:''}
+    </div>` : '';
+  const byeCard = `
+    <div class="ko-m">
+      <div class="ko-mh">First round</div>
+      <div class="ko-row ko-me"><span class="ko-t"><i class="ko-seed">7</i>Touch This (TT)</span><span class="ko-s">bye</span></div>
+      <div class="ko-note">7th seed &mdash; a bye straight into the 5th/6th play-off.</div>
     </div>`;
-  }).join('');
+  const champCard = fin ? `
+    <div class="ko-m ko-champ">
+      <div class="ko-mh">Champions</div>
+      <div class="ko-champ-name">${esc(winner(fin))}</div>
+    </div>` : '';
+  const champBracket = `
+    <div class="ko">
+      <div class="ko-round"><div class="ko-pair">
+        <div class="ko-cell">${mcard(sf1)}</div>
+        <div class="ko-cell">${mcard(sf2)}</div>
+      </div></div>
+      <div class="ko-round"><div class="ko-cell-center">${mcard(fin)}</div></div>
+      <div class="ko-round"><div class="ko-cell-center">${champCard}</div></div>
+    </div>`;
+  const placementBracket = `
+    <div class="ko">
+      <div class="ko-round"><div class="ko-pair">
+        <div class="ko-cell">${mcard(sf3)}</div>
+        <div class="ko-cell">${byeCard}</div>
+      </div></div>
+      <div class="ko-round"><div class="ko-cell-center">${mcard(fifth,'5th / 6th play-off')}</div></div>
+    </div>`;
   const placingsHtml = placings ? `
     <h2 class="section-t">Final placings</h2>
     <p class="section-s">Where every team finished after the play-offs.</p>
     <ol class="placings">${placings.map((t,i)=>`<li class="${/Touch This/.test(t)?'tt':''}"><span class="pp">${i+1}</span><span>${esc(t)}</span></li>`).join('')}</ol>` : '';
   host.innerHTML = `
     <h2 class="section-t">Play-offs &mdash; ${esc(s.name)}</h2>
-    <p class="section-s">Knockout re-seeding after the regular season. Semis on 10 Jun, finals on 24 Jun.</p>
-    <div class="bracket-grid">${ties}</div>
-    ${placingsHtml}
+    <p class="section-s">After six league games, all seven teams were re-seeded by league finish into a knockout: the top four played for the title, the bottom three for final position.</p>
     <div class="card mt">
-      <h3>How the Early Summer season shook out</h3>
-      <p class="muted" style="margin:0;font-size:13.5px">Touch This came last in the league but finished above Wandsworth Wasps in the end: the Wasps lost their semi-final heavily to Touchdown Titans (logged as a 150 to 2 typo, really 15 to 2) and were locked into 7th. On 24 June TT met Touchdown Titans &mdash; their very first opponent of the season &mdash; in the 5th/6th play-off and lost by the same 3 to 7 scoreline, finishing 6th.</p>
-    </div>`;
+      <h3>How it works</h3>
+      <p class="muted" style="margin:0;font-size:13.5px">Seeds follow the final league table (1 = Scoregasms &hellip; 7 = Touch This). <strong>Championship (top four):</strong> 1 plays 4 and 2 plays 3 in the semis; the winners meet in the final, the losers in the third-place play-off. <strong>Placement (bottom three):</strong> the 5th and 6th seeds play a semi; its winner meets the 7th seed for 5th and 6th, and its loser takes 7th. Win and you move up, lose and you move down, so every team ends on a definite finish.</p>
+    </div>
+
+    <h2 class="section-t">Championship &middot; seeds 1 to 4</h2>
+    <p class="section-s">Playing for the title.</p>
+    ${champBracket}
+    <div class="ko-consol">${mcard(bronze,'Third-place play-off')}</div>
+    <p class="ko-cap">The two beaten semi-finalists (The Dirty Dogs and Try Hard 2) met for 3rd. Try Hard 2 won it 5 to 3.</p>
+
+    <h2 class="section-t">Placement &middot; seeds 5 to 7</h2>
+    <p class="section-s">Playing for final position &mdash; the games that settled Touch This's season.</p>
+    ${placementBracket}
+    <p class="ko-cap">Touchdown Titans beat Wandsworth Wasps in the semi, so the Wasps finished 7th. Touch This, seeded 7th, had a bye into the 5th/6th play-off and faced the Titans &mdash; their opening-day opponent &mdash; losing 3 to 7 to finish 6th, one place above the Wasps.</p>
+
+    ${placingsHtml}`;
 }
 
 function renderPlayers(){
