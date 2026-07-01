@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-GB" data-theme="auto">
+<html lang="en-GB">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,18 +11,6 @@
     --win:#3f9d6d; --loss:#b0546b; --draw:#c8912f; --pending:#8a7d80;
     --shadow:0 1px 2px rgba(60,20,30,.05),0 6px 22px rgba(60,20,30,.06);
     --radius:16px;
-  }
-  @media (prefers-color-scheme: dark){
-    :root[data-theme="auto"]{
-      --bg:#161014; --panel:#1e161a; --panel-2:#231a1f; --ink:#f0e8ea; --muted:#a99ca0;
-      --line:#2e2228; --accent:#c96a78; --accent-soft:#d98a95; --cream:#2a2024;
-      --win:#4bb87f; --loss:#d17d90; --draw:#e0b354; --shadow:none;
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#161014; --panel:#1e161a; --panel-2:#231a1f; --ink:#f0e8ea; --muted:#a99ca0;
-    --line:#2e2228; --accent:#c96a78; --accent-soft:#d98a95; --cream:#2a2024;
-    --win:#4bb87f; --loss:#d17d90; --draw:#e0b354; --shadow:none;
   }
   *{box-sizing:border-box}
   html,body{margin:0}
@@ -189,7 +177,6 @@
     </div>
     <div class="hero-right">
       <select id="season" aria-label="Season"></select>
-      <button class="icon-btn" id="theme" title="Toggle light / dark">◐</button>
     </div>
   </header>
 
@@ -212,7 +199,6 @@
     <section data-view="opponent" hidden></section>
   </main>
 
-  <footer class="foot" id="foot"></footer>
 </div>
 
 <script>
@@ -239,9 +225,9 @@ const TT = {
   },
 
   players: [
-    { id:"gayatri",  name:"Gayatri",           nickname:"G",           type:"core",    role:"Co-organiser and captain. Founded the team, paid the league fee, designed the kit." },
-    { id:"ella",     name:"Ella",              nickname:"El Capitan",  type:"core",    role:"Co-captain. Guested for the Wasps in Match 5." },
-    { id:"harit",    name:"Harit",             nickname:null,          type:"core",    role:"Player. Ran scouting, tactics and the match reports." },
+    { id:"gayatri",  name:"Gayatri",           nickname:"G",           type:"core",    role:"Co-captain. Founded the team, paid the league fee, designed the kit." },
+    { id:"ella",     name:"Ella",              nickname:"El Capitan",  type:"core",    role:"Player. Guested for the Wasps in Match 5." },
+    { id:"harit",    name:"Harit",             nickname:null,          type:"core",    role:"Co-captain. Ran scouting, tactics and the match reports." },
     { id:"franny",   name:"Francisco",         nickname:"Fran",        type:"core",    role:"Player. Top try scorer of the season." },
     { id:"sarah",    name:"Sarah",             nickname:null,          type:"core",    role:"Player." },
     { id:"max",      name:"Max Gutsche",       nickname:null,          type:"core",    role:"Player." },
@@ -564,7 +550,7 @@ function renderHome(){
   const form = formGuide(sid);
   const standing = (s && s.finalPosition)
     ? `${ordinal(s.finalPosition)} of ${s.teamsInLeague} · ${s.points} pts${s.finalPlacing?` · ${ordinal(s.finalPlacing)} after play-offs`:''}`
-    : (sid==='all' ? 'Career record' : (s?`${s.name} in progress`:''));
+    : (sid==='all' ? 'Career record' : (s?(s.status==='active'?'Season under way':s.name):''));
 
   const kpis = [
     ['League games', rec.played],
@@ -870,23 +856,11 @@ function boot(){
   // season selector
   const sel=$('#season');
   sel.innerHTML = TT.seasons.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('')+'<option value="all">All seasons</option>';
-  const finished = TT.seasons.filter(s=>s.status==='finished').slice(-1)[0];
-  sel.value = finished ? finished.id : TT.seasons[0].id;
+  const active = TT.seasons.filter(s=>s.status==='active')[0];
+  sel.value = active ? active.id : TT.seasons[0].id;
   sel.addEventListener('change',()=>{ renderAll(); route(); });
   // nav
   $$('#seg button').forEach(b=>b.addEventListener('click',()=>{ location.hash='#'+b.dataset.nav; }));
-  // theme toggle (auto -> light -> dark -> auto)
-  const root=document.documentElement;
-  const saved=localStorage.getItem('tt-theme'); if(saved) root.setAttribute('data-theme',saved);
-  $('#theme').addEventListener('click',()=>{
-    const order=['auto','light','dark'];
-    const next=order[(order.indexOf(root.getAttribute('data-theme')||'auto')+1)%3];
-    root.setAttribute('data-theme',next); localStorage.setItem('tt-theme',next);
-    $('#theme').title='Theme: '+next;
-  });
-  // footer
-  $('#foot').innerHTML = `Touch This team dashboard · live at <a href="https://harit556.github.io/touch-this/">harit556.github.io/touch-this</a> · source in the vault at <code>🧠 wiki/health/touch-this-dashboard.html</code>.
-    To update: tell Claude the week's result, try scorers and MVP, and it edits the <code>DATA</code> block and redeploys. Placeholders read “Not recorded” / “TBD” until data is added.`;
 
   renderAll();
   window.addEventListener('hashchange',route);
