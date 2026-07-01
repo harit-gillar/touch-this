@@ -174,6 +174,24 @@
   .ko-round:not(:last-child) .ko-cell-center > .ko-m::after{content:'';position:absolute;left:100%;top:50%;width:46px;height:2px;background:var(--kline)}
   .ko-consol{margin-top:16px;max-width:290px}
   .ko-cap{color:var(--muted);font-size:12.5px;margin:10px 2px 0;max-width:660px;line-height:1.55}
+  /* first-win tracker */
+  .firstwin{text-align:center;background:color-mix(in srgb,var(--accent) 5%,var(--panel))}
+  .fw-lead{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:13px}
+  .fw-clock{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+  .fw-seg{display:flex;flex-direction:column;align-items:center;min-width:66px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 6px;box-shadow:var(--shadow)}
+  .fw-n{font-size:30px;font-weight:720;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--accent);line-height:1}
+  .fw-u{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-top:5px}
+  .fw-sub{font-size:12.5px;color:var(--muted);margin-top:14px}
+  .fw-won{background:color-mix(in srgb,var(--win) 12%,var(--panel));border-color:color-mix(in srgb,var(--win) 40%,var(--line))}
+  .fw-big{font-size:20px;font-weight:660;margin:2px 0}
+  /* match report */
+  .report-head{text-align:center;padding:6px 0 2px}
+  .rh-meta{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+  .rh-teams{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap}
+  .rh-team{font-size:19px;font-weight:640;max-width:220px}
+  .rh-score{font-size:36px;font-weight:720;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .rh-dash{color:var(--muted);margin:0 8px;font-weight:400}
+  .rh-result{margin-top:12px;font-size:13px;color:var(--muted);display:inline-flex;align-items:center;gap:8px}
   .tie{border:1px solid var(--line);border-radius:13px;overflow:hidden;max-width:360px;background:var(--panel)}
   .tie .trow{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-bottom:1px solid var(--line);font-size:14px}
   .tie .trow:last-child{border-bottom:none}
@@ -241,6 +259,7 @@
     <section data-view="players" hidden></section>
     <section data-view="stats" hidden></section>
     <section data-view="opponent" hidden></section>
+    <section data-view="report" hidden></section>
   </main>
 
 </div>
@@ -385,7 +404,10 @@ const TT = {
         {a:"Wandsworth Wasps",as:0,b:"Scoregasms",bs:7},
         {a:"Touch This (TT)",as:7,b:"Try Hard 2: Try Harder",bs:8},
         {a:"The Dirty Dogs",as:6,b:"Sponsored by Churchills",bs:4} ]}
-    ]
+    ],
+    // Late Summer: add a round per week as results come in, e.g.
+    // { date:"2026-07-01", bye:null, games:[{a:"Touch This (TT)",as:X,b:"Touchdown Titans v2",bs:Y}, ...] }
+    "2026-summer": []
   },
 
   fixtures: [
@@ -393,44 +415,51 @@ const TT = {
     { id:"s1-w1", season:"2026-spring", week:1, date:"2026-04-22", time:"19:10", competition:"league",
       opponent:"touchdown-titans", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
       ttScore:3, oppScore:7, result:"L", scorers:[{player:"franny",tries:2},{player:"max",tries:1}], unattributed:0,
-      mvp:{player:"franny",award:"MOM"},
-      notes:"Opening game. Reported as 2 to 7 on the night; the official 3 to 7 added Max's try. Bex dislocated a finger and still made it to the pub." },
+      mvp:{player:"franny",award:"MOM"}, conditions:null,
+      highlights:["Bex dislocated a finger, the injury that kept her out for the rest of the season, and still made it to the pub."],
+      notes:"Opening game. Reported as 2 to 7 on the night; the official 3 to 7 added Max's try." },
     { id:"s1-bye", season:"2026-spring", week:null, date:"2026-04-29", competition:"bye",
       opponent:null, venue:null, played:false, ttScore:null, oppScore:null, result:null,
       scorers:null, unattributed:0, mvp:null, notes:"Bye week. Poor weather; the team chose to rest." },
     { id:"s1-w2", season:"2026-spring", week:2, date:"2026-05-06", time:"18:30", competition:"league",
       opponent:"dirty-dogs", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
       ttScore:0, oppScore:11, result:"L", scorers:[], unattributed:0,
-      mvp:{player:"sarah",award:"MOM"},
+      mvp:{player:"sarah",award:"MOM"}, conditions:null,
+      highlights:["Ieuan threw over the head American football passes.","The unidentified moustache man sub reportedly outran Usain Bolt.","Rob watched from the sideline again."],
       notes:"Heaviest defeat. Called 8 to 0 on the night, corrected to 11 to 0. Opponent confirmed as The Dirty Dogs via the official results." },
     { id:"s1-w3", season:"2026-spring", week:3, date:"2026-05-13", time:"18:30", competition:"league",
       opponent:"scoregasms", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
       ttScore:1, oppScore:9, result:"L", scorers:[{player:"harit",tries:1}], unattributed:0,
-      mvp:{player:"harit",award:"MOM"},
-      notes:"Heavy rain, nearly cancelled for lightning. Widely felt to be the team's best performance despite the scoreline — and against the eventual league winners." },
+      mvp:{player:"harit",award:"MOM"}, conditions:"Heavy rain, soggy pitch, a lightning scare that nearly called it off.",
+      highlights:["The single try was only just allowed by the referee.","Harit intercepted, then dropped the ball twice.","Widely felt to be the team's best performance of the season despite the scoreline, and against the eventual league winners."],
+      notes:"Nearly cancelled for lightning. Held to one try by the side that went on to win the league." },
     { id:"s1-w4", season:"2026-spring", week:4, date:"2026-05-20", time:"19:10", competition:"league",
       opponent:"churchills", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
       ttScore:2, oppScore:9, result:"L", scorers:[{player:"franny",tries:1},{player:"harit",tries:1}], unattributed:0,
-      mvp:{player:"max",award:"MOTM"},
-      notes:"Scored twice against the division's best defence (2nd place, unbeaten in three). Harit intercepted and ran the full length of the pitch." },
+      mvp:{player:"max",award:"MOTM"}, conditions:"Dry and pleasant.",
+      highlights:["Franny scored from a twinkle toes move combined with Harit.","Harit intercepted and sprinted the full length of the pitch without looking back.","A dog took a dump exactly as the opposition scored their fourth.","Gayatri intercepted a pass.","A failed diving try.","Franny ran sideways the entire length of the pitch."],
+      notes:"Scored twice against the division's best defence: 2nd place and unbeaten in three at the time." },
     { id:"s1-w5", season:"2026-spring", week:5, date:"2026-05-27", time:"19:50", competition:"league",
       opponent:"wandsworth-wasps", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
       ttScore:3, oppScore:5, result:"L",
       scorers:[{player:"sarah",tries:1},{player:"franny",tries:1},{player:"martin",tries:1}], unattributed:0,
-      mvp:{player:"sam",award:"MOTM"},
-      notes:"The 6th-vs-7th grudge match. Strong first half, faded in the second. Ella guested for the Wasps — the only person connected to TT to win a game of touch all season." },
+      mvp:{player:"sam",award:"MOTM"}, conditions:"Cool breeze, pleasant.",
+      highlights:["Ella guested for the Wasps and earned the double agent label, the only person connected to the team to win a game of touch all season.","Martin scored fast, then broke a lung, and added an interception inside 60 seconds.","Franny passed the ball to the referee.","Strong first half, the team bottled the second."],
+      notes:"The 6th vs 7th grudge match against the designated rivals." },
     { id:"s1-w6", season:"2026-spring", week:6, date:"2026-06-03", time:"19:10", competition:"league",
       opponent:"try-hard-2", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
       ttScore:7, oppScore:8, result:"L",
       scorers:[{player:"kingsley",tries:2},{player:"sam",tries:1},{player:"martin",tries:1}], unattributed:3,
-      mvp:{player:"helena",award:"MVP"},
-      notes:"Closest and highest-scoring game of the season: 7 tries against the eventual 3rd-placed side, lost by one. Kingsley scored twice off his double interception; three tries are still unattributed." },
+      mvp:{player:"helena",award:"MVP"}, conditions:"Slippery and wet.",
+      highlights:["Closest game of the season, lost by a single try.","Kingsley made a double interception.","Someone grabbed Harit's arse.","Charlotte, a new sub, ran on smiling without knowing the rules."],
+      notes:"Highest scoring game of the season: 7 tries against the eventual 3rd-placed side. Kingsley scored twice off his double interception; three tries are still unattributed." },
     // ---- Early Summer 2026 — play-off (5th/6th). Set for 17 Jun, cancelled (no referee), replayed 24 Jun ----
     { id:"s1-po", season:"2026-spring", week:null, date:"2026-06-24", time:"19:50", competition:"playoff",
       playoffRound:"5th/6th place", opponent:"touchdown-titans", venue:"Wandsworth Common (Spencer Park), Pitch 2", played:true,
       ttScore:3, oppScore:7, result:"L", scorers:[{player:"robert",tries:2},{player:"gayatri",tries:1}], unattributed:0,
-      mvp:{player:"robert",award:"MVP"},
-      notes:"Full-circle rematch with the opening opponent, ending on the same 3 to 7 scoreline. Robert scored twice on debut and Gayatri got the third. A win meant 5th; the loss meant 6th. Played in 37 degrees. Originally set for 17 Jun but cancelled — no referee." },
+      mvp:{player:"robert",award:"MVP"}, conditions:"37 degrees, very hot.",
+      highlights:["Full circle rematch of the opening game against the same Titans, ending on the same scoreline.","Robert scored on his first ever game and shouted at the referee.","Ella was back on the correct team and got slammed to the floor.","Sam repeatedly bailed Harit out.","Henry threw the ball into touch three times.","Max and Gayatri could not finish breaks because nobody supported the run."],
+      notes:"5th place play-off. Robert scored twice on debut and Gayatri got the third. A win meant 5th, the loss meant 6th. Originally set for 17 Jun but cancelled, no referee." },
 
     // ---- Season 2 (2026 Summer) — GO Mammoth summer league, Clapham Wandsworth, Pitch 2 (Touch) ----
     { id:"s2-w1", season:"2026-summer", week:1, date:"2026-07-01", time:"19:50", competition:"league",
@@ -638,6 +667,41 @@ function barChart(items, nameFn, emptyMsg){
 let curSeason = '2026-summer';
 const cur = () => curSeason;
 
+/* ---------- first-win tracker (counts up until the first ever win) ---------- */
+function firstGame(){
+  return TT.fixtures.filter(f=>f.date && f.competition!=='bye')
+    .sort((a,b)=>((a.date+(a.time||'00:00'))<(b.date+(b.time||'00:00'))?-1:1))[0]||null;
+}
+function firstGameMs(){ const g=firstGame(); return g?new Date(g.date+'T'+(g.time||'00:00')+':00').getTime():null; }
+function firstWinFixture(){
+  return TT.fixtures.filter(f=>f.played && fxResult(f)==='W')
+    .sort((a,b)=>((a.date||'')<(b.date||'')?-1:1))[0]||null;
+}
+function droughtParts(ms){
+  const t=Math.floor(Math.max(0,ms)/1000);
+  return {days:Math.floor(t/86400), hrs:Math.floor(t%86400/3600), mins:Math.floor(t%3600/60), secs:t%60};
+}
+function firstWinClockHTML(){
+  const start=firstGameMs(), d=droughtParts(start?Date.now()-start:0);
+  const seg=(n,u,pad)=>`<div class="fw-seg"><span class="fw-n">${pad?String(n).padStart(2,'0'):n}</span><span class="fw-u">${u}</span></div>`;
+  return seg(d.days,'days',false)+seg(d.hrs,'hrs',true)+seg(d.mins,'min',true)+seg(d.secs,'sec',true);
+}
+function firstWinCardHTML(){
+  const win=firstWinFixture(), start=firstGameMs(), g=firstGame();
+  if(win){
+    const d=droughtParts(new Date((win.date)+'T'+(win.time||'12:00')+':00').getTime()-(start||0));
+    return `<div class="card firstwin fw-won mt">
+      <div class="fw-lead">First win landed 🎉</div>
+      <div class="fw-big">Beat ${esc(oppName(win.opponent))} ${win.ttScore}&ndash;${win.oppScore}, ${fmtDate(win.date)}</div>
+      <div class="fw-sub">The wait was ${d.days} days, ${d.hrs} hours and ${d.mins} minutes from the first ever game.</div>
+    </div>`;
+  }
+  return `<div class="card firstwin mt">
+    <div class="fw-lead">The wait for a first win</div>
+    <div class="fw-clock" id="firstwin-clock">${firstWinClockHTML()}</div>
+    <div class="fw-sub">Counting up live since the first ever game${g?', '+fmtDate(g.date):''}. Still chasing win number one.</div>
+  </div>`;
+}
 function renderHome(){
   const sid = cur();
   const s = season(sid);
@@ -700,6 +764,7 @@ function renderHome(){
     : 'No games recorded for this season yet.';
 
   $('[data-view="home"]').innerHTML = `
+    ${firstWinCardHTML()}
     ${nextCard}
     ${h2hCard}
     <div class="kpis mt">${kpis}</div>
@@ -742,12 +807,16 @@ function renderFixtures(){
       <td class="num muted">&mdash;</td><td class="num muted">&mdash;</td>
       <td class="muted">&mdash;</td><td class="muted">&mdash;</td>
     </tr>`;
+    const target = f.played ? `#report/${f.id}` : (f.opponent?`#opponent/${f.opponent}`:'');
+    const oppCell = f.opponent
+      ? `<a href="#opponent/${f.opponent}" onclick="event.stopPropagation()">${esc(oppName(f.opponent))}</a>`
+      : '<span class="muted">TBC</span>';
     return `
-    <tr class="${f.opponent?'clickable':''}" ${f.opponent?`onclick="location.hash='#opponent/${f.opponent}'"`:''}>
+    <tr class="${target?'clickable':''}" ${target?`onclick="location.hash='${target}'"`:''}>
       <td>${fmtDate(f.date)}${f.time?`<div class="muted" style="font-size:12px">${esc(f.time)}</div>`:''}</td>
       <td class="muted">${esc(season(f.season)?.name||f.season)}</td>
       <td>${compPill(f)}</td>
-      <td>${oppLink(f.opponent)}</td>
+      <td>${oppCell}</td>
       <td class="num">${scoreText(f)}</td>
       <td class="num">${resBadge(fxResult(f))}</td>
       <td>${scorersText(f)}</td>
@@ -759,7 +828,7 @@ function renderFixtures(){
 
   host.innerHTML = `
     <h2 class="section-t">Every game</h2>
-    <p class="section-s">All fixtures across both seasons. Click a row to open the opponent's head-to-head.</p>
+    <p class="section-s">All fixtures across both seasons. Click a played game for its match report, or a team's name for the head-to-head.</p>
     <div class="grid" style="grid-template-columns:auto auto;justify-content:start;margin-bottom:14px">
       <span><label class="muted" style="font-size:12px;margin-right:6px">Season</label>
         <select id="fx-season"></select></span>
@@ -804,6 +873,25 @@ function sortFixtures(rows){
   return rows.slice().sort((a,b)=>{ const x=val(a),y=val(b); return (x<y?-1:x>y?1:0)*d; });
 }
 
+// Live standings computed from the round-by-round results grid.
+function computeStandings(sid){
+  const teams=(TT.standings[sid]||[]).map(r=>r.team);
+  const rec={}; teams.forEach(t=>rec[t]={team:t,p:0,w:0,l:0,d:0,tf:0,ta:0,tt:/Touch This/.test(t)});
+  ((TT.results&&TT.results[sid])||[]).forEach(rnd=>{
+    (rnd.games||[]).forEach(g=>{
+      [[g.a,g.as,g.bs],[g.b,g.bs,g.as]].forEach(([t,gf,ga])=>{
+        const r=rec[t]; if(!r) return;
+        r.p++; r.tf+=gf; r.ta+=ga;
+        if(gf>ga)r.w++; else if(gf<ga)r.l++; else r.d++;
+      });
+    });
+  });
+  const rows=Object.values(rec);
+  rows.forEach(r=>{ r.pts=r.w*TT.team.rules.points.win + r.l*TT.team.rules.points.loss; });
+  rows.sort((a,b)=> b.pts-a.pts || (b.tf-b.ta)-(a.tf-a.ta) || b.tf-a.tf || a.team.localeCompare(b.team));
+  rows.forEach((r,i)=>r.pos=i+1);
+  return rows;
+}
 function renderTable(){
   const host=$('[data-view="table"]');
   let sid=cur(); if(sid==='all') sid = TT.seasons.filter(s=>s.status==='finished').slice(-1)[0]?.id || TT.seasons[0].id;
@@ -811,16 +899,19 @@ function renderTable(){
   const table = TT.standings && TT.standings[sid];
   if(table){
     const finished = s && s.status==='finished';
-    const rec = teamRecord(sid);
-    // Touch This row is always live from fixtures; rivals come from the seeded standings.
-    let data = table.map(r=> r.tt ? {...r, p:rec.played, w:rec.w, l:rec.l, tf:rec.tf, ta:rec.ta, pts:rec.pts} : {...r});
-    const hasPos = finished && data.every(r=>typeof r.pos==='number');
-    data.sort(hasPos ? (a,b)=>a.pos-b.pos
-                     : (a,b)=> b.pts-a.pts || (b.tf-b.ta)-(a.tf-a.ta) || b.tf-a.tf || a.team.localeCompare(b.team));
+    let data;
+    if(finished){
+      const rec = teamRecord(sid);
+      data = table.map(r=> r.tt ? {...r, p:rec.played, w:rec.w, l:rec.l, tf:rec.tf, ta:rec.ta, pts:rec.pts} : {...r});
+      const hasPos = data.every(r=>typeof r.pos==='number');
+      data.sort(hasPos ? (a,b)=>a.pos-b.pos : (a,b)=> b.pts-a.pts || (b.tf-b.ta)-(a.tf-a.ta) || b.tf-a.tf || a.team.localeCompare(b.team));
+    } else {
+      data = computeStandings(sid);
+    }
     const anyPlayed = data.some(r=>r.p>0);
     const rows = data.map((r,i)=>`
       <tr class="${r.tt?'hl':''}">
-        <td class="num">${finished ? (r.pos||i+1) : (anyPlayed ? i+1 : '–')}</td>
+        <td class="num">${finished ? (r.pos||i+1) : (anyPlayed ? r.pos : '–')}</td>
         <td>${r.tt?`<strong>${esc(r.team)}</strong>`:esc(r.team)}</td>
         <td class="num">${r.p}</td><td class="num">${r.w}</td><td class="num">${r.l}</td>
         <td class="num">${r.tf}</td><td class="num">${r.ta}</td>
@@ -829,7 +920,9 @@ function renderTable(){
       </tr>`).join('');
     const caption = finished
       ? `Final regular-season standings. Touch This finished ${ordinal(s.finalPosition)} of ${data.length}${s.finalPlacing?`, then ${ordinal(s.finalPlacing)} overall after the play-offs`:''}.`
-      : `All ${data.length} teams in the division. The Touch This row updates automatically from results; rivals' records fill in as the league table is shared.`;
+      : (anyPlayed
+          ? `Live table, computed straight from results and updated the moment each week is logged. ${data.length} teams.`
+          : `All ${data.length} teams in the division. The table goes live the moment results start coming in.`);
     host.innerHTML = `
       <h2 class="section-t">League table &mdash; ${esc(s.name)}</h2>
       <p class="section-s">${caption}</p>
@@ -1134,15 +1227,45 @@ function renderOpponent(id){
     ${recordSection}`;
 }
 
+function renderReport(id){
+  const host=$('[data-view="report"]');
+  const f=TT.fixtures.find(x=>x.id===id);
+  if(!f){ host.innerHTML=`<a class="back" href="#fixtures">&larr; Back</a><div class="empty">Match not found.</div>`; return; }
+  const r=fxResult(f), oppNm=f.opponent?oppName(f.opponent):'TBC';
+  const resWord = r==='W'?'Win':r==='L'?'Loss':r==='D'?'Draw':'To be played';
+  host.innerHTML=`
+    <a class="back" href="#fixtures">&larr; All fixtures</a>
+    <div class="report-head">
+      <div class="rh-meta">${compPill(f)} &nbsp; ${fmtDate(f.date)}${f.time?' · '+esc(f.time):''}${f.venue?' · '+esc(f.venue):''}</div>
+      <div class="rh-teams">
+        <span class="rh-team">Touch This</span>
+        <span class="rh-score">${f.ttScore!=null?f.ttScore:'–'}<span class="rh-dash">–</span>${f.oppScore!=null?f.oppScore:'–'}</span>
+        <span class="rh-team">${esc(oppNm)}</span>
+      </div>
+      <div class="rh-result">${resBadge(r)} ${resWord}${f.playoffRound?' · '+esc(f.playoffRound):''}</div>
+    </div>
+    <div class="grid g2 mt">
+      <div class="card"><h3>Try scorers</h3><div style="font-size:14px">${scorersText(f)}</div></div>
+      <div class="card"><h3>Player of the match</h3><div style="font-size:14px">${mvpText(f)}</div></div>
+    </div>
+    ${f.conditions?`<p class="ko-cap"><strong>Conditions.</strong> ${esc(f.conditions)}</p>`:''}
+    ${Array.isArray(f.highlights)&&f.highlights.length?`
+      <h2 class="section-t">Moments</h2>
+      <div class="card"><ul class="facts">${f.highlights.map(hl=>`<li>${esc(hl)}</li>`).join('')}</ul></div>`:''}
+    ${f.notes?`<h2 class="section-t">The write-up</h2><p class="section-s" style="max-width:680px">${esc(f.notes)}</p>`:''}
+    ${f.opponent?`<p style="margin-top:18px"><a href="#opponent/${f.opponent}">Head-to-head vs ${esc(oppNm)} &rarr;</a></p>`:''}`;
+}
+
 /* ---------- router + boot ---------- */
 const VIEWS=['home','fixtures','table','playoffs','players','stats'];
 function renderAll(){ renderHome(); renderFixtures(); renderTable(); renderPlayoffs(); renderPlayers(); renderStats(); }
 function route(){
   const [view,arg]=(location.hash.replace(/^#/,'')||'home').split('/');
-  const v = view==='opponent' ? 'opponent' : (VIEWS.includes(view)?view:'home');
+  const v = (view==='opponent'||view==='report') ? view : (VIEWS.includes(view)?view:'home');
   $$('[data-view]').forEach(sec=>sec.hidden = sec.dataset.view!==v);
   $$('#seg button').forEach(b=>b.classList.toggle('active', b.dataset.nav===v));
   if(v==='opponent') renderOpponent(arg);
+  if(v==='report') renderReport(arg);
   window.scrollTo(0,0);
 }
 
@@ -1159,6 +1282,9 @@ function boot(){
   syncSeason();
   // nav
   $$('#seg button').forEach(b=>b.addEventListener('click',()=>{ location.hash='#'+b.dataset.nav; }));
+
+  // live first-win clock
+  setInterval(()=>{ const el=$('#firstwin-clock'); if(el) el.innerHTML=firstWinClockHTML(); }, 1000);
 
   renderAll();
   window.addEventListener('hashchange',route);
