@@ -103,6 +103,8 @@
   tbody tr.clickable{cursor:pointer}
   tbody tr.clickable:hover{background:var(--panel-2)}
   .hl{background:color-mix(in srgb,var(--accent) 6%,var(--panel))}
+  td.cmp-us,th.cmp-us{background:color-mix(in srgb,var(--accent) 8%,transparent)}
+  th.cmp-us{color:var(--accent)}
 
   /* Pills / result badges */
   .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;line-height:1.6;white-space:nowrap;
@@ -1074,6 +1076,23 @@ function renderOpponent(id){
       ['Tries against', st.ta],
       ['Points', st.pts]
     ].map(([l,v])=>`<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
+    const ours = table.find(r=>r.tt);
+    const cmpRows = ours ? [
+      ['League finish', ordinal(st.pos), ordinal(ours.pos)],
+      ['Record (W-L)', `${st.w}–${st.l}`, `${ours.w}–${ours.l}`],
+      ['Tries for', st.tf, ours.tf],
+      ['Tries against', st.ta, ours.ta],
+      ['Try difference', (st.tf-st.ta>0?'+':'')+(st.tf-st.ta), (ours.tf-ours.ta>0?'+':'')+(ours.tf-ours.ta)],
+      ['Points', st.pts, ours.pts]
+    ] : [];
+    const cmpTable = cmpRows.length ? `
+      <div class="card mt">
+        <h3>Them vs Touch This &mdash; the season</h3>
+        <div class="tablewrap"><table>
+          <thead><tr><th></th><th class="num">${esc(o.name)}</th><th class="num cmp-us">Touch This</th></tr></thead>
+          <tbody>${cmpRows.map(([m,a,b])=>`<tr><td>${m}</td><td class="num">${a}</td><td class="num cmp-us">${b}</td></tr>`).join('')}</tbody>
+        </table></div>
+      </div>` : '';
     const formChips = played.map(x=>`<span class="chip ${x.res.toLowerCase()}">${x.res}</span>`).join('');
     const resRows = results.map(x=> x.bye
       ? `<tr><td>${fmtDate(x.date)}</td><td class="muted" colspan="3">Bye week</td></tr>`
@@ -1088,6 +1107,7 @@ function renderOpponent(id){
       <p class="section-s">Full league record, week by week, and how they fared in the knockouts.</p>
       <div class="kpis" style="grid-template-columns:repeat(5,1fr)">${rec}</div>
       <p class="ko-cap">${scout.join(' ')}</p>
+      ${cmpTable}
       <div class="card mt">
         <h3>Their league season</h3>
         <div class="form" style="margin:2px 0 14px">${formChips}</div>
