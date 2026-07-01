@@ -1,0 +1,837 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Touch This — Overview redesign options</title>
+<style>
+  :root{--bg:#faf7f2;--panel:#fff;--ink:#1c1418;--muted:#8a7d80;--line:#eadfd4;--accent:#6e2334;--cream:#f0e6cf}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px;margin:0 auto;padding:30px 16px 90px}
+  .intro h1{font-size:24px;font-weight:680;letter-spacing:-.02em;margin:0 0 6px}
+  .intro p{color:var(--muted);margin:0 0 6px;max-width:620px}
+  .intro .hint{font-size:13px}
+  .opt{margin:38px 0 0;padding-top:34px;border-top:1px solid var(--line)}
+  .opt-head{margin:0 auto 18px}
+  .opt-n{display:inline-block;font-size:11px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);padding:3px 10px;border-radius:999px}
+  .opt-name{font-size:21px;font-weight:660;letter-spacing:-.02em;margin:10px 0 2px}
+  .opt-tag{color:var(--accent);font-weight:500;margin:0 0 8px}
+  .opt-why{color:var(--muted);font-size:13.5px;line-height:1.55;margin:0;max-width:660px}
+  .opt-mock{margin-top:20px}
+</style></head>
+<body><div class="wrap">
+  <header class="intro">
+    <h1>Overview redesign &mdash; four directions</h1>
+    <p>Four ways to make the Overview clearer. The core fix in all of them: make the scope of every number obvious, give the page one clear focal point, and make the empty current-season state read as intentional rather than broken.</p>
+    <p class="hint">Season toggles are illustrative only. Pick the one that clicks, or mix and match, and I will build it into the live dashboard.</p>
+  </header>
+
+    <section class="opt">
+      <div class="opt-head">
+        <span class="opt-n">Option 1</span>
+        <h2 class="opt-name">Gameday Hub</h2>
+        <p class="opt-tag">Who we play next, and whether we are ready.</p>
+        <p class="opt-why">Clarity comes from a single dominant focal point: one large NEXT MATCH hero owns the screen with opponent, countdown, logistics, and a plain-language head-to-head verdict, plus one obvious next action. Every number is now explicitly scoped with a label ("Next fixture", "Recent form", "Last result"), so nothing reads as a broken zero. The empty current-season stats are moved entirely off the Overview behind a "Full table" link, and the never-won counter is demoted to a slim footnote ribbon, so the page answers one question well instead of mixing all-time and current-season data.</p>
+      </div>
+      <div class="opt-mock"><div class="mk-gdh">
+  <h2 class="mk-gdh-sr">Gameday hub overview: next match versus Touchdown Titans v2 with countdown, head to head verdict, recent form and last result.</h2>
+
+  <div class="mk-gdh-topbar">
+    <div class="mk-gdh-brand">
+      <svg width="30" height="35" viewBox="0 0 100 116" aria-hidden="true"><path d="M8 6H92V64C92 92 72 104 50 112C28 104 8 92 8 64Z" fill="#6e2334"/><text x="50" y="60" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="32" fill="#f0e6cf">TT</text></svg>
+      <span class="mk-gdh-brandname">Touch This</span>
+    </div>
+    <div class="mk-gdh-seasontoggle" role="group" aria-label="Season">
+      <button class="mk-gdh-seg mk-gdh-seg-on" type="button">Late Summer 2026</button>
+      <button class="mk-gdh-seg" type="button">Early Summer 2026</button>
+    </div>
+  </div>
+
+  <div class="mk-gdh-scopebar">
+    <span class="mk-gdh-scopedot"></span>
+    <span class="mk-gdh-scopetext">Late Summer 2026 &middot; season active &middot; 0 of 6 games played</span>
+  </div>
+
+  <section class="mk-gdh-hero" aria-label="Next match">
+    <div class="mk-gdh-herohead">
+      <span class="mk-gdh-kicker">Next match &middot; Week 1</span>
+      <span class="mk-gdh-chip mk-gdh-chip-home">Home</span>
+    </div>
+
+    <div class="mk-gdh-matchline">
+      <span class="mk-gdh-usname">Touch This</span>
+      <span class="mk-gdh-vs">vs</span>
+      <span class="mk-gdh-oppname">Touchdown Titans v2</span>
+    </div>
+
+    <div class="mk-gdh-countdown">
+      <span class="mk-gdh-cdlabel">Kickoff in</span>
+      <span class="mk-gdh-cdvalue">6d 04:12:33</span>
+    </div>
+
+    <div class="mk-gdh-logistics">
+      <div class="mk-gdh-logitem">
+        <span class="mk-gdh-logk">Date</span>
+        <span class="mk-gdh-logv">Wed 1 Jul 2026</span>
+      </div>
+      <div class="mk-gdh-logdiv"></div>
+      <div class="mk-gdh-logitem">
+        <span class="mk-gdh-logk">Kickoff</span>
+        <span class="mk-gdh-logv">19:50</span>
+      </div>
+      <div class="mk-gdh-logdiv"></div>
+      <div class="mk-gdh-logitem">
+        <span class="mk-gdh-logk">Venue</span>
+        <span class="mk-gdh-logv">Clapham Wandsworth, Pitch 2</span>
+      </div>
+    </div>
+
+    <div class="mk-gdh-verdict">
+      <span class="mk-gdh-verdicticon" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6e2334" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.01"/></svg>
+      </span>
+      <span class="mk-gdh-verdicttext"><strong>Head to head:</strong> lost both, 3 to 7 each. They finished 5th last season.</span>
+    </div>
+
+    <div class="mk-gdh-actions">
+      <button class="mk-gdh-btn mk-gdh-btn-primary" type="button">Scouting report</button>
+      <button class="mk-gdh-btn mk-gdh-btn-ghost" type="button">Add to calendar</button>
+    </div>
+  </section>
+
+  <div class="mk-gdh-lower">
+    <section class="mk-gdh-panel" aria-label="Recent form">
+      <div class="mk-gdh-panelhead">
+        <span class="mk-gdh-panelk">Recent form</span>
+        <span class="mk-gdh-panelsub">Last 5, all-time</span>
+      </div>
+      <div class="mk-gdh-formstrip">
+        <span class="mk-gdh-formpip mk-gdh-loss">L</span>
+        <span class="mk-gdh-formpip mk-gdh-loss">L</span>
+        <span class="mk-gdh-formpip mk-gdh-loss">L</span>
+        <span class="mk-gdh-formpip mk-gdh-loss">L</span>
+        <span class="mk-gdh-formpip mk-gdh-loss mk-gdh-formlast">L</span>
+      </div>
+      <span class="mk-gdh-formnote">Newest on the right</span>
+    </section>
+
+    <section class="mk-gdh-panel" aria-label="Last result">
+      <div class="mk-gdh-panelhead">
+        <span class="mk-gdh-panelk">Last result</span>
+        <span class="mk-gdh-panelsub">24 Jun, play-off</span>
+      </div>
+      <div class="mk-gdh-lastresult">
+        <span class="mk-gdh-lrbadge">L</span>
+        <span class="mk-gdh-lrscore">3<span class="mk-gdh-lrdash">to</span>7</span>
+        <span class="mk-gdh-lropp">vs Touchdown Titans</span>
+      </div>
+      <a class="mk-gdh-fulllink" href="#">Season stats and full table <span aria-hidden="true">&rsaquo;</span></a>
+    </section>
+  </div>
+
+  <div class="mk-gdh-ribbon">
+    <span class="mk-gdh-ribbondot" aria-hidden="true"></span>
+    <span class="mk-gdh-ribbontext">Still chasing the first win &middot; <strong>69d 20h 18m</strong> since game one</span>
+  </div>
+
+  <style>
+    .mk-gdh{box-sizing:border-box;max-width:680px;margin:0 auto;background:transparent;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#1c1418;-webkit-font-smoothing:antialiased;text-align:left;}
+    .mk-gdh *{box-sizing:border-box;}
+    .mk-gdh-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+
+    .mk-gdh-topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+    .mk-gdh-brand{display:flex;align-items:center;gap:10px;}
+    .mk-gdh-brandname{font-size:17px;font-weight:600;letter-spacing:-.02em;color:#1c1418;}
+    .mk-gdh-seasontoggle{display:inline-flex;background:#fff;border:1px solid #eadfd4;border-radius:999px;padding:3px;box-shadow:0 1px 2px rgba(60,20,30,.05);}
+    .mk-gdh-seg{font-family:inherit;font-size:12.5px;font-weight:500;letter-spacing:-.01em;color:#8a7d80;background:transparent;border:0;border-radius:999px;padding:6px 12px;cursor:pointer;white-space:nowrap;}
+    .mk-gdh-seg-on{background:#6e2334;color:#f0e6cf;}
+
+    .mk-gdh-scopebar{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding:0 2px;}
+    .mk-gdh-scopedot{width:7px;height:7px;border-radius:50%;background:#3f9d6d;box-shadow:0 0 0 3px rgba(63,157,109,.15);}
+    .mk-gdh-scopetext{font-size:12.5px;font-weight:500;letter-spacing:-.01em;color:#8a7d80;}
+
+    .mk-gdh-hero{background:#fff;border:1px solid #eadfd4;border-radius:16px;padding:22px 22px 20px;box-shadow:0 1px 2px rgba(60,20,30,.05),0 6px 22px rgba(60,20,30,.06);position:relative;overflow:hidden;}
+    .mk-gdh-hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:#6e2334;}
+    .mk-gdh-herohead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;}
+    .mk-gdh-kicker{font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#9a4453;}
+    .mk-gdh-chip{font-size:11.5px;font-weight:600;letter-spacing:-.01em;padding:4px 10px;border-radius:999px;}
+    .mk-gdh-chip-home{background:#f0e6cf;color:#6e2334;}
+
+    .mk-gdh-matchline{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 12px;margin-bottom:16px;}
+    .mk-gdh-usname{font-size:20px;font-weight:600;letter-spacing:-.02em;color:#8a7d80;}
+    .mk-gdh-vs{font-size:13px;font-weight:600;color:#8a7d80;letter-spacing:.02em;}
+    .mk-gdh-oppname{font-size:27px;font-weight:700;letter-spacing:-.025em;color:#1c1418;line-height:1.05;}
+
+    .mk-gdh-countdown{display:flex;align-items:baseline;gap:12px;padding:14px 16px;background:#faf7f2;border:1px solid #eadfd4;border-radius:12px;margin-bottom:16px;}
+    .mk-gdh-cdlabel{font-size:12px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:#8a7d80;}
+    .mk-gdh-cdvalue{font-size:34px;font-weight:700;letter-spacing:-.02em;color:#6e2334;font-variant-numeric:tabular-nums;font-feature-settings:"tnum";margin-left:auto;line-height:1;}
+
+    .mk-gdh-logistics{display:flex;align-items:stretch;gap:14px;margin-bottom:16px;flex-wrap:wrap;}
+    .mk-gdh-logitem{display:flex;flex-direction:column;gap:3px;min-width:0;}
+    .mk-gdh-logk{font-size:11px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:#8a7d80;}
+    .mk-gdh-logv{font-size:14px;font-weight:600;letter-spacing:-.01em;color:#1c1418;}
+    .mk-gdh-logdiv{width:1px;align-self:stretch;background:#eadfd4;}
+
+    .mk-gdh-verdict{display:flex;align-items:flex-start;gap:9px;padding:12px 14px;background:#f0e6cf;border-radius:12px;margin-bottom:18px;}
+    .mk-gdh-verdicticon{flex:0 0 auto;line-height:0;margin-top:1px;}
+    .mk-gdh-verdicttext{font-size:13.5px;line-height:1.5;letter-spacing:-.01em;color:#6e2334;}
+    .mk-gdh-verdicttext strong{font-weight:700;}
+
+    .mk-gdh-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+    .mk-gdh-btn{font-family:inherit;font-size:14px;font-weight:600;letter-spacing:-.01em;border-radius:11px;padding:11px 18px;cursor:pointer;border:1px solid transparent;}
+    .mk-gdh-btn-primary{background:#6e2334;color:#f0e6cf;box-shadow:0 1px 2px rgba(60,20,30,.18);}
+    .mk-gdh-btn-ghost{background:#fff;color:#6e2334;border-color:#eadfd4;}
+
+    .mk-gdh-lower{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+    .mk-gdh-panel{background:#fff;border:1px solid #eadfd4;border-radius:16px;padding:18px;box-shadow:0 1px 2px rgba(60,20,30,.05),0 6px 22px rgba(60,20,30,.06);}
+    .mk-gdh-panelhead{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:14px;}
+    .mk-gdh-panelk{font-size:12.5px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:#1c1418;}
+    .mk-gdh-panelsub{font-size:11.5px;font-weight:500;letter-spacing:-.01em;color:#8a7d80;}
+
+    .mk-gdh-formstrip{display:flex;gap:7px;margin-bottom:9px;}
+    .mk-gdh-formpip{flex:1;height:34px;display:flex;align-items:center;justify-content:center;border-radius:9px;font-size:13px;font-weight:700;letter-spacing:.01em;}
+    .mk-gdh-loss{background:rgba(176,84,107,.12);color:#b0546b;}
+    .mk-gdh-formlast{box-shadow:inset 0 0 0 1.5px #b0546b;}
+    .mk-gdh-formnote{font-size:11px;font-weight:500;color:#8a7d80;letter-spacing:-.01em;}
+
+    .mk-gdh-lastresult{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+    .mk-gdh-lrbadge{flex:0 0 auto;width:30px;height:30px;border-radius:8px;background:rgba(176,84,107,.12);color:#b0546b;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;}
+    .mk-gdh-lrscore{font-size:24px;font-weight:700;letter-spacing:-.02em;color:#1c1418;font-variant-numeric:tabular-nums;display:inline-flex;align-items:baseline;gap:7px;}
+    .mk-gdh-lrdash{font-size:12px;font-weight:600;color:#8a7d80;letter-spacing:0;}
+    .mk-gdh-lropp{font-size:12.5px;font-weight:500;letter-spacing:-.01em;color:#8a7d80;margin-left:2px;line-height:1.3;}
+    .mk-gdh-fulllink{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:600;letter-spacing:-.01em;color:#6e2334;text-decoration:none;}
+    .mk-gdh-fulllink span{font-size:16px;line-height:1;}
+
+    .mk-gdh-ribbon{display:flex;align-items:center;gap:9px;margin-top:14px;padding:11px 16px;background:#fff;border:1px solid #eadfd4;border-radius:12px;box-shadow:0 1px 2px rgba(60,20,30,.05);}
+    .mk-gdh-ribbondot{flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:#9a4453;}
+    .mk-gdh-ribbontext{font-size:12.5px;font-weight:500;letter-spacing:-.01em;color:#8a7d80;font-variant-numeric:tabular-nums;}
+    .mk-gdh-ribbontext strong{font-weight:700;color:#6e2334;}
+
+    @media (max-width:520px){
+      .mk-gdh-lower{grid-template-columns:1fr;}
+      .mk-gdh-cdvalue{font-size:28px;}
+      .mk-gdh-oppname{font-size:23px;}
+      .mk-gdh-logdiv{display:none;}
+      .mk-gdh-logistics{gap:10px 22px;}
+    }
+  </style>
+</div></div>
+    </section>
+
+    <section class="opt">
+      <div class="opt-head">
+        <span class="opt-n">Option 2</span>
+        <h2 class="opt-name">Split Seasons</h2>
+        <p class="opt-tag">Every zero earns its place by sitting next to the season it belongs to.</p>
+        <p class="opt-why">Pairing "This season (in progress)" against "Last season (final)" as two labelled columns makes the scope of every figure instantly legible, so the all-zero current record reads as "not started yet" rather than broken. A single focal next-match card anchors the hierarchy, and the all-time first-win line is quarantined at the bottom with its own explicit label so it never mixes with season stats.</p>
+      </div>
+      <div class="opt-mock"><div class="mk-tt">
+  <style>
+    .mk-tt *{box-sizing:border-box;margin:0;padding:0}
+    .mk-tt{max-width:680px;margin:0 auto;background:transparent;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#1c1418;-webkit-font-smoothing:antialiased}
+    .mk-tt .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+    .mk-tt .num{font-variant-numeric:tabular-nums}
+    .mk-tt .hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+    .mk-tt .brand{display:flex;align-items:center;gap:12px}
+    .mk-tt .brand h1{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1}
+    .mk-tt .brand .sub{font-size:12px;color:#8a7d80;letter-spacing:.01em;margin-top:3px}
+    .mk-tt .toggle{display:inline-flex;background:#f0e6cf;border:1px solid #eadfd4;border-radius:10px;padding:3px}
+    .mk-tt .toggle span{font-size:12px;font-weight:600;letter-spacing:-.01em;padding:6px 12px;border-radius:7px;color:#8a7d80;white-space:nowrap}
+    .mk-tt .toggle span.on{background:#ffffff;color:#6e2334;box-shadow:0 1px 2px rgba(60,20,30,.06)}
+    .mk-tt .card{background:#ffffff;border:1px solid #eadfd4;border-radius:16px;box-shadow:0 1px 2px rgba(60,20,30,.05),0 6px 22px rgba(60,20,30,.06)}
+    .mk-tt .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+    .mk-tt .col{padding:18px 18px 20px}
+    .mk-tt .col.past{background:#fffdf9}
+    .mk-tt .scope{display:flex;align-items:center;gap:7px;margin-bottom:2px}
+    .mk-tt .dot{width:7px;height:7px;border-radius:50%;flex:none}
+    .mk-tt .dot.live{background:#6e2334}
+    .mk-tt .dot.done{background:#8a7d80}
+    .mk-tt .scope .lab{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+    .mk-tt .scope.now .lab{color:#6e2334}
+    .mk-tt .scope.was .lab{color:#8a7d80}
+    .mk-tt .season{font-size:15px;font-weight:600;letter-spacing:-.01em;margin:6px 0 2px}
+    .mk-tt .stage{font-size:12px;color:#8a7d80;margin-bottom:15px}
+    .mk-tt .played{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+    .mk-tt .played .big{font-size:34px;font-weight:700;letter-spacing:-.03em;line-height:1}
+    .mk-tt .played .of{font-size:14px;color:#8a7d80;font-weight:500}
+    .mk-tt .played .tag{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#6e2334;background:#f0e6cf;border-radius:6px;padding:3px 7px;align-self:center;margin-left:auto}
+    .mk-tt .bar{height:7px;border-radius:99px;background:#f0e6cf;overflow:hidden;display:flex;margin-bottom:14px}
+    .mk-tt .bar i{display:block;height:100%}
+    .mk-tt .bar .seg{background:#6e2334}
+    .mk-tt .barnote{font-size:12px;color:#8a7d80;margin-bottom:16px}
+    .mk-tt .nextline{border-top:1px solid #eadfd4;padding-top:13px}
+    .mk-tt .nextlab{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8a7d80;margin-bottom:5px}
+    .mk-tt .nextval{font-size:13px;font-weight:600;letter-spacing:-.01em;line-height:1.4}
+    .mk-tt .nextsub{font-size:12px;color:#8a7d80;margin-top:2px}
+    .mk-tt .finrow{display:flex;gap:22px;margin-bottom:14px}
+    .mk-tt .fin .k{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#8a7d80;margin-bottom:5px}
+    .mk-tt .fin .v{font-size:26px;font-weight:700;letter-spacing:-.03em;line-height:1}
+    .mk-tt .fin .v small{font-size:13px;font-weight:600;color:#8a7d80;letter-spacing:0}
+    .mk-tt .chips{display:flex;gap:6px;margin-bottom:16px}
+    .mk-tt .chip{font-size:11px;font-weight:700;letter-spacing:.02em;border-radius:7px;padding:4px 8px;font-variant-numeric:tabular-nums}
+    .mk-tt .chip.loss{background:#fbedf1;color:#b0546b}
+    .mk-tt .chip.neu{background:#f0e6cf;color:#6e2334}
+    .mk-tt .story{border-top:1px solid #eadfd4;padding-top:13px}
+    .mk-tt .storylab{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8a7d80;margin-bottom:11px}
+    .mk-tt .spark{display:flex;align-items:flex-end;gap:6px;height:46px;margin-bottom:8px}
+    .mk-tt .spark .b{flex:1;background:#9a4453;border-radius:4px 4px 0 0;min-height:3px;position:relative}
+    .mk-tt .spark .b.peak{background:#6e2334}
+    .mk-tt .spark .b span{position:absolute;top:-16px;left:0;right:0;text-align:center;font-size:11px;font-weight:700;color:#6e2334;font-variant-numeric:tabular-nums}
+    .mk-tt .sparkx{display:flex;gap:6px}
+    .mk-tt .sparkx b{flex:1;text-align:center;font-size:10px;color:#8a7d80;font-weight:500}
+    .mk-tt .storynote{font-size:12px;color:#8a7d80;margin-top:11px;line-height:1.45}
+    .mk-tt .storynote b{color:#1c1418;font-weight:600}
+    .mk-tt .next{padding:20px;margin-bottom:14px;position:relative;overflow:hidden}
+    .mk-tt .next .flag{display:flex;align-items:center;gap:7px;margin-bottom:14px}
+    .mk-tt .next .flag .lab{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#6e2334}
+    .mk-tt .next .flag .wk{font-size:11px;font-weight:700;letter-spacing:.04em;color:#8a7d80;margin-left:auto;background:#f0e6cf;border-radius:6px;padding:3px 8px}
+    .mk-tt .next .body{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+    .mk-tt .next .opp{flex:1;min-width:200px}
+    .mk-tt .next .vs{font-size:12px;color:#8a7d80;font-weight:600;letter-spacing:.02em}
+    .mk-tt .next .team{font-size:23px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:3px 0 9px}
+    .mk-tt .next .meta{display:flex;flex-direction:column;gap:4px}
+    .mk-tt .next .meta div{font-size:13px;color:#1c1418;display:flex;align-items:center;gap:7px}
+    .mk-tt .next .meta i{color:#8a7d80;font-size:15px;width:16px;text-align:center}
+    .mk-tt .next .meta .m{color:#8a7d80}
+    .mk-tt .cd{text-align:center;padding:12px 16px;background:#faf7f2;border:1px solid #eadfd4;border-radius:12px;min-width:132px}
+    .mk-tt .cd .k{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8a7d80;margin-bottom:5px}
+    .mk-tt .cd .t{font-size:22px;font-weight:700;letter-spacing:-.01em;color:#6e2334;font-variant-numeric:tabular-nums}
+    .mk-tt .h2h{border-top:1px solid #eadfd4;margin-top:16px;padding-top:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+    .mk-tt .h2h .k{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8a7d80}
+    .mk-tt .h2h .rec{font-size:13px;font-weight:600;color:#1c1418;font-variant-numeric:tabular-nums}
+    .mk-tt .h2h .rec b{color:#b0546b}
+    .mk-tt .h2h .past{font-size:12px;color:#8a7d80;margin-left:auto;font-variant-numeric:tabular-nums}
+    .mk-tt .fw{padding:15px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+    .mk-tt .fw .ic{width:38px;height:38px;border-radius:11px;background:#f0e6cf;display:flex;align-items:center;justify-content:center;color:#6e2334;font-size:19px;flex:none}
+    .mk-tt .fw .txt .k{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8a7d80}
+    .mk-tt .fw .txt .d{font-size:13px;color:#1c1418;margin-top:2px}
+    .mk-tt .fw .txt .d b{font-weight:600}
+    .mk-tt .fw .clk{margin-left:auto;text-align:right}
+    .mk-tt .fw .clk .t{font-size:19px;font-weight:700;letter-spacing:-.01em;color:#6e2334;font-variant-numeric:tabular-nums}
+    .mk-tt .fw .clk .s{font-size:11px;color:#8a7d80;font-weight:600;letter-spacing:.03em}
+  </style>
+
+  <p class="sr-only">Touch This overview: this season (Late Summer 2026) is in progress with 0 of 6 games played, next up versus Touchdown Titans; last season (Early Summer 2026) finished 7th of 7. The team is still chasing its first ever win.</p>
+
+  <div class="hd">
+    <div class="brand">
+      <svg width="38" height="44" viewBox="0 0 100 116" aria-hidden="true"><path d="M8 6H92V64C92 92 72 104 50 112C28 104 8 92 8 64Z" fill="#6e2334"/><text x="50" y="60" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="32" fill="#f0e6cf">TT</text></svg>
+      <div>
+        <h1>Touch This</h1>
+        <div class="sub">Mixed touch rugby, Clapham Wandsworth</div>
+      </div>
+    </div>
+    <div class="toggle" role="tablist" aria-label="Season">
+      <span class="on" role="tab" aria-selected="true">This season</span>
+      <span role="tab" aria-selected="false">Last season</span>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="col card">
+      <div class="scope now"><span class="dot live"></span><span class="lab">This season</span></div>
+      <div class="season">Late Summer 2026</div>
+      <div class="stage">In progress</div>
+      <div class="played">
+        <span class="big num">0</span>
+        <span class="of num">of 6 games</span>
+        <span class="tag">Not started</span>
+      </div>
+      <div class="bar" aria-label="0 of 6 games played">
+        <i class="seg" style="width:0%"></i>
+      </div>
+      <div class="barnote">Fixtures run through the season. Record, form, and tries fill in from game one.</div>
+      <div class="nextline">
+        <div class="nextlab">Season opener</div>
+        <div class="nextval">vs Touchdown Titans v2</div>
+        <div class="nextsub num">Wed 1 Jul, 19:50 &middot; Week 1</div>
+      </div>
+    </div>
+
+    <div class="col past card">
+      <div class="scope was"><span class="dot done"></span><span class="lab">Last season</span></div>
+      <div class="season">Early Summer 2026</div>
+      <div class="stage">Final &middot; 6 games played</div>
+      <div class="finrow">
+        <div class="fin"><div class="k">Finish</div><div class="v num">7<small>th</small></div></div>
+        <div class="fin"><div class="k">Record</div><div class="v num">0&ndash;6</div></div>
+        <div class="fin"><div class="k">Points</div><div class="v num">6</div></div>
+      </div>
+      <div class="chips">
+        <span class="chip loss">W 0</span>
+        <span class="chip loss">L 6</span>
+        <span class="chip neu num">16 TF / 49 TA</span>
+      </div>
+      <div class="story">
+        <div class="storylab">Attack grew every game</div>
+        <div class="spark">
+          <div class="b" style="height:6%"><span>0</span></div>
+          <div class="b" style="height:18%"><span>1</span></div>
+          <div class="b" style="height:33%"><span>2</span></div>
+          <div class="b" style="height:48%"><span>3</span></div>
+          <div class="b peak" style="height:100%"><span>7</span></div>
+        </div>
+        <div class="sparkx"><b>G1</b><b>G2</b><b>G3</b><b>G4</b><b>G5</b></div>
+        <div class="storynote">Tries per game, start to finish. Top scorer <b>Franny</b> (4). A different player took MVP every week.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="next card">
+    <div class="flag"><span class="dot live"></span><span class="lab">Next up &middot; this season</span><span class="wk">Week 1 of 6</span></div>
+    <div class="body">
+      <div class="opp">
+        <div class="vs">Touch This vs</div>
+        <div class="team">Touchdown Titans v2</div>
+        <div class="meta">
+          <div><i class="ti ti-calendar" aria-hidden="true"></i>Wed 1 Jul 2026<span class="m">&middot; kickoff 19:50</span></div>
+          <div><i class="ti ti-map-pin" aria-hidden="true"></i>Clapham Wandsworth, Pitch 2</div>
+        </div>
+      </div>
+      <div class="cd">
+        <div class="k">Kickoff in</div>
+        <div class="t num">6d 04:12:33</div>
+      </div>
+    </div>
+    <div class="h2h">
+      <span class="k">Head to head vs Titans</span>
+      <span class="rec num">Played 2 &middot; <b>0W 2L</b> &middot; 6 TF / 14 TA</span>
+      <span class="past num">Both lost 3&ndash;7 &middot; 22 Apr, 24 Jun &middot; Titans 5th last year</span>
+    </div>
+  </div>
+
+  <div class="fw card">
+    <div class="ic"><i class="ti ti-trophy" aria-hidden="true"></i></div>
+    <div class="txt">
+      <div class="k">All time &middot; first win tracker</div>
+      <div class="d">Still chasing the first ever win &middot; <b>0 wins in 7 games</b></div>
+    </div>
+    <div class="clk">
+      <div class="t num">69d 20:18</div>
+      <div class="s">since first game, 22 Apr 2026</div>
+    </div>
+  </div>
+</div></div>
+    </section>
+
+    <section class="opt">
+      <div class="opt-head">
+        <span class="opt-n">Option 3</span>
+        <h2 class="opt-name">The Rising Line</h2>
+        <p class="opt-tag">One headline leads; every number wears its scope on its sleeve.</p>
+        <p class="opt-why">Clarity comes from a single editorial focal point: a warm hero that turns the season's real story (an attack that grew 0, 1, 2, 3, 7) into one confident headline with an inline sparkline, so the reader knows exactly what they are looking at before scanning further. Every module below carries an explicit scope label (LAST SEASON, ALL TIME, NEXT UP) so all-time content never gets confused with current-season figures. The empty Late Summer season reads as intentional because it is framed as a labelled "not started yet, 0 of 6 played" state rather than a wall of accidental zeros.</p>
+      </div>
+      <div class="opt-mock"><div class="mk-edtt">
+  <div class="mk-edtt-wrap">
+
+    <header class="mk-edtt-top">
+      <div class="mk-edtt-brand">
+        <svg width="34" height="40" viewBox="0 0 100 116" aria-hidden="true"><path d="M8 6H92V64C92 92 72 104 50 112C28 104 8 92 8 64Z" fill="#6e2334"/><text x="50" y="60" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="32" fill="#f0e6cf">TT</text></svg>
+        <div class="mk-edtt-word">
+          <span class="mk-edtt-name">Touch This</span>
+          <span class="mk-edtt-sub">Mixed touch rugby &middot; Clapham</span>
+        </div>
+      </div>
+      <div class="mk-edtt-toggle" role="group" aria-label="Season">
+        <button class="mk-edtt-tg mk-edtt-tg-on">Late Summer 2026</button>
+        <button class="mk-edtt-tg">Early Summer 2026</button>
+      </div>
+    </header>
+
+    <article class="mk-edtt-hero">
+      <div class="mk-edtt-kicker">
+        <span class="mk-edtt-tag">The season story</span>
+        <span class="mk-edtt-src">Early Summer 2026 &middot; final table</span>
+      </div>
+      <h1 class="mk-edtt-head">Winless but rising: <span class="mk-edtt-figs">0, 1, 2, 3, 7</span> &mdash; the attack that grew all season.</h1>
+      <p class="mk-edtt-dek">Seven straight losses, but the try count climbed every single week. Six of us scored, a different MVP each game, and Franny top-scored with four. Now Late Summer starts fresh.</p>
+
+      <div class="mk-edtt-spark">
+        <svg viewBox="0 0 440 96" class="mk-edtt-sparksvg" preserveAspectRatio="none" aria-hidden="true">
+          <line x1="0" y1="88" x2="440" y2="88" stroke="#eadfd4" stroke-width="1"/>
+          <polyline points="24,84 128,73 232,62 336,51 416,12" fill="none" stroke="#9a4453" stroke-width="1.4" stroke-dasharray="3 4" opacity=".55"/>
+          <polyline points="24,84 128,73 232,62 336,51 416,12" fill="none" stroke="#6e2334" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="24" cy="84" r="3.4" fill="#fff" stroke="#6e2334" stroke-width="2"/>
+          <circle cx="128" cy="73" r="3.4" fill="#fff" stroke="#6e2334" stroke-width="2"/>
+          <circle cx="232" cy="62" r="3.4" fill="#fff" stroke="#6e2334" stroke-width="2"/>
+          <circle cx="336" cy="51" r="3.4" fill="#fff" stroke="#6e2334" stroke-width="2"/>
+          <circle cx="416" cy="12" r="4.6" fill="#6e2334"/>
+        </svg>
+        <div class="mk-edtt-sparklabs">
+          <span>G1<b>0</b></span><span>G2<b>1</b></span><span>G3<b>2</b></span><span>G4<b>3</b></span><span class="mk-edtt-peak">G5<b>7</b></span>
+        </div>
+        <p class="mk-edtt-cap">Tries scored per game, Early Summer 2026</p>
+      </div>
+    </article>
+
+    <div class="mk-edtt-scope">
+      <span class="mk-edtt-scopeline"></span>
+      <span class="mk-edtt-scopetxt">The story so far</span>
+      <span class="mk-edtt-scopeline"></span>
+    </div>
+
+    <div class="mk-edtt-grid">
+
+      <section class="mk-edtt-card mk-edtt-next">
+        <div class="mk-edtt-clabel"><i class="mk-edtt-dot"></i>Next up &middot; Late Summer, Week 1</div>
+        <div class="mk-edtt-vs">
+          <span class="mk-edtt-vslead">vs</span>
+          <span class="mk-edtt-opp">Touchdown Titans v2</span>
+        </div>
+        <div class="mk-edtt-when">
+          <span><i class="ti ti-calendar" aria-hidden="true"></i>Wed 1 Jul 2026</span>
+          <span><i class="ti ti-clock" aria-hidden="true"></i>19:50 KO</span>
+          <span><i class="ti ti-map-pin" aria-hidden="true"></i>Clapham Wandsworth, Pitch 2</span>
+        </div>
+        <div class="mk-edtt-count">
+          <span class="mk-edtt-countlab">Kickoff in</span>
+          <span class="mk-edtt-countval">6d 04:12:33</span>
+        </div>
+        <div class="mk-edtt-h2h">
+          <span class="mk-edtt-h2hlab">Head to head</span>
+          <span class="mk-edtt-h2hval">Played 2 &middot; <b class="mk-edtt-loss">0 W</b> &middot; 2 L</span>
+          <span class="mk-edtt-h2hnote">Both 3 to 7 (22 Apr, 24 Jun) &middot; Titans finished 5th</span>
+        </div>
+      </section>
+
+      <section class="mk-edtt-card mk-edtt-firstwin">
+        <div class="mk-edtt-clabel mk-edtt-clabel-alt"><i class="ti ti-flame" aria-hidden="true"></i>All time &middot; first-win watch</div>
+        <p class="mk-edtt-fwlead">Still chasing win number one.</p>
+        <div class="mk-edtt-fwclock">
+          <div class="mk-edtt-unit"><span class="mk-edtt-num">69</span><span class="mk-edtt-uname">days</span></div>
+          <span class="mk-edtt-sep">:</span>
+          <div class="mk-edtt-unit"><span class="mk-edtt-num">20</span><span class="mk-edtt-uname">hrs</span></div>
+          <span class="mk-edtt-sep">:</span>
+          <div class="mk-edtt-unit"><span class="mk-edtt-num">18</span><span class="mk-edtt-uname">min</span></div>
+        </div>
+        <p class="mk-edtt-fwnote">Counting up since the first ever game, 22 Apr 2026. <b>0 wins in 7</b> &mdash; the line is climbing.</p>
+      </section>
+
+    </div>
+
+    <section class="mk-edtt-card mk-edtt-stand">
+      <div class="mk-edtt-standtop">
+        <div class="mk-edtt-clabel mk-edtt-clabel-alt"><i class="ti ti-table" aria-hidden="true"></i>Last season &middot; final standings</div>
+        <span class="mk-edtt-standtag">Early Summer 2026 &middot; finished</span>
+      </div>
+      <div class="mk-edtt-snap">
+        <div class="mk-edtt-snapfig">
+          <span class="mk-edtt-big">7<span class="mk-edtt-den">th</span></span>
+          <span class="mk-edtt-figlab">of 7 &middot; 6th after play-offs</span>
+        </div>
+        <div class="mk-edtt-snaprow">
+          <div class="mk-edtt-stat"><span class="mk-edtt-sv">0&ndash;6</span><span class="mk-edtt-sl">W to L</span></div>
+          <div class="mk-edtt-stat"><span class="mk-edtt-sv">6</span><span class="mk-edtt-sl">points</span></div>
+          <div class="mk-edtt-stat"><span class="mk-edtt-sv">16</span><span class="mk-edtt-sl">tries for</span></div>
+          <div class="mk-edtt-stat"><span class="mk-edtt-sv">49</span><span class="mk-edtt-sl">tries against</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mk-edtt-empty">
+      <div class="mk-edtt-emptyhead">
+        <span class="mk-edtt-emptytag">This season &middot; Late Summer 2026</span>
+        <span class="mk-edtt-emptybadge">Not started</span>
+      </div>
+      <p class="mk-edtt-emptytxt"><b>0 of 6 games played.</b> Record, form and try counts open on Wed 1 Jul. There is nothing missing here &mdash; the season simply has not kicked off yet.</p>
+      <div class="mk-edtt-pips">
+        <span class="mk-edtt-pip"></span><span class="mk-edtt-pip"></span><span class="mk-edtt-pip"></span>
+        <span class="mk-edtt-pip"></span><span class="mk-edtt-pip"></span><span class="mk-edtt-pip"></span>
+        <span class="mk-edtt-pipnote">6 fixtures ahead</span>
+      </div>
+    </section>
+
+  </div>
+
+  <style>
+    .mk-edtt, .mk-edtt *, .mk-edtt *::before, .mk-edtt *::after { box-sizing: border-box; }
+    .mk-edtt { background: transparent; }
+    .mk-edtt-wrap {
+      max-width: 680px; margin: 0 auto; background: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1c1418; -webkit-font-smoothing: antialiased; padding: 4px 0 8px;
+    }
+    .mk-edtt-wrap .mk-edtt-num, .mk-edtt-wrap .mk-edtt-countval, .mk-edtt-wrap .mk-edtt-big,
+    .mk-edtt-wrap .mk-edtt-sv, .mk-edtt-wrap .mk-edtt-figs, .mk-edtt-wrap .mk-edtt-sparklabs b { font-variant-numeric: tabular-nums; }
+
+    .mk-edtt-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 22px; flex-wrap: wrap; }
+    .mk-edtt-brand { display: flex; align-items: center; gap: 11px; }
+    .mk-edtt-word { display: flex; flex-direction: column; line-height: 1.15; }
+    .mk-edtt-name { font-size: 18px; font-weight: 700; letter-spacing: -.02em; color: #1c1418; }
+    .mk-edtt-sub { font-size: 11.5px; color: #8a7d80; letter-spacing: .01em; }
+    .mk-edtt-toggle { display: inline-flex; background: #fff; border: 1px solid #eadfd4; border-radius: 999px; padding: 3px; }
+    .mk-edtt-tg { font-family: inherit; font-size: 12px; font-weight: 600; color: #8a7d80; background: transparent; border: 0; padding: 6px 12px; border-radius: 999px; cursor: pointer; letter-spacing: -.01em; }
+    .mk-edtt-tg-on { background: #6e2334; color: #f0e6cf; }
+
+    .mk-edtt-hero {
+      background: linear-gradient(180deg, #ffffff 0%, #fffdf9 100%); border: 1px solid #eadfd4;
+      border-radius: 16px; padding: 24px 24px 22px; position: relative; overflow: hidden;
+      box-shadow: 0 1px 2px rgba(60,20,30,.05), 0 6px 22px rgba(60,20,30,.06);
+    }
+    .mk-edtt-hero::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #6e2334; }
+    .mk-edtt-kicker { display: flex; align-items: center; gap: 10px; margin-bottom: 13px; flex-wrap: wrap; }
+    .mk-edtt-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: #6e2334; background: #f0e6cf; padding: 4px 10px; border-radius: 999px; }
+    .mk-edtt-src { font-size: 11.5px; color: #8a7d80; letter-spacing: .01em; }
+    .mk-edtt-head { font-size: 25px; line-height: 1.2; font-weight: 700; letter-spacing: -.022em; margin: 0 0 11px; color: #1c1418; }
+    .mk-edtt-figs { color: #6e2334; font-variant-numeric: tabular-nums; }
+    .mk-edtt-dek { font-size: 14px; line-height: 1.6; color: #5c4f52; margin: 0 0 18px; max-width: 58ch; }
+
+    .mk-edtt-spark { background: #fbf6ee; border: 1px solid #f0e6cf; border-radius: 12px; padding: 14px 16px 12px; }
+    .mk-edtt-sparksvg { display: block; width: 100%; height: 84px; }
+    .mk-edtt-sparklabs { display: flex; justify-content: space-between; margin-top: 8px; padding: 0 4px; }
+    .mk-edtt-sparklabs span { font-size: 11px; color: #8a7d80; font-weight: 600; letter-spacing: .02em; display: inline-flex; align-items: baseline; gap: 4px; }
+    .mk-edtt-sparklabs b { font-size: 13px; color: #1c1418; font-weight: 700; }
+    .mk-edtt-peak b { color: #6e2334; }
+    .mk-edtt-cap { font-size: 11px; color: #8a7d80; margin: 9px 0 0; letter-spacing: .01em; font-style: italic; }
+
+    .mk-edtt-scope { display: flex; align-items: center; gap: 14px; margin: 26px 2px 16px; }
+    .mk-edtt-scopeline { flex: 1; height: 1px; background: #eadfd4; }
+    .mk-edtt-scopetxt { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: #8a7d80; }
+
+    .mk-edtt-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 14px; }
+    @media (max-width: 560px) { .mk-edtt-grid { grid-template-columns: 1fr; } .mk-edtt-top { margin-bottom: 18px; } .mk-edtt-head { font-size: 22px; } }
+
+    .mk-edtt-card {
+      background: #ffffff; border: 1px solid #eadfd4; border-radius: 16px; padding: 18px 19px;
+      box-shadow: 0 1px 2px rgba(60,20,30,.05), 0 6px 22px rgba(60,20,30,.06);
+    }
+    .mk-edtt-clabel { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #6e2334; margin-bottom: 13px; }
+    .mk-edtt-clabel-alt { color: #8a7d80; }
+    .mk-edtt-clabel .ti { font-size: 14px; }
+    .mk-edtt-dot { width: 7px; height: 7px; border-radius: 50%; background: #6e2334; display: inline-block; }
+
+    .mk-edtt-vs { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+    .mk-edtt-vslead { font-size: 13px; color: #8a7d80; font-weight: 500; }
+    .mk-edtt-opp { font-size: 19px; font-weight: 700; letter-spacing: -.02em; color: #1c1418; line-height: 1.15; }
+    .mk-edtt-when { display: flex; flex-direction: column; gap: 6px; margin-bottom: 15px; }
+    .mk-edtt-when span { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: #5c4f52; }
+    .mk-edtt-when .ti { font-size: 15px; color: #9a4453; }
+
+    .mk-edtt-count { display: flex; align-items: baseline; gap: 10px; padding: 11px 13px; background: #6e2334; border-radius: 11px; margin-bottom: 14px; }
+    .mk-edtt-countlab { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #f0e6cf; opacity: .85; }
+    .mk-edtt-countval { font-size: 20px; font-weight: 700; color: #f0e6cf; letter-spacing: -.01em; margin-left: auto; }
+
+    .mk-edtt-h2h { border-top: 1px solid #eadfd4; padding-top: 12px; display: flex; flex-direction: column; gap: 4px; }
+    .mk-edtt-h2hlab { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #8a7d80; }
+    .mk-edtt-h2hval { font-size: 14px; color: #1c1418; font-weight: 500; }
+    .mk-edtt-loss { color: #b0546b; font-weight: 700; }
+    .mk-edtt-h2hnote { font-size: 12px; color: #8a7d80; line-height: 1.4; }
+
+    .mk-edtt-firstwin { display: flex; flex-direction: column; background: linear-gradient(180deg, #ffffff 0%, #fdf8f3 100%); }
+    .mk-edtt-firstwin .mk-edtt-clabel .ti { color: #9a4453; }
+    .mk-edtt-fwlead { font-size: 15px; font-weight: 700; letter-spacing: -.02em; color: #1c1418; margin: 0 0 14px; }
+    .mk-edtt-fwclock { display: flex; align-items: flex-end; gap: 6px; margin-bottom: 14px; }
+    .mk-edtt-unit { display: flex; flex-direction: column; align-items: center; background: #f0e6cf; border-radius: 10px; padding: 8px 10px; min-width: 56px; }
+    .mk-edtt-num { font-size: 26px; font-weight: 700; color: #6e2334; letter-spacing: -.03em; line-height: 1; }
+    .mk-edtt-uname { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #9a4453; margin-top: 4px; }
+    .mk-edtt-sep { font-size: 22px; font-weight: 700; color: #eadfd4; padding-bottom: 6px; }
+    .mk-edtt-fwnote { font-size: 12.5px; color: #8a7d80; line-height: 1.5; margin: auto 0 0; }
+    .mk-edtt-fwnote b { color: #b0546b; }
+
+    .mk-edtt-stand { margin-top: 14px; }
+    .mk-edtt-standtop { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+    .mk-edtt-standtop .mk-edtt-clabel { margin-bottom: 0; }
+    .mk-edtt-standtag { font-size: 11.5px; color: #8a7d80; letter-spacing: .01em; }
+    .mk-edtt-snap { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+    .mk-edtt-snapfig { display: flex; flex-direction: column; padding-right: 22px; border-right: 1px solid #eadfd4; }
+    .mk-edtt-big { font-size: 42px; font-weight: 700; color: #6e2334; letter-spacing: -.03em; line-height: 1; }
+    .mk-edtt-den { font-size: 20px; }
+    .mk-edtt-figlab { font-size: 12px; color: #8a7d80; margin-top: 6px; }
+    .mk-edtt-snaprow { display: flex; gap: 26px; flex: 1; flex-wrap: wrap; }
+    .mk-edtt-stat { display: flex; flex-direction: column; gap: 3px; }
+    .mk-edtt-sv { font-size: 20px; font-weight: 700; color: #1c1418; letter-spacing: -.01em; }
+    .mk-edtt-sl { font-size: 11px; color: #8a7d80; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+    @media (max-width: 480px) { .mk-edtt-snapfig { border-right: 0; padding-right: 0; } }
+
+    .mk-edtt-empty { margin-top: 14px; border: 1px dashed #d8c9bb; border-radius: 16px; padding: 18px 20px; background: rgba(240,230,207,.28); }
+    .mk-edtt-emptyhead { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 9px; flex-wrap: wrap; }
+    .mk-edtt-emptytag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #8a7d80; }
+    .mk-edtt-emptybadge { font-size: 11px; font-weight: 700; letter-spacing: .04em; color: #6e2334; background: #f0e6cf; padding: 4px 11px; border-radius: 999px; }
+    .mk-edtt-emptytxt { font-size: 13px; line-height: 1.6; color: #5c4f52; margin: 0 0 14px; max-width: 62ch; }
+    .mk-edtt-emptytxt b { color: #1c1418; }
+    .mk-edtt-pips { display: flex; align-items: center; gap: 9px; }
+    .mk-edtt-pip { width: 26px; height: 6px; border-radius: 999px; background: #eadfd4; }
+    .mk-edtt-pipnote { font-size: 11.5px; color: #8a7d80; margin-left: 6px; font-weight: 600; letter-spacing: .01em; }
+  </style>
+</div></div>
+    </section>
+
+    <section class="opt">
+      <div class="opt-head">
+        <span class="opt-n">Option 4</span>
+        <h2 class="opt-name">The Streak</h2>
+        <p class="opt-tag">A calm, single column story of the season so far, headlined by the one number that matters.</p>
+        <p class="opt-why">Every figure is anchored to an explicit scope label (all time, next up, or a dated season heading) so no number floats without context. A single focal counter carries the emotional weight while the vertical timeline replaces a grid of zero-value stat cards, which is what made the old screen read as broken. The unplayed Late Summer season is shown as an intentional "not started yet" waypoint at the top of the timeline rather than a wall of empty stats.</p>
+      </div>
+      <div class="opt-mock"><div class="mk-nt">
+  <h2 class="mk-sr">Touch This overview: a narrative timeline led by the all time first win counter, the next fixture, and a season by season results history.</h2>
+
+  <header class="mk-top">
+    <div class="mk-brand">
+      <svg width="30" height="35" viewBox="0 0 100 116" aria-hidden="true"><path d="M8 6H92V64C92 92 72 104 50 112C28 104 8 92 8 64Z" fill="#6e2334"/><text x="50" y="60" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="32" fill="#f0e6cf">TT</text></svg>
+      <span class="mk-brand-name">Touch This</span>
+    </div>
+    <div class="mk-toggle" role="tablist" aria-label="Season">
+      <button class="mk-tab mk-tab-on" role="tab" aria-selected="true">Late Summer 2026</button>
+      <button class="mk-tab" role="tab" aria-selected="false">Early Summer</button>
+    </div>
+  </header>
+
+  <section class="mk-hero" aria-label="First win tracker">
+    <div class="mk-hero-eyebrow"><span class="mk-dot"></span>All time · since the first ever game, 22 Apr 2026</div>
+    <h1 class="mk-hero-head">Still chasing the first win</h1>
+    <div class="mk-clock" aria-label="Time without a win">
+      <div class="mk-unit"><span class="mk-num">69</span><span class="mk-lab">days</span></div>
+      <span class="mk-sep">:</span>
+      <div class="mk-unit"><span class="mk-num">20</span><span class="mk-lab">hrs</span></div>
+      <span class="mk-sep">:</span>
+      <div class="mk-unit"><span class="mk-num">18</span><span class="mk-lab">min</span></div>
+    </div>
+    <p class="mk-hero-sub">0 wins in 7 games played. The clock keeps counting until we get one on the board.</p>
+  </section>
+
+  <section class="mk-next" aria-label="Next fixture">
+    <div class="mk-next-rail"></div>
+    <div class="mk-next-body">
+      <div class="mk-next-scope">Next up · Late Summer 2026 · Week 1</div>
+      <div class="mk-next-line">
+        <span class="mk-next-vs">vs Touchdown Titans v2</span>
+        <span class="mk-next-count">in 6d 04:12:33</span>
+      </div>
+      <div class="mk-next-meta">Wed 1 Jul 2026 · 19:50 kickoff · Clapham Wandsworth, Pitch 2</div>
+      <div class="mk-next-h2h">Head to head: played 2, lost 2 · both 3 to 7 · Titans finished 5th last season</div>
+    </div>
+  </section>
+
+  <section class="mk-timeline" aria-label="Results timeline">
+
+    <div class="mk-season-mark mk-season-active">
+      <span class="mk-season-tag mk-tag-active">Now</span>
+      <div class="mk-season-txt">
+        <div class="mk-season-name">Late Summer 2026</div>
+        <div class="mk-season-note">Season starts Wed 1 Jul · 0 of 6 games played · no results yet</div>
+      </div>
+    </div>
+
+    <div class="mk-season-mark">
+      <span class="mk-season-tag">Done</span>
+      <div class="mk-season-txt">
+        <div class="mk-season-name">Early Summer 2026</div>
+        <div class="mk-season-note">Finished 6th of 7 after play offs · 0 wins, 6 losses · 16 tries for, 49 against</div>
+      </div>
+    </div>
+
+    <ol class="mk-rows">
+      <li class="mk-row">
+        <div class="mk-date"><span class="mk-d1">24 Jun</span><span class="mk-d2">Play off</span></div>
+        <span class="mk-chip mk-loss">L</span>
+        <span class="mk-score">3<span class="mk-sc-x">–</span>7</span>
+        <span class="mk-opp">Touchdown Titans</span>
+        <span class="mk-report">Report<i class="mk-arw"></i></span>
+      </li>
+      <li class="mk-row">
+        <div class="mk-date"><span class="mk-d1">Game 6</span><span class="mk-d2">League</span></div>
+        <span class="mk-chip mk-loss">L</span>
+        <span class="mk-score">7<span class="mk-sc-x">–</span>—</span>
+        <span class="mk-opp">Best attack yet · 7 tries</span>
+        <span class="mk-report">Report<i class="mk-arw"></i></span>
+      </li>
+      <li class="mk-row">
+        <div class="mk-date"><span class="mk-d1">Game 5</span><span class="mk-d2">League</span></div>
+        <span class="mk-chip mk-loss">L</span>
+        <span class="mk-score">3<span class="mk-sc-x">–</span>—</span>
+        <span class="mk-opp">Franny hat trick region</span>
+        <span class="mk-report">Report<i class="mk-arw"></i></span>
+      </li>
+      <li class="mk-row">
+        <div class="mk-date"><span class="mk-d1">Game 4</span><span class="mk-d2">League</span></div>
+        <span class="mk-chip mk-loss">L</span>
+        <span class="mk-score">2<span class="mk-sc-x">–</span>—</span>
+        <span class="mk-opp">Attack building</span>
+        <span class="mk-report">Report<i class="mk-arw"></i></span>
+      </li>
+      <li class="mk-row">
+        <div class="mk-date"><span class="mk-d1">22 Apr</span><span class="mk-d2">League</span></div>
+        <span class="mk-chip mk-loss">L</span>
+        <span class="mk-score">3<span class="mk-sc-x">–</span>7</span>
+        <span class="mk-opp">Touchdown Titans · first ever game</span>
+        <span class="mk-report">Report<i class="mk-arw"></i></span>
+      </li>
+    </ol>
+
+    <div class="mk-origin">
+      <span class="mk-origin-dot"></span>
+      <span>22 Apr 2026 · where it all began</span>
+    </div>
+  </section>
+
+  <style>
+    .mk-nt{box-sizing:border-box;max-width:680px;margin:0 auto;background:transparent;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#1c1418;line-height:1.5;-webkit-font-smoothing:antialiased;padding:2px 2px 8px}
+    .mk-nt *{box-sizing:border-box}
+    .mk-nt .mk-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);border:0}
+    .mk-nt .mk-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:2px 2px 22px}
+    .mk-nt .mk-brand{display:flex;align-items:center;gap:10px}
+    .mk-nt .mk-brand-name{font-size:16px;font-weight:600;letter-spacing:-.02em}
+    .mk-nt .mk-toggle{display:inline-flex;background:#ffffff;border:1px solid #eadfd4;border-radius:999px;padding:3px}
+    .mk-nt .mk-tab{font:inherit;font-size:12.5px;font-weight:500;color:#8a7d80;border:0;background:transparent;padding:6px 12px;border-radius:999px;cursor:pointer;letter-spacing:-.01em;white-space:nowrap}
+    .mk-nt .mk-tab-on{background:#6e2334;color:#f0e6cf}
+
+    .mk-nt .mk-hero{text-align:center;padding:20px 18px 30px}
+    .mk-nt .mk-hero-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:500;color:#8a7d80;letter-spacing:.005em;text-transform:none}
+    .mk-nt .mk-dot{width:6px;height:6px;border-radius:50%;background:#9a4453;display:inline-block}
+    .mk-nt .mk-hero-head{margin:12px 0 20px;font-size:26px;font-weight:600;letter-spacing:-.02em;color:#1c1418;line-height:1.15}
+    .mk-nt .mk-clock{display:inline-flex;align-items:flex-start;gap:6px;color:#6e2334}
+    .mk-nt .mk-unit{display:flex;flex-direction:column;align-items:center;min-width:66px}
+    .mk-nt .mk-num{font-size:52px;line-height:.92;font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+    .mk-nt .mk-lab{margin-top:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#9a4453}
+    .mk-nt .mk-sep{font-size:40px;line-height:1.05;font-weight:400;color:#eadfd4}
+    .mk-nt .mk-hero-sub{max-width:430px;margin:22px auto 0;font-size:13.5px;color:#8a7d80;line-height:1.5}
+
+    .mk-nt .mk-next{display:flex;background:#ffffff;border:1px solid #eadfd4;border-radius:16px;box-shadow:0 1px 2px rgba(60,20,30,.05),0 6px 22px rgba(60,20,30,.06);overflow:hidden;margin:4px 0 34px}
+    .mk-nt .mk-next-rail{width:5px;background:#6e2334;flex:none}
+    .mk-nt .mk-next-body{padding:16px 20px}
+    .mk-nt .mk-next-scope{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#9a4453}
+    .mk-nt .mk-next-line{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:9px;flex-wrap:wrap}
+    .mk-nt .mk-next-vs{font-size:18px;font-weight:600;letter-spacing:-.02em;color:#1c1418}
+    .mk-nt .mk-next-count{font-size:13px;font-weight:600;color:#6e2334;font-variant-numeric:tabular-nums;font-feature-settings:"tnum";white-space:nowrap}
+    .mk-nt .mk-next-meta{margin-top:6px;font-size:13px;color:#1c1418}
+    .mk-nt .mk-next-h2h{margin-top:10px;padding-top:10px;border-top:1px solid #eadfd4;font-size:12.5px;color:#8a7d80;font-variant-numeric:tabular-nums}
+
+    .mk-nt .mk-timeline{position:relative}
+    .mk-nt .mk-season-mark{display:flex;align-items:flex-start;gap:12px;padding:0 2px 8px}
+    .mk-nt .mk-season-active{padding-bottom:14px}
+    .mk-nt .mk-season-tag{flex:none;margin-top:2px;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8a7d80;background:#f0e6cf;border-radius:6px;padding:3px 8px}
+    .mk-nt .mk-tag-active{color:#f0e6cf;background:#6e2334}
+    .mk-nt .mk-season-name{font-size:15px;font-weight:600;letter-spacing:-.01em;color:#1c1418}
+    .mk-nt .mk-season-note{margin-top:2px;font-size:12.5px;color:#8a7d80;font-variant-numeric:tabular-nums}
+    .mk-nt .mk-season-active .mk-season-note{color:#9a4453}
+
+    .mk-nt .mk-rows{list-style:none;margin:6px 0 0;padding:0;position:relative}
+    .mk-nt .mk-rows:before{content:"";position:absolute;left:6px;top:14px;bottom:14px;width:1px;background:#eadfd4}
+    .mk-nt .mk-row{display:grid;grid-template-columns:74px 26px auto 1fr auto;align-items:center;gap:12px;padding:13px 8px 13px 26px;border-bottom:1px solid #eadfd4;position:relative}
+    .mk-nt .mk-row:last-child{border-bottom:0}
+    .mk-nt .mk-row:before{content:"";position:absolute;left:2px;top:50%;transform:translateY(-50%);width:9px;height:9px;border-radius:50%;background:#ffffff;border:2px solid #b0546b}
+    .mk-nt .mk-date{display:flex;flex-direction:column;line-height:1.2}
+    .mk-nt .mk-d1{font-size:13px;font-weight:600;color:#1c1418;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+    .mk-nt .mk-d2{font-size:11px;color:#8a7d80}
+    .mk-nt .mk-chip{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:7px;font-size:12px;font-weight:700}
+    .mk-nt .mk-loss{background:#f7e9ec;color:#b0546b}
+    .mk-nt .mk-win{background:#e5f2ea;color:#3f9d6d}
+    .mk-nt .mk-score{font-size:16px;font-weight:600;color:#1c1418;font-variant-numeric:tabular-nums;font-feature-settings:"tnum";letter-spacing:-.01em;white-space:nowrap}
+    .mk-nt .mk-sc-x{color:#eadfd4;margin:0 3px;font-weight:400}
+    .mk-nt .mk-opp{font-size:13px;color:#8a7d80;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .mk-nt .mk-report{display:inline-flex;align-items:center;gap:3px;font-size:12px;font-weight:500;color:#9a4453;white-space:nowrap;cursor:pointer;opacity:.7}
+    .mk-nt .mk-report:hover{opacity:1}
+    .mk-nt .mk-arw{width:5px;height:5px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;transform:rotate(45deg);display:inline-block;margin-left:1px}
+
+    .mk-nt .mk-origin{display:flex;align-items:center;gap:10px;padding:16px 8px 2px 2px;font-size:12px;color:#8a7d80;font-variant-numeric:tabular-nums}
+    .mk-nt .mk-origin-dot{width:9px;height:9px;border-radius:50%;background:#6e2334;flex:none;margin-left:1.5px}
+
+    @media (max-width:520px){
+      .mk-nt .mk-row{grid-template-columns:64px 24px auto 1fr;grid-row-gap:2px}
+      .mk-nt .mk-report{grid-column:3 / -1;justify-self:start;padding-left:0}
+      .mk-nt .mk-unit{min-width:56px}
+      .mk-nt .mk-num{font-size:44px}
+    }
+  </style>
+</div></div>
+    </section>
+</div></body></html>
