@@ -131,6 +131,7 @@
     display:inline-flex;align-items:center;justify-content:center;font-weight:660;font-size:14px}
   .pcard .pn{font-weight:600;font-size:14px}
   .pcard .pr{font-size:12px;color:var(--muted)}
+  .pcard .pstat{font-size:12px;color:var(--accent-soft);margin-top:5px;font-weight:600;font-variant-numeric:tabular-nums}
 
   /* Bracket */
   .bracket{display:flex;flex-direction:column;gap:14px}
@@ -266,23 +267,23 @@ const TT = {
   },
 
   players: [
-    { id:"gayatri",  name:"Gayatri",           nickname:"G",           type:"core",    role:"Co-captain. Founded the team, paid the league fee, designed the kit." },
-    { id:"ella",     name:"Ella",              nickname:"El Capitan",  type:"core",    role:"Player. Guested for the Wasps in Match 5." },
-    { id:"harit",    name:"Harit",             nickname:null,          type:"core",    role:"Co-captain. Ran scouting, tactics and the match reports." },
-    { id:"franny",   name:"Francisco",         nickname:"Fran",        type:"core",    role:"Player. Top try scorer of the season." },
-    { id:"sarah",    name:"Sarah",             nickname:null,          type:"core",    role:"Player." },
-    { id:"max",      name:"Max Gutsche",       nickname:null,          type:"core",    role:"Player." },
-    { id:"helena",   name:"Helena Murray",     nickname:null,          type:"core",    role:"Player." },
-    { id:"robert",   name:"Robert Hutchinson", nickname:"Rob",         type:"squad",   role:"Squad player. Sideline support early, then started and starred in Match 7." },
-    { id:"bex",      name:"Bex Dunnet",        nickname:"Bex",         type:"squad",   role:"Squad player." },
-    { id:"sam",      name:"Sam",               nickname:null,          type:"regular", role:"Season regular via Fran from 26 Apr. Two standout shifts." },
-    { id:"martin",   name:"Martin",            nickname:null,          type:"ringer",  role:"Sub. Quick try scorer." },
-    { id:"kingsley", name:"Kingsley",          nickname:null,          type:"ringer",  role:"Sub. Double interception in Match 6." },
-    { id:"ieuan",    name:"Ieuan",             nickname:null,          type:"ringer",  role:"Sub in Match 2." },
-    { id:"charlotte",name:"Charlotte",         nickname:null,          type:"ringer",  role:"Sub in Match 6." },
-    { id:"henry",    name:"Henry",             nickname:null,          type:"ringer",  role:"Sub in Match 7." },
-    { id:"sophie",   name:"Sophie",            nickname:null,          type:"ringer",  role:"Sub in Match 7." },
-    { id:"moustache-man", name:"Mystery sub",  nickname:"moustache man", type:"ringer", role:"Sub in Match 2, reportedly very fast." }
+    { id:"gayatri",  name:"Gayatri",           nickname:"G",            type:"core",    apps:5, appsExact:false, role:"Co-captain. Founded the team, paid the league fee, designed the kit." },
+    { id:"harit",    name:"Harit",             nickname:null,           type:"core",    apps:6, appsExact:false, role:"Co-captain. Ran scouting, tactics and the match reports." },
+    { id:"ella",     name:"Ella",              nickname:"El Capitan",   type:"core",    apps:2, appsExact:false, role:"Player. Played for TT in Matches 4 and 7; guested for the Wasps in Match 5." },
+    { id:"franny",   name:"Francisco",         nickname:"Fran",         type:"core",    apps:3, appsExact:false, role:"Player. Top try scorer of the season." },
+    { id:"sarah",    name:"Sarah",             nickname:"G's flatmate", type:"core",    apps:4, appsExact:false, role:"Player." },
+    { id:"max",      name:"Max Gutsche",       nickname:null,           type:"core",    apps:5, appsExact:false, role:"Player. Missed Match 5 for a work event." },
+    { id:"helena",   name:"Helena Murray",     nickname:null,           type:"core",    apps:1, appsExact:false, role:"Player. Missed Match 2 (bug)." },
+    { id:"robert",   name:"Robert Hutchinson", nickname:"Rob",          type:"squad",   apps:1, appsExact:true,  role:"Played only the final (Match 7), after supporting from the sideline all season, and scored on debut." },
+    { id:"bex",      name:"Bex Dunnet",        nickname:"Bex",          type:"squad",   apps:1, appsExact:true,  role:"Played only Match 1, then injured for the rest of the season." },
+    { id:"sam",      name:"Sam",               nickname:"Fran's friend",type:"regular", apps:4, appsExact:false, role:"Debuted in Match 1 as Fran's sourced ringer, formally joined on 26 Apr. Two standout shifts." },
+    { id:"martin",   name:"Martin",            nickname:null,           type:"ringer",  apps:2, appsExact:true,  role:"Sub. Quick try scorer." },
+    { id:"kingsley", name:"Kingsley",          nickname:null,           type:"ringer",  apps:1, appsExact:true,  role:"Sub. Double interception in Match 6." },
+    { id:"ieuan",    name:"Ieuan",             nickname:null,           type:"ringer",  apps:1, appsExact:true,  role:"Sub in Match 2." },
+    { id:"charlotte",name:"Charlotte",         nickname:null,           type:"ringer",  apps:1, appsExact:true,  role:"Sub in Match 6." },
+    { id:"henry",    name:"Henry",             nickname:null,           type:"ringer",  apps:1, appsExact:true,  role:"Sub in Match 7." },
+    { id:"sophie",   name:"Sophie",            nickname:null,           type:"ringer",  apps:1, appsExact:true,  role:"Sub in Match 7." },
+    { id:"moustache-man", name:"Mystery sub",  nickname:"moustache man",type:"ringer",  apps:1, appsExact:true,  role:"Sub in Match 2, reportedly very fast." }
   ],
 
   opponents: [
@@ -906,18 +907,37 @@ function renderPlayoffs(){
     ${placingsHtml}`;
 }
 
+function appsChart(){
+  const list = TT.players.filter(p=>p.apps>0).map(p=>({id:p.id,n:p.apps,exact:p.appsExact})).sort((a,b)=>b.n-a.n||a.id.localeCompare(b.id));
+  if(!list.length) return '<div class="empty">No appearances logged.</div>';
+  const max=Math.max(...list.map(i=>i.n));
+  return list.map(i=>`
+    <div class="bar-row">
+      <div class="name">${esc(playerName(i.id))}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(i.n/max*100)}%"></div></div>
+      <div class="val">${i.n}${i.exact?'':'+'}</div>
+    </div>`).join('');
+}
 function renderPlayers(){
   const host=$('[data-view="players"]'); const sid=cur();
   const scorers=tallyScorers(sid), mvps=tallyMvp(sid), unatt=totalUnattributed(sid);
   const typeLabel={core:'Core',squad:'Squad',regular:'Regular',ringer:'Ringer'};
-  const roster = TT.players.map(p=>`
+  const triesMap={}; tallyScorers('all').forEach(x=>triesMap[x.id]=x.n);
+  const roster = TT.players.map(p=>{
+    const t=triesMap[p.id]||0;
+    const appsTxt = p.apps?`${p.apps}${p.appsExact?'':'+'} ${(p.apps===1&&p.appsExact)?'app':'apps'}`:'';
+    const triesTxt = t?`${t} ${t===1?'try':'tries'}`:'';
+    const stat=[appsTxt,triesTxt].filter(Boolean).join(' · ');
+    return `
     <div class="pcard">
       <span class="avatar">${esc(initials(p.name))}</span>
       <div style="min-width:0">
         <div class="pn">${esc(p.name)}${p.nickname?` <span class="muted">(${esc(p.nickname)})</span>`:''} ${p.type?`<span class="ptype ${esc(p.type)}">${esc(typeLabel[p.type]||p.type)}</span>`:''}</div>
         <div class="pr">${esc(p.role)}</div>
+        ${stat?`<div class="pstat">${stat}</div>`:''}
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
   host.innerHTML = `
     <h2 class="section-t">Players &amp; stats</h2>
     <p class="section-s">Leaderboards for ${esc(sid==='all'?'all seasons':season(sid)?.name)}. One try equals one point in this league, so tries are the scoring stat.</p>
@@ -926,7 +946,8 @@ function renderPlayers(){
         ${unatt?`<p class="muted" style="margin:11px 0 0;font-size:12.5px">Plus ${unatt} ${unatt===1?'try':'tries'} scored but never attributed to a named player.</p>`:''}</div>
       <div class="card"><h3>MVP awards</h3>${barChart(mvps,i=>playerName(i.id),'No MVPs logged yet.')}
         ${mvps.length?'<p class="muted" style="margin:11px 0 0;font-size:12.5px">A different player won it every week.</p>':''}</div>
-      <div class="card"><h3>Appearances</h3><div class="empty">Line-ups were only partly recorded, so appearances are not tracked. The squad leaned heavily on subs and ringers.</div></div>
+      <div class="card"><h3>Appearances</h3>${sid==='2026-spring'?appsChart():'<div class="empty">No appearances logged for this season yet.</div>'}
+        ${sid==='2026-spring'?'<p class="muted" style="margin:11px 0 0;font-size:12.5px">Confirmed appearances; &ldquo;+&rdquo; marks a minimum, as some core players have unconfirmed weeks.</p>':''}</div>
     </div>
     <h2 class="section-t">Squad</h2>
     <p class="section-s">The ${TT.players.length} players who turned out: core regulars, squad players, and the subs and ringers who filled in.</p>
@@ -963,9 +984,10 @@ function renderStats(){
       ${recCard('Heaviest defeat', heaviest, heaviest?'lost by '+(heaviest.oppScore-heaviest.ttScore):'')}
     </div>
     <h2 class="section-t">All-time leaderboards</h2>
-    <div class="grid g2">
+    <div class="grid g3">
       <div class="card"><h3>Top try scorers</h3>${barChart(scorers,i=>playerName(i.id),'No try scorers yet.')}${unatt?`<p class="muted" style="margin:11px 0 0;font-size:12.5px">Plus ${unatt} unattributed tries.</p>`:''}</div>
       <div class="card"><h3>Most MVP awards</h3>${barChart(mvps,i=>playerName(i.id),'No MVPs yet.')}</div>
+      <div class="card"><h3>Appearances</h3>${appsChart()}<p class="muted" style="margin:11px 0 0;font-size:12.5px">&ldquo;+&rdquo; marks a confirmed minimum.</p></div>
     </div>
     <h2 class="section-t">By the numbers</h2>
     <div class="card"><ul class="facts">
