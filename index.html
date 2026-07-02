@@ -136,8 +136,9 @@
   .bar-fill{height:100%;border-radius:7px;background:linear-gradient(90deg,var(--accent),var(--accent-soft));
     min-width:3px;transition:width .3s ease}
   .bar-row .val{width:38px;flex:none;text-align:right;font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted)}
-  .sq-group + .sq-group{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
-  .sq-role{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:0 0 4px}
+  tr.att-group td{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;background:var(--panel-2);padding:7px 13px}
+  .att-dot{display:inline-block;width:11px;height:11px;border-radius:50%;background:var(--win);vertical-align:middle}
+  .att-dot.off{background:transparent;border:1.5px solid var(--line)}
 
   /* Roster */
   .roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
@@ -578,7 +579,6 @@ const oppName = id => (opp(id)?.name) || 'TBC';
 const playerName = id => { const p=player(id); return p ? p.name : id; };
 const playerShort = id => { const p=player(id); return p ? (p.nickname||p.name.split(' ')[0]) : id; };
 const firstName = id => { const p=player(id); return p ? (p.first || p.name.split(' ')[0]) : id; };
-function seasonApps(sid){ const m={}; TT.fixtures.filter(f=>inScope(f,sid)&&f.played&&Array.isArray(f.lineup)).forEach(f=>f.lineup.forEach(pid=>m[pid]=(m[pid]||0)+1)); return m; }
 const initials = n => n.split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
 const NR = '<span class="muted">Not recorded</span>';
 
@@ -744,6 +744,7 @@ function barChart(items, nameFn, emptyMsg){
 let curSeason = '2026-summer';
 const cur = () => curSeason;
 let statsScope = 'all';
+let playersScope = (TT.seasons.find(s=>s.status==='active')||TT.seasons[0]).id;
 
 /* ---------- first-win tracker (counts up until the first ever win) ---------- */
 function firstGame(){
@@ -1151,43 +1152,61 @@ function appsChart(){
     </div>`).join('');
 }
 function renderPlayers(){
-  const host=$('[data-view="players"]'); const sid=cur();
+  const host=$('[data-view="players"]');
+  const sid = playersScope;
   const scorers=tallyScorers(sid), mvps=tallyMvp(sid), unatt=totalUnattributed(sid);
   const squad = (TT.squads && TT.squads[sid]) || null;
-  const apps = seasonApps(sid);
-  const gp = TT.fixtures.filter(f=>inScope(f,sid) && f.competition!=='bye' && f.played).length;
-  const attRow = id => `
-    <div class="bar-row">
-      <div class="name">${esc(firstName(id))}</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${gp?Math.round((apps[id]||0)/gp*100):0}%"></div></div>
-      <div class="val">${apps[id]||0}${gp?'/'+gp:''}</div>
-    </div>`;
-  const byApps = ids => ids.slice().sort((a,b)=> (apps[b]||0)-(apps[a]||0));
-  const group = (label, ids) => ids.length ? `<div class="sq-group"><div class="sq-role">${label}</div>${ids.map(attRow).join('')}</div>` : '';
-  let attendanceHTML = '';
+  const seasonName = sid==='all' ? 'All seasons' : (season(sid)?.name || sid);
+  const toggle = `<div class="seg players-seg" role="tablist" aria-label="Season" style="margin-bottom:16px">`
+    + [...TT.seasons.map(s=>[s.id, s.name.replace(/\s*20\d\d/,'')]), ['all','All seasons']]
+      .map(([id,lab])=>`<button data-scope="${id}"${id===sid?' class="active"':''}>${esc(lab)}</button>`).join('')
+    + `</div>`;
+
+  let body='';
   if(squad){
+    // attendance register: one row per player, one dot column per game with a recorded lineup
+    const games = TT.fixtures.filter(f=>inScope(f,sid) && f.played && Array.isArray(f.lineup))
+      .sort((a,b)=>(a.date||'')<(b.date||'')?-1:1);
+    const apps={}; games.forEach(f=>f.lineup.forEach(pid=>apps[pid]=(apps[pid]||0)+1));
+    const tries={}; scorers.forEach(s=>tries[s.id]=s.n);
+    const awards={}; mvps.forEach(m=>awards[m.id]=m.n);
     const roster = new Set([...(squad.captains||[]), ...(squad.core||[])]);
     const ringers = Object.keys(apps).filter(id=>!roster.has(id));
-    attendanceHTML = `
+    const byApps = ids => ids.slice().sort((a,b)=>(apps[b]||0)-(apps[a]||0));
+    const cols = games.length + 4;
+    const num = n => n ? n : '<span class="muted">0</span>';
+    const wkHead = f => `<th class="num" title="${esc(fmtDate(f.date))} vs ${esc(f.opponent?oppName(f.opponent):'TBC')}">${f.week?'W'+f.week:'PO'}</th>`;
+    const row = id => `
+      <tr>
+        <td>${esc(firstName(id))}</td>
+        ${games.map(f=>`<td class="num"><span class="att-dot${f.lineup.includes(id)?'':' off'}"></span></td>`).join('')}
+        <td class="num">${num(apps[id]||0)}</td><td class="num">${num(tries[id]||0)}</td><td class="num">${num(awards[id]||0)}</td>
+      </tr>`;
+    const grp = (label, ids) => ids.length ? `<tr class="att-group"><td colspan="${cols}">${label}</td></tr>`+ids.map(row).join('') : '';
+    body = `
       <h2 class="section-t">Squad and attendance</h2>
-      <p class="section-s">Turnout this season, by squad role. ${gp} game${gp===1?'':'s'} played so far.</p>
-      <div class="card">
-        ${group('Co-captains', squad.captains||[])}
-        ${group('Core team', byApps(squad.core||[]))}
-        ${group('Ringers', byApps(ringers))}
+      <p class="section-s">One column per game, a filled dot means played. ${games.length} game${games.length===1?'':'s'} logged in ${esc(seasonName)}.</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Player</th>${games.map(wkHead).join('')}<th class="num">Played</th><th class="num">Tries</th><th class="num">MVP</th></tr></thead>
+        <tbody>
+          ${grp('Co-captains', squad.captains||[])}
+          ${grp('Core team', byApps(squad.core||[]))}
+          ${grp('Ringers', byApps(ringers))}
+        </tbody>
+      </table></div>
+      ${unatt?`<p class="muted" style="margin:10px 2px 0;font-size:12.5px">Plus ${unatt} ${unatt===1?'try':'tries'} not attributed to a named player.</p>`:''}`;
+  } else {
+    body = `
+      <h2 class="section-t">Leaderboards</h2>
+      <p class="section-s">${esc(seasonName)}. One try equals one point in this league, so tries are the scoring stat.</p>
+      <div class="grid g2">
+        <div class="card"><h3>Top try scorers</h3>${barChart(scorers,i=>firstName(i.id),'No try scorers logged yet.')}
+          ${unatt?`<p class="muted" style="margin:11px 0 0;font-size:12.5px">Plus ${unatt} ${unatt===1?'try':'tries'} scored but never attributed to a named player.</p>`:''}</div>
+        <div class="card"><h3>MVP awards</h3>${barChart(mvps,i=>firstName(i.id),'No MVPs logged yet.')}</div>
       </div>`;
   }
-  host.innerHTML = `
-    ${seasonToggleHTML()}
-    ${attendanceHTML}
-    <h2 class="section-t">Leaderboards</h2>
-    <p class="section-s">${esc(sid==='all'?'All seasons':season(sid)?.name||'')}. One try equals one point in this league, so tries are the scoring stat.</p>
-    <div class="grid g2">
-      <div class="card"><h3>Top try scorers</h3>${barChart(scorers,i=>firstName(i.id),'No try scorers logged yet.')}
-        ${unatt?`<p class="muted" style="margin:11px 0 0;font-size:12.5px">Plus ${unatt} ${unatt===1?'try':'tries'} scored but never attributed to a named player.</p>`:''}</div>
-      <div class="card"><h3>MVP awards</h3>${barChart(mvps,i=>firstName(i.id),'No MVPs logged yet.')}</div>
-    </div>`;
-  wireSeasonToggle(host);
+  host.innerHTML = toggle + body;
+  $$('.players-seg button',host).forEach(b=>b.addEventListener('click',()=>{ playersScope=b.dataset.scope; renderPlayers(); }));
 }
 
 function renderStats(){
