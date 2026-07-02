@@ -1162,8 +1162,8 @@ function renderPlayers(){
       <div class="bar-track"><div class="bar-fill" style="width:${gp?Math.round((apps[id]||0)/gp*100):0}%"></div></div>
       <div class="val">${apps[id]||0}${gp?'/'+gp:''}</div>
     </div>`;
-  const byAtt = ids => ids.slice().sort((a,b)=> (apps[b]||0)-(apps[a]||0) || firstName(a).localeCompare(firstName(b)));
-  const group = (label, ids) => ids.length ? `<div class="sq-group"><div class="sq-role">${label}</div>${byAtt(ids).map(attRow).join('')}</div>` : '';
+  const byApps = ids => ids.slice().sort((a,b)=> (apps[b]||0)-(apps[a]||0));
+  const group = (label, ids) => ids.length ? `<div class="sq-group"><div class="sq-role">${label}</div>${ids.map(attRow).join('')}</div>` : '';
   let attendanceHTML = '';
   if(squad){
     const roster = new Set([...(squad.captains||[]), ...(squad.core||[])]);
@@ -1173,8 +1173,8 @@ function renderPlayers(){
       <p class="section-s">Turnout this season, by squad role. ${gp} game${gp===1?'':'s'} played so far.</p>
       <div class="card">
         ${group('Co-captains', squad.captains||[])}
-        ${group('Core team', squad.core||[])}
-        ${group('Ringers', ringers)}
+        ${group('Core team', byApps(squad.core||[]))}
+        ${group('Ringers', byApps(ringers))}
       </div>`;
   }
   host.innerHTML = `
