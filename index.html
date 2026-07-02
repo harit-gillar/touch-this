@@ -145,6 +145,7 @@
   .pl-av-gold{background:color-mix(in srgb,var(--draw) 16%,var(--panel));color:color-mix(in srgb,var(--draw) 75%,var(--ink))}
   .pl-name{font-size:14px;font-weight:550;color:var(--ink)}
   .pl-flag{font-size:13.5px;margin-left:6px}
+  .pl-nick{font-size:13px;font-weight:400;color:var(--muted)}
   .pl-sub{font-size:12px;color:var(--muted)}
   .pl-count{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;width:34px;text-align:right;flex:none}
   .pl-ghead{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;padding:12px 0 3px}
@@ -1177,6 +1178,7 @@ function renderPlayers(){
     + `</div>`;
 
   const flagHTML = id => { const p=player(id); return p&&p.flag ? `<span class="pl-flag">${p.flag}</span>` : ''; };
+  const nickHTML = id => { const p=player(id); return p&&p.nickname && p.nickname!==firstName(id) ? ` <span class="pl-nick">&ldquo;${esc(p.nickname)}&rdquo;</span>` : ''; };
   const nameLabel = i => firstName(i.id) + (player(i.id)?.flag ? ' '+player(i.id).flag : '');
 
   // attendance (only for a season with a defined squad and recorded lineups)
@@ -1192,7 +1194,7 @@ function renderPlayers(){
     const row = id => `
       <div class="pl-row">
         <div class="pl-av">${esc(firstName(id).slice(0,1).toUpperCase())}</div>
-        <div style="flex:1;min-width:0"><span class="pl-name">${esc(firstName(id))}</span>${flagHTML(id)}</div>
+        <div style="flex:1;min-width:0"><span class="pl-name">${esc(firstName(id))}</span>${nickHTML(id)}${flagHTML(id)}</div>
         ${games.length?`<span>${dots(id)}</span>
         <span class="pl-count">${apps[id]||0}/${games.length}</span>`:''}
       </div>`;
@@ -1215,7 +1217,7 @@ function renderPlayers(){
     <div class="mvp-row">
       <div style="display:flex;align-items:center;gap:11px">
         <div class="pl-av pl-av-gold">${esc(firstName(f.mvp.player).slice(0,1).toUpperCase())}</div>
-        <div style="flex:1;min-width:0"><span class="pl-name">${esc(firstName(f.mvp.player))}</span>${flagHTML(f.mvp.player)}</div>
+        <div style="flex:1;min-width:0"><span class="pl-name">${esc(firstName(f.mvp.player))}</span>${nickHTML(f.mvp.player)}${flagHTML(f.mvp.player)}</div>
         <span class="pl-sub">${mvpWhen(f)}${f.opponent?' · vs '+esc(oppName(f.opponent)):''}</span>
       </div>
       ${f.mvp.reason?`<p class="mvp-why">&ldquo;${esc(f.mvp.reason)}&rdquo;</p>`:''}
