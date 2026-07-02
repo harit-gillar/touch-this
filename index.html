@@ -148,7 +148,6 @@
   .pl-sub{font-size:12px;color:var(--muted)}
   .pl-count{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;width:34px;text-align:right;flex:none}
   .pl-ghead{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;padding:12px 0 3px}
-  .pl-flame{width:16px;height:16px;flex:none;color:var(--draw)}
   .mvp-row{padding:11px 0;border-bottom:1px solid var(--line)}
   .mvp-row:last-child{border-bottom:none}
   .mvp-why{font-size:13.5px;font-style:italic;color:var(--ink);margin:5px 0 0 43px;line-height:1.45}
@@ -361,27 +360,29 @@ const TT = {
 
   players: [
     { id:"gayatri",  name:"Gayatri",           nickname:"G",            type:"core",    apps:7, appsExact:true, flag:"🇬🇧",  role:"Co-captain. Founded the team, paid the league fee, designed the kit. Ever-present, all 7 games." },
-    { id:"harit",    name:"Harit",             nickname:null,           type:"core",    apps:7, appsExact:true, flag:"🇬🇧",  role:"Co-captain. Ran scouting, tactics and the match reports. Ever-present, all 7 games." },
+    { id:"harit",    name:"Harit",             nickname:null,           type:"core",    apps:8, appsExact:true, flag:"🇬🇧",  role:"Co-captain. Ran scouting, tactics and the match reports. Ever-present, all 7 games." },
     { id:"ella",     name:"Ella",              nickname:"El Capitan",   type:"core",    apps:5, appsExact:true,  flag:"🇳🇿", role:"Player. Guested for the Wasps in Match 5, which does not count as a TT game." },
-    { id:"franny",   name:"Francisco",         nickname:"Fran", first:"Fran", type:"core",    apps:3, appsExact:false, flag:"🇨🇱", role:"Player. Top try scorer of the season." },
-    { id:"sarah",    name:"Sarah",             nickname:null,           type:"core",    apps:4, appsExact:false, flag:"🇬🇧", role:"Player. G's flatmate." },
+    { id:"franny",   name:"Francisco",         nickname:"Fran", first:"Fran", type:"core",    apps:6, appsExact:true, flag:"🇨🇱", role:"Player. Top try scorer of the season." },
+    { id:"sarah",    name:"Sarah",             nickname:null,           type:"core",    apps:7, appsExact:true, flag:"🇬🇧", role:"Player. G's flatmate." },
     { id:"max",      name:"Max Gutsche",       nickname:null,           type:"core",    apps:5, appsExact:true, flag:"🇰🇪",  role:"Player. Missed Match 1, and Match 5 for a work event." },
-    { id:"helena",   name:"Helena Murray",     nickname:null,           type:"core",    apps:1, appsExact:false, flag:"🇬🇧", role:"Player. Missed Match 2 (bug)." },
+    { id:"helena",   name:"Helena Murray",     nickname:null,           type:"core",    apps:5, appsExact:true, flag:"🇬🇧", role:"Player. Missed Match 2 (bug)." },
     { id:"robert",   name:"Robert Hutchinson", nickname:"Rob", first:"Rob", type:"squad",   apps:1, appsExact:true, flag:"🇰🇪",  role:"Played only the final (Match 7), after supporting from the sideline all season, and scored on debut." },
     { id:"bex",      name:"Bex Dunnet",        nickname:"Bex",          type:"squad",   apps:1, appsExact:true, flag:"🇬🇧",  role:"Played only Match 1, then injured for the rest of the season." },
-    { id:"sam",      name:"Sam",               nickname:null,           type:"regular", apps:4, appsExact:false, flag:"🇬🇧", role:"Fran's friend. Debuted in Match 1 as his sourced ringer, formally joined on 26 Apr. Two standout shifts." },
+    { id:"sam",      name:"Sam",               nickname:null,           type:"regular", apps:7, appsExact:true, flag:"🇬🇧", role:"Fran's friend. Debuted in Match 1 as his sourced ringer, formally joined on 26 Apr. Two standout shifts." },
     { id:"martin",   name:"Martin",            nickname:null,           type:"ringer",  apps:2, appsExact:true, flag:"🇿🇦",  role:"Sub. Quick try scorer." },
-    { id:"kingsley", name:"Kingsley",          nickname:null,           type:"ringer",  apps:1, appsExact:true, flag:"🇿🇦",  role:"Sub. Double interception in Match 6." },
-    { id:"ieuan",    name:"Ieuan",             nickname:null,           type:"ringer",  apps:1, appsExact:true, flag:"🇳🇿",  role:"Sub in Match 2." },
+    { id:"kingsley", name:"Kingsley",          nickname:null,           type:"ringer",  apps:1, appsExact:true, flag:"🇿🇦",  role:"Sub. Hat-trick and a double interception in Match 6." },
+    { id:"ieuan",    name:"Ieuan",             nickname:null,           type:"ringer",  apps:2, appsExact:true, flag:"🇳🇿",  role:"Sub in Matches 2 and 3." },
     { id:"charlotte",name:"Charlotte",         nickname:null,           type:"ringer",  apps:1, appsExact:true, flag:"🏳️",  role:"Sub in Match 6." },
     { id:"henry",    name:"Henry",             nickname:null,           type:"ringer",  apps:1, appsExact:true, flag:"🏳️",  role:"Sub in Match 7." },
     { id:"sophie",   name:"Sophie",            nickname:null,           type:"ringer",  apps:1, appsExact:true, flag:"🏳️",  role:"Sub in Match 7." },
-    { id:"moustache-man", name:"Mystery sub",  nickname:"moustache man",type:"ringer",  apps:1, appsExact:true, flag:"🏳️",  role:"Sub in Match 2, reportedly very fast." },
+    { id:"george",   name:"George",            nickname:null,           type:"ringer",  apps:1, appsExact:true, flag:"🏳️",  role:"Played Match 1 of Early Summer." },
+    { id:"lizzie",   name:"Lizzie",            nickname:null,           type:"ringer",  apps:1, appsExact:true, flag:"🏳️",  role:"Played Match 1 of Early Summer." },
+    { id:"eduardo",  name:"Eduardo",           nickname:null,           type:"ringer",  apps:1, appsExact:true, flag:"🏳️",  role:"Played Match 1 of Early Summer." },
     { id:"nicole",   name:"Nicole Hopper",     nickname:null,           type:"regular", apps:1, appsExact:true, flag:"🇦🇺",  role:"Debuted in the Season 2 opener and won MVP for a fantastic first game." },
     { id:"harry",    name:"Harry",             nickname:null,           type:"regular", apps:1, appsExact:true, flag:"🏳️",  role:"Debuted in the Season 2 opener. Drew first blood with a knee scrape." },
     { id:"marian",   name:"Marian",            nickname:null,           type:"regular", apps:1, appsExact:true, flag:"🏳️",  role:"Debuted in the Season 2 opener." },
     { id:"morgan",   name:"Morgan",            nickname:null,           type:"regular", apps:1, appsExact:true, flag:"🏳️",  role:"Debuted in the Season 2 opener." },
-    { id:"jas",      name:"Jas",               nickname:null,           type:"core",    apps:0, appsExact:true, flag:"🏳️",  role:"Late Summer core team." }
+    { id:"jas",      name:"Jas",               nickname:null,           type:"core",    apps:1, appsExact:true, flag:"🏳️",  role:"Played Match 3 of Early Summer; Late Summer core team." }
   ],
 
   opponents: [
@@ -502,10 +503,11 @@ const TT = {
     // ---- Early Summer 2026 (season 1) — regular season ----
     { id:"s1-w1", season:"2026-spring", week:1, date:"2026-04-22", time:"19:10", competition:"league",
       opponent:"touchdown-titans", venue:HOME_VENUE, played:true,
-      ttScore:3, oppScore:7, result:"L", scorers:[{player:"franny",tries:2},{player:"max",tries:1}], unattributed:0,
+      ttScore:3, oppScore:7, result:"L", scorers:[{player:"franny",tries:3}], unattributed:0,
       mvp:{player:"franny",award:"MOM"}, conditions:null,
+      lineup:["harit","bex","franny","sarah","gayatri","george","lizzie","helena","sam","eduardo"],
       highlights:["Bex dislocated a finger, the injury that kept her out for the rest of the season, and still made it to the pub."],
-      notes:"Opening game. Reported as 2 to 7 on the night; the official 3 to 7 added Max's try." },
+      notes:"Opening game. Reported as 2 to 7 on the night; the official record made it 3 to 7, all three a Fran hat-trick." },
     { id:"s1-bye", season:"2026-spring", week:null, date:"2026-04-29", competition:"bye",
       opponent:null, venue:null, played:false, ttScore:null, oppScore:null, result:null,
       scorers:null, unattributed:0, mvp:null, notes:"Bye week. Poor weather; the team chose to rest." },
@@ -513,18 +515,21 @@ const TT = {
       opponent:"dirty-dogs", venue:HOME_VENUE, played:true,
       ttScore:0, oppScore:11, result:"L", scorers:[], unattributed:0,
       mvp:{player:"sarah",award:"MOM"}, conditions:null,
+      lineup:["harit","max","sarah","ieuan","franny","gayatri","sam"],
       highlights:["Ieuan threw over the head American football passes.","The unidentified moustache man sub reportedly outran Usain Bolt.","Rob watched from the sideline again."],
       notes:"Heaviest defeat. Called 8 to 0 on the night, corrected to 11 to 0. Opponent confirmed as The Dirty Dogs via the official results." },
     { id:"s1-w3", season:"2026-spring", week:3, date:"2026-05-13", time:"18:30", competition:"league",
       opponent:"scoregasms", venue:HOME_VENUE, played:true,
       ttScore:1, oppScore:9, result:"L", scorers:[{player:"harit",tries:1}], unattributed:0,
       mvp:{player:"harit",award:"MOM"}, conditions:"Heavy rain, soggy pitch, a lightning scare that nearly called it off.",
+      lineup:["harit","gayatri","sarah","max","sam","ella","ieuan","helena","jas"],
       highlights:["The single try was only just allowed by the referee.","Harit intercepted, then dropped the ball twice.","Widely felt to be the team's best performance of the season despite the scoreline, and against the eventual league winners."],
       notes:"Nearly cancelled for lightning. Held to one try by the side that went on to win the league." },
     { id:"s1-w4", season:"2026-spring", week:4, date:"2026-05-20", time:"19:10", competition:"league",
       opponent:"churchills", venue:HOME_VENUE, played:true,
       ttScore:2, oppScore:9, result:"L", scorers:[{player:"franny",tries:1},{player:"harit",tries:1}], unattributed:0,
       mvp:{player:"max",award:"MOTM"}, conditions:"Dry and pleasant.",
+      lineup:["harit","franny","gayatri","sarah","max","ella","helena"],
       highlights:["Franny scored from a twinkle toes move combined with Harit.","Harit intercepted and sprinted the full length of the pitch without looking back.","A dog took a dump exactly as the opposition scored their fourth.","Gayatri intercepted a pass.","A failed diving try.","Franny ran sideways the entire length of the pitch."],
       notes:"Scored twice against the division's best defence: 2nd place and unbeaten in three at the time." },
     { id:"s1-w5", season:"2026-spring", week:5, date:"2026-05-27", time:"19:50", competition:"league",
@@ -532,22 +537,25 @@ const TT = {
       ttScore:3, oppScore:5, result:"L",
       scorers:[{player:"sarah",tries:1},{player:"franny",tries:1},{player:"martin",tries:1}], unattributed:0,
       mvp:{player:"sam",award:"MOTM"}, conditions:"Cool breeze, pleasant.",
+      lineup:["harit","gayatri","sarah","sam","franny","martin","helena"],
       highlights:["Ella guested for the Wasps and earned the double agent label, the only person connected to the team to win a game of touch all season.","Martin scored fast, then broke a lung, and added an interception inside 60 seconds.","Franny passed the ball to the referee.","Strong first half, the team bottled the second."],
       notes:"The 6th vs 7th grudge match against the designated rivals." },
     { id:"s1-w6", season:"2026-spring", week:6, date:"2026-06-03", time:"19:10", competition:"league",
       opponent:"try-hard-2", venue:HOME_VENUE, played:true,
       ttScore:7, oppScore:8, result:"L",
-      scorers:[{player:"kingsley",tries:2},{player:"sam",tries:1},{player:"martin",tries:1}], unattributed:3,
+      scorers:[{player:"kingsley",tries:3},{player:"martin",tries:2},{player:"sam",tries:1},{player:"harit",tries:1}], unattributed:0,
       mvp:{player:"helena",award:"MVP"}, conditions:"Slippery and wet.",
+      lineup:["helena","max","harit","sam","martin","kingsley","gayatri","ella","franny","sarah","charlotte"],
       highlights:["Closest game of the season, lost by a single try.","Kingsley made a double interception.","Someone grabbed Harit's arse.","Charlotte, a new sub, ran on smiling without knowing the rules."],
-      notes:"Highest scoring game of the season: 7 tries against the eventual 3rd-placed side. Kingsley scored twice off his double interception; three tries are still unattributed." },
+      notes:"Highest scoring game of the season: 7 tries against the eventual 3rd-placed side. A Kingsley hat-trick off the back of his double interception, two for Martin, one each for Sam and Harit." },
     // ---- Early Summer 2026 — play-off (5th/6th). Set for 17 Jun, cancelled (no referee), replayed 24 Jun ----
     { id:"s1-po", season:"2026-spring", week:null, date:"2026-06-24", time:"19:50", competition:"playoff",
       playoffRound:"5th/6th place", opponent:"touchdown-titans", venue:HOME_VENUE, played:true,
-      ttScore:3, oppScore:7, result:"L", scorers:[{player:"robert",tries:2},{player:"gayatri",tries:1}], unattributed:0,
+      ttScore:3, oppScore:7, result:"L", scorers:[{player:"robert",tries:2},{player:"max",tries:1}], unattributed:0,
       mvp:{player:"robert",award:"MVP",reason:"Scored twice on his debut"}, conditions:"37 degrees, very hot.",
+      lineup:["robert","harit","gayatri","ella","sam","max","sophie","henry"],
       highlights:["Full circle rematch of the opening game against the same Titans, ending on the same scoreline.","Robert scored on his first ever game and shouted at the referee.","Ella was back on the correct team and got slammed to the floor.","Sam repeatedly bailed Harit out.","Henry threw the ball into touch three times.","Max and Gayatri could not finish breaks because nobody supported the run."],
-      notes:"5th place play-off. Robert scored twice on debut and Gayatri got the third. A win meant 5th, the loss meant 6th. Originally set for 17 Jun but cancelled, no referee." },
+      notes:"5th place play-off. Robert scored twice on debut and Max got the third. A win meant 5th, the loss meant 6th. Originally set for 17 Jun but cancelled, no referee." },
 
     // ---- Season 2 (2026 Summer) — GO Mammoth summer league, same ground as season 1 (Wandsworth Common Northside Field) ----
     { id:"s2-w1", season:"2026-summer", week:1, date:"2026-07-01", time:"19:50", competition:"league",
@@ -693,13 +701,6 @@ function tallyMvp(sid){
 }
 function totalUnattributed(sid){
   return TT.fixtures.filter(f=>inScope(f,sid)).reduce((s,f)=>s+(f.unattributed||0),0);
-}
-function tallyApps(sid){
-  const m={}; let any=false;
-  TT.fixtures.filter(f=>inScope(f,sid) && f.played && Array.isArray(f.lineup)).forEach(f=>{
-    any=true; f.lineup.forEach(pid=>m[pid]=(m[pid]||0)+1);
-  });
-  return { any, list:Object.entries(m).map(([id,n])=>({id,n})).sort((a,b)=>b.n-a.n) };
 }
 function withUnknown(n,unknown){ return unknown ? (n+'+') : String(n); }
 
@@ -1156,17 +1157,6 @@ function renderPlayoffs(){
   wireSeasonToggle(host);
 }
 
-function appsChart(){
-  const list = TT.players.filter(p=>p.apps>0).map(p=>({id:p.id,n:p.apps,exact:p.appsExact})).sort((a,b)=>b.n-a.n||a.id.localeCompare(b.id));
-  if(!list.length) return '<div class="empty">No appearances logged.</div>';
-  const max=Math.max(...list.map(i=>i.n));
-  return list.map(i=>`
-    <div class="bar-row">
-      <div class="name">${esc(playerName(i.id))}</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(i.n/max*100)}%"></div></div>
-      <div class="val">${i.n}${i.exact?'':'+'}</div>
-    </div>`).join('');
-}
 function renderPlayers(){
   const host=$('[data-view="players"]');
   const sid = playersScope;
@@ -1190,20 +1180,18 @@ function renderPlayers(){
     const roster = new Set([...(squad.captains||[]), ...(squad.core||[])]);
     const ringers = Object.keys(apps).filter(id=>!roster.has(id));
     const byApps = ids => ids.slice().sort((a,b)=>(apps[b]||0)-(apps[a]||0));
-    const flame = `<svg class="pl-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Perfect attendance"><path d="M12 12c2-2.96 0-7-1-8 0 3.038-1.773 4.741-3 6-1.226 1.26-2 3.24-2 5a6 6 0 1 0 12 0c0-1.532-1.056-3.94-2-5-1.786 3-2.791 3-4 2z"/></svg>`;
     const dots = id => games.map(f=>`<span class="att-dot${f.lineup.includes(id)?'':' off'}" title="${esc(fmtDate(f.date))} vs ${esc(f.opponent?oppName(f.opponent):'TBC')}"></span>`).join('');
     const row = id => `
       <div class="pl-row">
         <div class="pl-av">${esc(firstName(id).slice(0,1).toUpperCase())}</div>
         <div style="flex:1;min-width:0"><span class="pl-name">${esc(firstName(id))}</span>${flagHTML(id)}</div>
         ${games.length?`<span>${dots(id)}</span>
-        <span class="pl-count">${apps[id]||0}/${games.length}</span>
-        ${(apps[id]||0)===games.length ? flame : '<span style="width:16px;flex:none"></span>'}`:''}
+        <span class="pl-count">${apps[id]||0}/${games.length}</span>`:''}
       </div>`;
     const grp = (label, ids) => ids.length ? `<div class="pl-ghead">${label}</div>`+ids.map(row).join('') : '';
     attHTML = `
       <h2 class="section-t">Attendance</h2>
-      <p class="section-s">${games.length?`${games.length} game${games.length===1?'':'s'} logged in ${esc(seasonName)}. A filled dot is a game played; the flame marks perfect attendance.`:`The ${esc(seasonName)} register is ready. Attendance fills in as each week's list is logged.`}</p>
+      <p class="section-s">${games.length?`${games.length} game${games.length===1?'':'s'} logged in ${esc(seasonName)}. A filled dot is a game played.`:`The ${esc(seasonName)} register is ready. Attendance fills in as each week's list is logged.`}</p>
       <div class="card pl-rows">
         ${grp('Co-captains', squad.captains||[])}
         ${grp('Core '+esc(seasonName), byApps(squad.core||[]))}
