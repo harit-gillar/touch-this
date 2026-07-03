@@ -304,6 +304,8 @@
   .chart svg{display:block;width:100%;height:auto}
   .chart-x{display:flex;margin-top:6px}
   .chart-x span{flex:1;text-align:center;font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden}
+  .chart-v{margin:0 0 6px}
+  .chart-v span{font-size:12.5px;font-weight:650;color:var(--ink)}
   .chart-legend{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:10px;font-size:12px;color:var(--muted)}
   .chart-cap{font-size:12px;color:var(--muted);margin:8px 0 0}
   .player-head{display:flex;align-items:center;gap:16px;margin:6px 0 14px}
@@ -892,7 +894,8 @@ function attendanceChartHTML(scope){
     return `<rect x="${(i*slot+(slot-bw)/2).toFixed(1)}" y="${128-h}" width="${bw.toFixed(1)}" height="${h}" rx="2" fill="var(--accent)"><title>${esc(`${gameLabel(f,withS)} vs ${oppName(f.opponent)||'TBC'}: ${counts[i]} played`)}</title></rect>`;
   }).join('');
   const avgY = (128 - avg/ymax*112).toFixed(1);
-  return `<svg viewBox="0 0 560 140" role="img" aria-label="Players per game">
+  return `<div class="chart-x chart-v">${counts.map(n=>`<span>${n}</span>`).join('')}</div>
+    <svg viewBox="0 0 560 140" role="img" aria-label="Players per game">
     <line x1="0" y1="128" x2="560" y2="128" stroke="var(--line)" stroke-width="1.5"/>${bars}
     <line x1="0" y1="${avgY}" x2="560" y2="${avgY}" stroke="var(--draw)" stroke-width="1.5" stroke-dasharray="5 4"><title>${esc(`Average ${avg.toFixed(1)} players`)}</title></line></svg>
     ${chartXRow(games.map(f=>gameLabel(f,withS)))}
