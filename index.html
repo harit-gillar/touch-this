@@ -540,7 +540,11 @@ const TT = {
       { date:"2026-07-01", bye:"Sponsored by Churchills", games:[
         {a:"Tag Me If You Can",as:4,b:"Wandsworth Wasps",bs:8},
         {a:"Touch Me",as:14,b:"Touching Wands",bs:0},
-        {a:"Touch This (TT)",as:1,b:"Touchdown Titans v2",bs:6} ]}
+        {a:"Touch This (TT)",as:1,b:"Touchdown Titans v2",bs:6} ]},
+      { date:"2026-07-08", bye:"Touch Me", games:[
+        {a:"Sponsored by Churchills",as:8,b:"Tag Me If You Can",bs:2},
+        {a:"Touchdown Titans v2",as:9,b:"Touching Wands",bs:3},
+        {a:"Touch This (TT)",as:2,b:"Wandsworth Wasps",bs:8} ]}
     ]
   },
 
@@ -612,8 +616,13 @@ const TT = {
       highlights:["A blonde opponent kept branding Francisco a \"LITTLE MONKEY\" 🐵.","Fran scored Touch This's only try, with the last ball of the game.","Harit lined up two interceptions again and dropped both.","Four new players on the pitch at one time.","Ella ran a defensive masterclass on the same blonde opponent.","Harry drew first blood with a knee scrape."],
       notes:"Season 2 opener, lost 6 to 1 to the Titans at the third meeting. Nicole Hopper took MVP on debut." },
     { id:"s2-w2", season:"2026-summer", week:2, date:"2026-07-08", time:"19:50", competition:"league",
-      opponent:"wandsworth-wasps", venue:HOME_VENUE, played:false,
-      ttScore:null, oppScore:null, result:null, scorers:null, mvp:null, lineup:null, notes:null },
+      opponent:"wandsworth-wasps", venue:HOME_VENUE, played:true,
+      ttScore:2, oppScore:8, result:"L",
+      scorers:[{player:"harit",tries:1},{player:"robert",tries:1}], unattributed:0,
+      mvp:{player:"robert",award:"MVP",reason:"His second-half try, constant calling for the ball, and rage-baiting the opposition into an angry fit."}, conditions:"Hot and sweaty.",
+      lineup:["harit","sarah","franny","max","robert","jas","nicole","sam"],
+      highlights:["The Wasps whinged all game like a bunch of whiney babies, until the referee gave them a telling off.","Sarah decimated her ankle right at the end of the first half.","Nicole and Jas both went agonisingly close to a try.","Fran turned out for the first half despite having football the same day.","The team's new socks made their debut, and they were much loved.","One little annoying opposition player, possibly French (no offence)."],
+      notes:"Week 2 against the designated rivals, lost 8 to 2. Harit scored in the first half and Robert in the second; Robert took MVP for the try, his non-stop calling for the ball, and winding an opposition player into a fury." },
     { id:"s2-w3", season:"2026-summer", week:3, date:"2026-07-15", time:"19:10", competition:"league",
       opponent:"tag-me-if-you-can", venue:HOME_VENUE, played:false,
       ttScore:null, oppScore:null, result:null, scorers:null, mvp:null, lineup:null, notes:null },
