@@ -9,13 +9,13 @@ It tracks the team across every season: fixtures and results, the live league ta
 Two seasons are loaded so far:
 
 * **Early Summer 2026** (finished): 7th of 7 in the league, then 6th overall after the playoffs. Winless, but the tries per game grew every week.
-* **Late Summer 2026** (in progress): the current campaign. The first ever win is still being chased.
+* **Late Summer 2026** (in progress): the current campaign, and the one that ended the wait. The first ever win came in week 3, 4 to 3 against Tag Me If You Can on 15 July, decided by the last play of the game.
 
 ## What is inside
 
 The dashboard has five tabs, each with a toggle to switch season:
 
-* **Overview** is the game day hub: the next match with a live countdown, the venue and kickoff, the head to head record against that opponent, recent form, the last result, and a counter tracking the wait for the first ever win.
+* **Overview** is the game day hub: the next match with a live countdown, the venue and kickoff, the head to head record against that opponent, recent form, the last result, and a ribbon that counted the wait for the first ever win until it landed.
 * **Fixtures** lists every game across both seasons, filterable by season and competition. Tap a played game for its match report: score, try scorers, MVP, conditions, and the memorable moments.
 * **Players** is a weekly attendance register (a dot per game) grouped by role (co captains, core team, ringers), with each player's nickname and nationality flag, plus the try scorers board and the MVP awards, each with a short citation for why they won it.
 * **Standings** shows the full league table (played, won, drawn, lost, tries for and against, points) followed by the playoff bracket and final placings.

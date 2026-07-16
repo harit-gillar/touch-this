@@ -427,7 +427,8 @@ const TT = {
     { id:"harry",    name:"Harry",             nickname:null,           type:"regular", apps:1, appsExact:true, flag:"🏳️",  role:"Debuted in the Season 2 opener. Drew first blood with a knee scrape." },
     { id:"marian",   name:"Marian",            nickname:null,           type:"regular", apps:1, appsExact:true, flag:"🏳️",  role:"Debuted in the Season 2 opener." },
     { id:"morgan",   name:"Morgan",            nickname:null,           type:"regular", apps:1, appsExact:true, flag:"🏳️",  role:"Debuted in the Season 2 opener." },
-    { id:"jas",      name:"Jas",               nickname:"The yet to be named",           type:"core",    apps:1, appsExact:true, flag:"🇫🇷",  role:"Played Match 3 of Early Summer; Late Summer core team." }
+    { id:"jas",      name:"Jas",               nickname:"The yet to be named",           type:"core",    apps:1, appsExact:true, flag:"🇫🇷",  role:"Played Match 3 of Early Summer; Late Summer core team." },
+    { id:"joe",      name:"Joe",               nickname:"Joe from Wales",       type:"ringer",  apps:1, appsExact:true, flag:"🏴󠁧󠁢󠁷󠁬󠁳󠁿",  role:"Sub. Scored twice on debut in the first ever win, including the winner with the last play, and took MVP." }
   ],
 
   opponents: [
@@ -444,7 +445,7 @@ const TT = {
     { id:"try-hard-2", name:"Try Hard 2: Try Harder", finish:3, colours:null,
       notes:"Finished 3rd. TT's best attacking game came here: 7 tries, lost 7 to 8 (Match 6)." },
     { id:"tag-me-if-you-can", name:"Tag Me If You Can", colours:null,
-      notes:"New Late Summer opponent. First meeting on 15 Jul." },
+      notes:"New Late Summer opponent. TT's first ever win came at their expense at the first meeting, 4 to 3 on 15 Jul, decided by the last play of the game." },
     { id:"touching-wands", name:"Touching Wands", colours:null,
       notes:"New Late Summer opponent. First meeting on 29 Jul." },
     { id:"touch-me", name:"Touch Me", colours:null,
@@ -455,7 +456,7 @@ const TT = {
     { id:"2026-spring", name:"Early Summer 2026", status:"finished", finalPosition:7, teamsInLeague:7, points:6, finalPlacing:6,
       summary:"Finished 7th of 7 in the league on 6 points, then 6th overall after the play-off. Winless, but the attack grew every week: tries per game went 0, 1, 2, 3, 7, and a different player won the MVP award each week." },
     { id:"2026-summer", name:"Late Summer 2026", status:"active", finalPosition:null, teamsInLeague:null, points:null, finalPlacing:null,
-      summary:"The late summer campaign. Results fill in week by week as games are played." }
+      summary:"The late summer campaign, and the season the wait ended: the first ever win arrived in week 3, 4 to 3 against Tag Me If You Can on 15 July, with the winning try on the last play of the game." }
   ],
 
   // Final regular-season league table (all seven teams) — from the official record.
@@ -544,7 +545,11 @@ const TT = {
       { date:"2026-07-08", bye:"Touch Me", games:[
         {a:"Sponsored by Churchills",as:8,b:"Tag Me If You Can",bs:2},
         {a:"Touchdown Titans v2",as:9,b:"Touching Wands",bs:3},
-        {a:"Touch This (TT)",as:2,b:"Wandsworth Wasps",bs:8} ]}
+        {a:"Touch This (TT)",as:2,b:"Wandsworth Wasps",bs:8} ]},
+      { date:"2026-07-15", bye:"Touchdown Titans v2", games:[
+        {a:"Sponsored by Churchills",as:1,b:"Touch Me",bs:7},
+        {a:"Touch This (TT)",as:4,b:"Tag Me If You Can",bs:3},
+        {a:"Touching Wands",as:0,b:"Wandsworth Wasps",bs:0} ]}
     ]
   },
 
@@ -624,8 +629,13 @@ const TT = {
       highlights:["The Wasps whinged all game like a bunch of whiney babies, until the referee gave them a telling off.","Sarah decimated her ankle right at the end of the first half.","Nicole and Jas both went agonisingly close to a try.","Fran turned out for the first half despite having football the same day.","The team's new socks made their debut, and they were much loved.","One little annoying opposition player, possibly French (no offence)."],
       notes:"Week 2 against the designated rivals, lost 8 to 2. Harit scored in the first half and Robert in the second; Robert took MVP for the try, his non-stop calling for the ball, and winding an opposition player into a fury." },
     { id:"s2-w3", season:"2026-summer", week:3, date:"2026-07-15", time:"19:10", competition:"league",
-      opponent:"tag-me-if-you-can", venue:HOME_VENUE, played:false,
-      ttScore:null, oppScore:null, result:null, scorers:null, mvp:null, lineup:null, notes:null },
+      opponent:"tag-me-if-you-can", venue:HOME_VENUE, played:true,
+      ttScore:4, oppScore:3, result:"W",
+      scorers:[{player:"joe",tries:2},{player:"gayatri",tries:1},{player:"harit",tries:1}], unattributed:0,
+      mvp:{player:"joe",award:"MVP",reason:"Two tries on debut: the first off an interception in the opening exchanges, the second the winner with the last play of the game."}, conditions:null,
+      lineup:["harit","gayatri","marian","franny","sam","robert","joe"],
+      highlights:["Joe scored on the first interception of the game.","There was a tree in the middle of the pitch.","Fran turned up in a suit.","It stayed 3 to 3 until the last play of the game.","The winner went Joe to G to Rob and back to Joe, who fumbled it and scored anyway.","A nervous game throughout.","Gayatri popped her Tryvigity: her first ever try, in her eighth game."],
+      notes:"The first ever win. Nine defeats and 84 days on from game one, TT beat new opponents Tag Me If You Can 4 to 3, decided by the last play of the game. Joe from Wales scored twice on debut and took MVP; Gayatri scored her first ever try." },
     { id:"s2-w4", season:"2026-summer", week:4, date:"2026-07-22", time:"19:10", competition:"league",
       opponent:"churchills", venue:HOME_VENUE, played:false,
       ttScore:null, oppScore:null, result:null, scorers:null, mvp:null, lineup:null, notes:null },
