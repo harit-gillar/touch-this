@@ -1799,6 +1799,59 @@ function renderPlayer(id){
     ).join('')}</ul></div>`:''}`;
 }
 
+/* ---------- first-win celebration: confetti + a synth fanfare, no deps ---------- */
+function ttConfettiBurst(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let c=document.getElementById('tt-confetti');
+  if(!c){ c=document.createElement('canvas'); c.id='tt-confetti';
+    Object.assign(c.style,{position:'fixed',inset:'0',width:'100%',height:'100%',pointerEvents:'none',zIndex:'9999'});
+    document.body.appendChild(c); }
+  const ctx=c.getContext('2d'), dpr=Math.min(2,window.devicePixelRatio||1);
+  let W,H; const size=()=>{ W=c.width=innerWidth*dpr; H=c.height=innerHeight*dpr; };
+  size(); addEventListener('resize',size);
+  const cols=['#1e88e5','#ffc107','#e53935','#43a047','#8e24aa','#ff7043','#ffffff'], parts=[];
+  // two cannons from the lower corners, arcing up and across
+  [[0.12,1],[0.88,-1]].forEach(([px,dir])=>{ for(let i=0;i<110;i++){
+    const a=(Math.random()*0.5+0.15)*Math.PI, sp=(Math.random()*9+11)*dpr;
+    parts.push({ x:W*px, y:H*1.02, vx:Math.cos(a)*sp*dir, vy:-Math.sin(a)*sp,
+      g:0.34*dpr, w:(6+Math.random()*7)*dpr, h:(9+Math.random()*9)*dpr,
+      rot:Math.random()*7, vr:(Math.random()-0.5)*0.35, col:cols[(i+ (dir>0?0:3))%cols.length], life:1 }); }});
+  let frame=0;
+  (function tick(){ frame++; ctx.clearRect(0,0,W,H); let alive=false;
+    for(const p of parts){ p.vy+=p.g; p.x+=p.vx; p.y+=p.vy; p.vx*=0.99; p.rot+=p.vr;
+      if(frame>140) p.life-=0.02;
+      if(p.y<H+40*dpr && p.life>0) alive=true;
+      ctx.save(); ctx.globalAlpha=Math.max(0,p.life); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+      ctx.fillStyle=p.col; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore(); }
+    if(alive && frame<340) requestAnimationFrame(tick); else c.remove();
+  })();
+}
+let ttAC=null, ttSoundPlayed=false;
+function ttAudioCtx(){ const AC=window.AudioContext||window.webkitAudioContext; return AC ? (ttAC||(ttAC=new AC())) : null; }
+function ttFanfare(){
+  if(ttSoundPlayed) return; const ac=ttAudioCtx(); if(!ac||ac.state!=='running') return;
+  ttSoundPlayed=true; const now=ac.currentTime;
+  // rising major arpeggio C-E-G-C, then a little sparkle
+  [[523.25,0],[659.25,0.11],[783.99,0.22],[1046.5,0.34],[1318.5,0.46]].forEach(([f,t],i)=>{
+    const o=ac.createOscillator(), g=ac.createGain();
+    o.type=i===4?'sine':'triangle'; o.frequency.value=f; o.connect(g); g.connect(ac.destination);
+    const s=now+t; g.gain.setValueAtTime(0.0001,s);
+    g.gain.exponentialRampToValueAtTime(i===4?0.18:0.26,s+0.03);
+    g.gain.exponentialRampToValueAtTime(0.0008,s+(i===4?0.7:0.55));
+    o.start(s); o.stop(s+0.75); });
+}
+function celebrateFirstWin(){
+  const win = (typeof firstWinFixture==='function') && firstWinFixture(); if(!win) return;
+  const key='tt-celebrated-'+win.id;
+  try{ if(sessionStorage.getItem(key)) return; sessionStorage.setItem(key,'1'); }catch(e){}
+  ttConfettiBurst();                              // visual needs no user gesture
+  const ac=ttAudioCtx();
+  const play=()=>{ if(!ac) return; if(ac.state==='suspended') ac.resume().then(ttFanfare).catch(()=>{}); else ttFanfare(); };
+  play();                                         // try now; browsers may block audio until a gesture
+  const once=()=>{ play(); ['pointerdown','keydown','touchstart'].forEach(ev=>removeEventListener(ev,once)); };
+  ['pointerdown','keydown','touchstart'].forEach(ev=>addEventListener(ev,once));
+}
+
 /* ---------- router + boot ---------- */
 const VIEWS=['home','fixtures','table','players','stats'];
 function renderAll(){ renderHome(); renderFixtures(); renderTable(); renderPlayoffs(); renderPlayers(); renderStats(); }
@@ -1832,6 +1885,7 @@ function boot(){
   renderAll();
   window.addEventListener('hashchange',route);
   route();
+  celebrateFirstWin();   // confetti + fanfare, once per session, while the first win stands
 }
 boot();
 </script>

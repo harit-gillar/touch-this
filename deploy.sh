@@ -10,8 +10,8 @@ set -euo pipefail
 
 SRC="/Users/haritgillar/Desktop/Personal/Obsidian/🧠 wiki/health/touch-this-dashboard.html"
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO="Harit556/touch-this"
-URL="https://harit556.github.io/touch-this/"
+REPO="harit-gillar/touch-this"
+URL="https://harit-gillar.github.io/touch-this/"
 
 cp "$SRC" "$DIR/index.html"
 cd "$DIR"
