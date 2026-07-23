@@ -428,7 +428,8 @@ const TT = {
     { id:"marian",   name:"Marian",            nickname:null,           type:"regular", apps:1, appsExact:true, flag:"🏳️",  role:"Debuted in the Season 2 opener." },
     { id:"morgan",   name:"Morgan",            nickname:null,           type:"regular", apps:1, appsExact:true, flag:"🏳️",  role:"Debuted in the Season 2 opener." },
     { id:"jas",      name:"Jas",               nickname:"The yet to be named",           type:"core",    apps:1, appsExact:true, flag:"🇫🇷",  role:"Played Match 3 of Early Summer; Late Summer core team." },
-    { id:"joe",      name:"Joe",               nickname:"Joe from Wales",       type:"ringer",  apps:1, appsExact:true, flag:"🏴󠁧󠁢󠁷󠁬󠁳󠁿",  role:"Sub. Scored twice on debut in the first ever win, including the winner with the last play, and took MVP." }
+    { id:"joe",      name:"Joe",               nickname:"Joe from Wales",       type:"ringer",  apps:1, appsExact:true, flag:"🏴󠁧󠁢󠁷󠁬󠁳󠁿",  role:"Sub. Scored twice on debut in the first ever win, including the winner with the last play, and took MVP." },
+    { id:"cam",      name:"Cam",               nickname:"The Gagger",           type:"ringer",  apps:1, appsExact:true, flag:"🏳️",  role:"Sub. Scored on debut against Churchills and took MVP." }
   ],
 
   opponents: [
@@ -439,7 +440,7 @@ const TT = {
     { id:"scoregasms", name:"Scoregasms", finish:1, colours:null,
       notes:"Won the league and the play-off final (1st). Held TT to a single try in heavy rain (Match 3), TT's best defensive display." },
     { id:"churchills", name:"Sponsored by Churchills", finish:2, colours:null,
-      notes:"Finished 2nd with the division's best defence. TT still scored twice (Match 4). Rematch in Late Summer on 22 Jul." },
+      notes:"Finished 2nd in Early Summer with the division's best defence. Two meetings so far, both defeats, but the gap is closing: 2 to 9 in Match 4, then 4 to 7 on 22 Jul. Fran and Harit have scored in both." },
     { id:"wandsworth-wasps", name:"Wandsworth Wasps", finish:7, colours:null,
       notes:"The designated rivals. Beat TT 5 to 3 in the 6th-vs-7th shootout (Match 5) but finished 7th, below TT, after losing their play-off semi heavily. Ella guested for them that week." },
     { id:"try-hard-2", name:"Try Hard 2: Try Harder", finish:3, colours:null,
@@ -549,7 +550,11 @@ const TT = {
       { date:"2026-07-15", bye:"Touchdown Titans v2", games:[
         {a:"Sponsored by Churchills",as:1,b:"Touch Me",bs:7},
         {a:"Touch This (TT)",as:4,b:"Tag Me If You Can",bs:3},
-        {a:"Touching Wands",as:0,b:"Wandsworth Wasps",bs:0} ]}
+        {a:"Touching Wands",as:0,b:"Wandsworth Wasps",bs:0} ]},
+      { date:"2026-07-22", bye:"Wandsworth Wasps", games:[
+        {a:"Touchdown Titans v2",as:5,b:"Touch Me",bs:3},
+        {a:"Sponsored by Churchills",as:7,b:"Touch This (TT)",bs:4},
+        {a:"Touching Wands",as:6,b:"Tag Me If You Can",bs:3} ]}
     ]
   },
 
@@ -637,8 +642,13 @@ const TT = {
       highlights:["Joe scored on the first interception of the game.","There was a tree in the middle of the pitch.","Fran turned up in a suit.","It stayed 3 to 3 until the last play of the game.","The winner went Joe to G to Rob and back to Joe, who fumbled it and scored anyway.","A nervous game throughout.","Gayatri popped her Tryvigity: her first ever try, in her eighth game."],
       notes:"The first ever win. Nine defeats and 84 days on from game one, TT beat new opponents Tag Me If You Can 4 to 3, decided by the last play of the game. Joe from Wales scored twice on debut and took MVP; Gayatri scored her first ever try." },
     { id:"s2-w4", season:"2026-summer", week:4, date:"2026-07-22", time:"19:10", competition:"league",
-      opponent:"churchills", venue:HOME_VENUE, played:false,
-      ttScore:null, oppScore:null, result:null, scorers:null, mvp:null, lineup:null, notes:null },
+      opponent:"churchills", venue:HOME_VENUE, played:true,
+      ttScore:4, oppScore:7, result:"L",
+      scorers:[{player:"franny",tries:2},{player:"harit",tries:1},{player:"cam",tries:1}], unattributed:0,
+      mvp:{player:"cam",award:"MVP",reason:"Scored without even touching the line."}, conditions:null,
+      lineup:["harit","gayatri","nicole","robert","max","franny","cam"],
+      highlights:["Fran side-stepped his way to both of his tries.","Rob went for three interceptions, the Rob special.","G's hot potato.","Manifesting touches."],
+      notes:"Week 4 against Sponsored by Churchills, lost 7 to 4 at the second meeting. Fran scored twice, Harit and Cam once each; Cam took MVP on debut. Four tries matches the season high set in the first win, and the deficit against Churchills narrowed from seven to three." },
     { id:"s2-w5", season:"2026-summer", week:5, date:"2026-07-29", time:"18:30", competition:"league",
       opponent:"touching-wands", venue:HOME_VENUE, played:false,
       ttScore:null, oppScore:null, result:null, scorers:null, mvp:null, lineup:null, notes:null },
