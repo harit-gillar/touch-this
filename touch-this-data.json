@@ -1,0 +1,2115 @@
+{
+  "_meta": {
+    "dataset": "Touch This — complete match record",
+    "description": "Every match, score, try scorer, MVP and league result for Touch This, a mixed 6-a-side touch rugby team in the GO Mammoth league, London. Machine-readable export of the team dashboard.",
+    "sourceDashboard": "https://harit-gillar.github.io/touch-this",
+    "coversTo": "2026-07-22",
+    "schemaVersion": "1.0",
+    "importantRules": [
+      "One try equals one point, so a team's try count IS its match score.",
+      "League points: 3 for a win, 2 for a draw, 1 for a loss, 0 for a bye.",
+      "'touchThisScore' and 'opponentScore' are try counts.",
+      "Bye weeks are listed separately in 'byes' and are not matches.",
+      "leagueTable is computed from leagueRounds, not stored, so it always reconciles.",
+      "Playoff matches have competition='playoff' and sit outside the league table."
+    ],
+    "fieldGuide": {
+      "matches": "One object per fixture. played=false means not yet played; scores are null.",
+      "matches[].scorers": "Who scored and how many tries. Sums to touchThisScore.",
+      "matches[].lineup": "Players who appeared. Appearances are derived from this.",
+      "leagueRounds": "Every game by every team, week by week, including games Touch This wasn't in.",
+      "playerStats": "Career totals derived from matches (appearances, tries, MVP awards)."
+    }
+  },
+  "team": {
+    "name": "Touch This",
+    "shortName": "TT",
+    "motto": "Tango ergo sum",
+    "league": "GO Mammoth (London) — mixed 6-a-side",
+    "homeVenue": "Wandsworth Common Northside Field",
+    "rules": {
+      "onPitch": 6,
+      "touches": 6,
+      "halves": 2,
+      "halfMins": 17,
+      "minFemaleOnPitch": 2,
+      "kicking": false,
+      "points": {
+        "win": 3,
+        "draw": 2,
+        "loss": 1,
+        "bye": 0
+      }
+    }
+  },
+  "careerTotals": {
+    "played": 11,
+    "won": 1,
+    "drawn": 0,
+    "lost": 10,
+    "triesFor": 30,
+    "triesAgainst": 80
+  },
+  "seasons": [
+    {
+      "id": "2026-spring",
+      "name": "Early Summer 2026",
+      "status": "finished",
+      "summary": "Finished 7th of 7 in the league on 6 points, then 6th overall after the play-off. Winless, but the attack grew every week: tries per game went 0, 1, 2, 3, 7, and a different player won the MVP award each week.",
+      "finalLeaguePosition": 7,
+      "teamsInLeague": 7,
+      "finalPlacingAfterPlayoffs": 6,
+      "record": {
+        "played": 7,
+        "won": 0,
+        "drawn": 0,
+        "lost": 7,
+        "triesFor": 19,
+        "triesAgainst": 56
+      },
+      "leagueTable": [
+        {
+          "team": "Scoregasms",
+          "played": 6,
+          "won": 5,
+          "drawn": 0,
+          "lost": 1,
+          "triesFor": 36,
+          "triesAgainst": 17,
+          "isTouchThis": false,
+          "points": 16,
+          "position": 1
+        },
+        {
+          "team": "Try Hard 2: Try Harder",
+          "played": 6,
+          "won": 4,
+          "drawn": 0,
+          "lost": 2,
+          "triesFor": 41,
+          "triesAgainst": 25,
+          "isTouchThis": false,
+          "points": 14,
+          "position": 2
+        },
+        {
+          "team": "Sponsored by Churchills",
+          "played": 6,
+          "won": 4,
+          "drawn": 0,
+          "lost": 2,
+          "triesFor": 34,
+          "triesAgainst": 21,
+          "isTouchThis": false,
+          "points": 14,
+          "position": 3
+        },
+        {
+          "team": "The Dirty Dogs",
+          "played": 6,
+          "won": 4,
+          "drawn": 0,
+          "lost": 2,
+          "triesFor": 36,
+          "triesAgainst": 25,
+          "isTouchThis": false,
+          "points": 14,
+          "position": 4
+        },
+        {
+          "team": "Touchdown Titans v2",
+          "played": 6,
+          "won": 3,
+          "drawn": 0,
+          "lost": 3,
+          "triesFor": 33,
+          "triesAgainst": 27,
+          "isTouchThis": false,
+          "points": 12,
+          "position": 5
+        },
+        {
+          "team": "Wandsworth Wasps",
+          "played": 6,
+          "won": 1,
+          "drawn": 0,
+          "lost": 5,
+          "triesFor": 13,
+          "triesAgainst": 45,
+          "isTouchThis": false,
+          "points": 8,
+          "position": 6
+        },
+        {
+          "team": "Touch This (TT)",
+          "played": 6,
+          "won": 0,
+          "drawn": 0,
+          "lost": 6,
+          "triesFor": 16,
+          "triesAgainst": 49,
+          "isTouchThis": true,
+          "points": 6,
+          "position": 7
+        }
+      ]
+    },
+    {
+      "id": "2026-summer",
+      "name": "Late Summer 2026",
+      "status": "active",
+      "summary": "The late summer campaign, and the season the wait ended: the first ever win arrived in week 3, 4 to 3 against Tag Me If You Can on 15 July, with the winning try on the last play of the game.",
+      "finalLeaguePosition": null,
+      "teamsInLeague": null,
+      "finalPlacingAfterPlayoffs": null,
+      "record": {
+        "played": 4,
+        "won": 1,
+        "drawn": 0,
+        "lost": 3,
+        "triesFor": 11,
+        "triesAgainst": 24
+      },
+      "leagueTable": [
+        {
+          "team": "Touchdown Titans v2",
+          "played": 3,
+          "won": 3,
+          "drawn": 0,
+          "lost": 0,
+          "triesFor": 20,
+          "triesAgainst": 7,
+          "isTouchThis": false,
+          "points": 9,
+          "position": 1
+        },
+        {
+          "team": "Wandsworth Wasps",
+          "played": 3,
+          "won": 2,
+          "drawn": 1,
+          "lost": 0,
+          "triesFor": 16,
+          "triesAgainst": 6,
+          "isTouchThis": false,
+          "points": 8,
+          "position": 2
+        },
+        {
+          "team": "Touch Me",
+          "played": 3,
+          "won": 2,
+          "drawn": 0,
+          "lost": 1,
+          "triesFor": 24,
+          "triesAgainst": 6,
+          "isTouchThis": false,
+          "points": 7,
+          "position": 3
+        },
+        {
+          "team": "Sponsored by Churchills",
+          "played": 3,
+          "won": 2,
+          "drawn": 0,
+          "lost": 1,
+          "triesFor": 16,
+          "triesAgainst": 13,
+          "isTouchThis": false,
+          "points": 7,
+          "position": 4
+        },
+        {
+          "team": "Touching Wands",
+          "played": 4,
+          "won": 1,
+          "drawn": 1,
+          "lost": 2,
+          "triesFor": 9,
+          "triesAgainst": 26,
+          "isTouchThis": false,
+          "points": 7,
+          "position": 5
+        },
+        {
+          "team": "Touch This (TT)",
+          "played": 4,
+          "won": 1,
+          "drawn": 0,
+          "lost": 3,
+          "triesFor": 11,
+          "triesAgainst": 24,
+          "isTouchThis": true,
+          "points": 6,
+          "position": 6
+        },
+        {
+          "team": "Tag Me If You Can",
+          "played": 4,
+          "won": 0,
+          "drawn": 0,
+          "lost": 4,
+          "triesFor": 12,
+          "triesAgainst": 26,
+          "isTouchThis": false,
+          "points": 4,
+          "position": 7
+        }
+      ]
+    }
+  ],
+  "players": [
+    {
+      "playerId": "gayatri",
+      "name": "Gayatri",
+      "nickname": "El Capitan",
+      "squadType": "core",
+      "flag": "🇬🇧",
+      "role": "Co-captain. Founded the team, paid the league fee, designed the kit. Ever-present, all 7 games."
+    },
+    {
+      "playerId": "harit",
+      "name": "Harit",
+      "nickname": "El Capatain También",
+      "squadType": "core",
+      "flag": "🇬🇧",
+      "role": "Co-captain. Ran scouting, tactics and the match reports. Ever-present, all 7 games."
+    },
+    {
+      "playerId": "ella",
+      "name": "Ella",
+      "nickname": "El Capitan",
+      "squadType": "core",
+      "flag": "🇳🇿",
+      "role": "Player. Guested for the Wasps in Match 5, which does not count as a TT game."
+    },
+    {
+      "playerId": "franny",
+      "name": "Francisco",
+      "nickname": "El Mono",
+      "squadType": "core",
+      "flag": "🇨🇱",
+      "role": "Player. Top try scorer of the season."
+    },
+    {
+      "playerId": "sarah",
+      "name": "Sarah",
+      "nickname": "The Hr Hazard",
+      "squadType": "core",
+      "flag": "🇬🇧",
+      "role": "Player. G's flatmate."
+    },
+    {
+      "playerId": "max",
+      "name": "Max Gutsche",
+      "nickname": "The Goose",
+      "squadType": "core",
+      "flag": "🇰🇪",
+      "role": "Player. Missed Match 1, and Match 5 for a work event."
+    },
+    {
+      "playerId": "helena",
+      "name": "Helena Murray",
+      "nickname": "The Last Line",
+      "squadType": "core",
+      "flag": "🇬🇧",
+      "role": "Player. Missed Match 2 (bug)."
+    },
+    {
+      "playerId": "robert",
+      "name": "Robert Hutchinson",
+      "nickname": "The Grant's Gazelle",
+      "squadType": "squad",
+      "flag": "🇰🇪",
+      "role": "Played only the final (Match 7), after supporting from the sideline all season, and scored on debut."
+    },
+    {
+      "playerId": "bex",
+      "name": "Bex Dunnet",
+      "nickname": "The Martyr",
+      "squadType": "squad",
+      "flag": "🇬🇧",
+      "role": "Played only Match 1, then injured for the rest of the season."
+    },
+    {
+      "playerId": "sam",
+      "name": "Sam",
+      "nickname": "The Contract",
+      "squadType": "regular",
+      "flag": "🇬🇧",
+      "role": "Fran's friend. Debuted in Match 1 as his sourced ringer, formally joined on 26 Apr. Two standout shifts."
+    },
+    {
+      "playerId": "martin",
+      "name": "Martin",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🇿🇦",
+      "role": "Sub. Quick try scorer."
+    },
+    {
+      "playerId": "kingsley",
+      "name": "Kingsley",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🇿🇦",
+      "role": "Sub. Hat-trick and a double interception in Match 6."
+    },
+    {
+      "playerId": "ieuan",
+      "name": "Ieuan",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🇳🇿",
+      "role": "Sub in Matches 2 and 3."
+    },
+    {
+      "playerId": "charlotte",
+      "name": "Charlotte",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🏳️",
+      "role": "Sub in Match 6."
+    },
+    {
+      "playerId": "henry",
+      "name": "Henry",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🏳️",
+      "role": "Sub in Match 7."
+    },
+    {
+      "playerId": "sophie",
+      "name": "Sophie",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🏳️",
+      "role": "Sub in Match 7."
+    },
+    {
+      "playerId": "george",
+      "name": "George",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🏳️",
+      "role": "Played Match 1 of Early Summer."
+    },
+    {
+      "playerId": "lizzie",
+      "name": "Lizzie",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🏳️",
+      "role": "Played Match 1 of Early Summer."
+    },
+    {
+      "playerId": "eduardo",
+      "name": "Eduardo",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🏳️",
+      "role": "Played Match 1 of Early Summer."
+    },
+    {
+      "playerId": "nicole",
+      "name": "Nicole Hopper",
+      "nickname": "The Engine",
+      "squadType": "regular",
+      "flag": "🇦🇺",
+      "role": "Debuted in the Season 2 opener and won MVP for a fantastic first game."
+    },
+    {
+      "playerId": "harry",
+      "name": "Harry",
+      "nickname": null,
+      "squadType": "regular",
+      "flag": "🏳️",
+      "role": "Debuted in the Season 2 opener. Drew first blood with a knee scrape."
+    },
+    {
+      "playerId": "marian",
+      "name": "Marian",
+      "nickname": null,
+      "squadType": "regular",
+      "flag": "🏳️",
+      "role": "Debuted in the Season 2 opener."
+    },
+    {
+      "playerId": "morgan",
+      "name": "Morgan",
+      "nickname": null,
+      "squadType": "regular",
+      "flag": "🏳️",
+      "role": "Debuted in the Season 2 opener."
+    },
+    {
+      "playerId": "jas",
+      "name": "Jas",
+      "nickname": "The yet to be named",
+      "squadType": "core",
+      "flag": "🇫🇷",
+      "role": "Played Match 3 of Early Summer; Late Summer core team."
+    },
+    {
+      "playerId": "joe",
+      "name": "Joe",
+      "nickname": "Joe from Wales",
+      "squadType": "ringer",
+      "flag": "🏴󠁧󠁢󠁷󠁬󠁳󠁿",
+      "role": "Sub. Scored twice on debut in the first ever win, including the winner with the last play, and took MVP."
+    },
+    {
+      "playerId": "cam",
+      "name": "Cam",
+      "nickname": "The Gagger",
+      "squadType": "ringer",
+      "flag": "🇰🇪",
+      "role": "Sub. Scored on debut against Churchills and took MVP."
+    }
+  ],
+  "opponents": [
+    {
+      "opponentId": "touchdown-titans",
+      "name": "Touchdown Titans v2",
+      "earlySummerFinish": 5,
+      "notes": "Finished 5th. TT's first opponent (Match 1) and the 5th/6th play-off opponent (Match 7) — the same 3 to 7 scoreline both times."
+    },
+    {
+      "opponentId": "dirty-dogs",
+      "name": "The Dirty Dogs",
+      "earlySummerFinish": 4,
+      "notes": "Finished 4th. Inflicted TT's heaviest defeat, 0 to 11 (Match 2)."
+    },
+    {
+      "opponentId": "scoregasms",
+      "name": "Scoregasms",
+      "earlySummerFinish": 1,
+      "notes": "Won the league and the play-off final (1st). Held TT to a single try in heavy rain (Match 3), TT's best defensive display."
+    },
+    {
+      "opponentId": "churchills",
+      "name": "Sponsored by Churchills",
+      "earlySummerFinish": 2,
+      "notes": "Finished 2nd in Early Summer with the division's best defence. Two meetings so far, both defeats, but the gap is closing: 2 to 9 in Match 4, then 4 to 7 on 22 Jul. Fran and Harit have scored in both."
+    },
+    {
+      "opponentId": "wandsworth-wasps",
+      "name": "Wandsworth Wasps",
+      "earlySummerFinish": 7,
+      "notes": "The designated rivals. Beat TT 5 to 3 in the 6th-vs-7th shootout (Match 5) but finished 7th, below TT, after losing their play-off semi heavily. Ella guested for them that week."
+    },
+    {
+      "opponentId": "try-hard-2",
+      "name": "Try Hard 2: Try Harder",
+      "earlySummerFinish": 3,
+      "notes": "Finished 3rd. TT's best attacking game came here: 7 tries, lost 7 to 8 (Match 6)."
+    },
+    {
+      "opponentId": "tag-me-if-you-can",
+      "name": "Tag Me If You Can",
+      "earlySummerFinish": null,
+      "notes": "New Late Summer opponent. TT's first ever win came at their expense at the first meeting, 4 to 3 on 15 Jul, decided by the last play of the game."
+    },
+    {
+      "opponentId": "touching-wands",
+      "name": "Touching Wands",
+      "earlySummerFinish": null,
+      "notes": "New Late Summer opponent. First meeting on 29 Jul."
+    },
+    {
+      "opponentId": "touch-me",
+      "name": "Touch Me",
+      "earlySummerFinish": null,
+      "notes": "New Late Summer opponent. First meeting on 12 Aug."
+    }
+  ],
+  "matches": [
+    {
+      "id": "s1-w1",
+      "seasonId": "2026-spring",
+      "week": 1,
+      "date": "2026-04-22",
+      "kickoff": "19:10",
+      "competition": "league",
+      "playoffRound": null,
+      "opponentId": "touchdown-titans",
+      "opponentName": "Touchdown Titans v2",
+      "venue": "Wandsworth Common Northside Field",
+      "played": true,
+      "touchThisScore": 3,
+      "opponentScore": 7,
+      "result": "L",
+      "scorers": [
+        {
+          "playerId": "franny",
+          "playerName": "Francisco",
+          "tries": 2
+        },
+        {
+          "playerId": "max",
+          "playerName": "Max Gutsche",
+          "tries": 1
+        }
+      ],
+      "mvp": {
+        "playerId": "franny",
+        "playerName": "Francisco",
+        "award": "MOM",
+        "citation": null
+      },
+      "lineup": [
+        {
+          "playerId": "harit",
+          "playerName": "Harit"
+        },
+        {
+          "playerId": "bex",
+          "playerName": "Bex Dunnet"
+        },
+        {
+          "playerId": "franny",
+          "playerName": "Francisco"
+        },
+        {
+          "playerId": "sarah",
+          "playerName": "Sarah"
+        },
+        {
+          "playerId": "gayatri",
+          "playerName": "Gayatri"
+        },
+        {
+          "playerId": "george",
+          "playerName": "George"
+        },
+        {
+          "playerId": "lizzie",
+          "playerName": "Lizzie"
+        },
+        {
+          "playerId": "helena",
+          "playerName": "Helena Murray"
+        },
+        {
+          "playerId": "sam",
+          "playerName": "Sam"
+        },
+        {
+          "playerId": "eduardo",
+          "playerName": "Eduardo"
+        }
+      ],
+      "conditions": null,
+      "highlights": [
+        "Bex dislocated a finger, the injury that kept her out for the rest of the season, and still made it to the pub."
+      ],
+      "notes": "Opening game. Reported as 2 to 7 on the night; the official 3 to 7 added Max's try."
+    },
+    {
+      "id": "s1-w2",
+      "seasonId": "2026-spring",
+      "week": 2,
+      "date": "2026-05-06",
+      "kickoff": "18:30",
+      "competition": "league",
+      "playoffRound": null,
+      "opponentId": "dirty-dogs",
+      "opponentName": "The Dirty Dogs",
+      "venue": "Wandsworth Common Northside Field",
+      "played": true,
+      "touchThisScore": 0,
+      "opponentScore": 11,
+      "result": "L",
+      "scorers": [],
+      "mvp": {
+        "playerId": "sarah",
+        "playerName": "Sarah",
+        "award": "MOM",
+        "citation": null
+      },
+      "lineup": [
+        {
+          "playerId": "harit",
+          "playerName": "Harit"
+        },
+        {
+          "playerId": "max",
+          "playerName": "Max Gutsche"
+        },
+        {
+          "playerId": "sarah",
+          "playerName": "Sarah"
+        },
+        {
+          "playerId": "ieuan",
+          "playerName": "Ieuan"
+        },
+        {
+          "playerId": "franny",
+          "playerName": "Francisco"
+        },
+        {
+          "playerId": "gayatri",
+          "playerName": "Gayatri"
+        },
+        {
+          "playerId": "sam",
+          "playerName": "Sam"
+        }
+      ],
+      "conditions": null,
+      "highlights": [
+        "Ieuan threw over the head American football passes.",
+        "The unidentified moustache man sub reportedly outran Usain Bolt.",
+        "Rob watched from the sideline again."
+      ],
+      "notes": "Heaviest defeat. Called 8 to 0 on the night, corrected to 11 to 0. Opponent confirmed as The Dirty Dogs via the official results."
+    },
+    {
+      "id": "s1-w3",
+      "seasonId": "2026-spring",
+      "week": 3,
+      "date": "2026-05-13",
+      "kickoff": "18:30",
+      "competition": "league",
+      "playoffRound": null,
+      "opponentId": "scoregasms",
+      "opponentName": "Scoregasms",
+      "venue": "Wandsworth Common Northside Field",
+      "played": true,
+      "touchThisScore": 1,
+      "opponentScore": 9,
+      "result": "L",
+      "scorers": [
+        {
+          "playerId": "harit",
+          "playerName": "Harit",
+          "tries": 1
+        }
+      ],
+      "mvp": {
+        "playerId": "harit",
+        "playerName": "Harit",
+        "award": "MOM",
+        "citation": null
+      },
+      "lineup": [
+        {
+          "playerId": "harit",
+          "playerName": "Harit"
+        },
+        {
+          "playerId": "gayatri",
+          "playerName": "Gayatri"
+        },
+        {
+          "playerId": "sarah",
+          "playerName": "Sarah"
+        },
+        {
+          "playerId": "max",
+          "playerName": "Max Gutsche"
+        },
+        {
+          "playerId": "sam",
+          "playerName": "Sam"
+        },
+        {
+          "playerId": "ella",
+          "playerName": "Ella"
+        },
+        {
+          "playerId": "ieuan",
+          "playerName": "Ieuan"
+        },
+        {
+          "playerId": "helena",
+          "playerName": "Helena Murray"
+        },
+        {
+          "playerId": "jas",
+          "playerName": "Jas"
+        }
+      ],
+      "conditions": "Heavy rain, soggy pitch, a lightning scare that nearly called it off.",
+      "highlights": [
+        "The single try was only just allowed by the referee.",
+        "Harit intercepted, then dropped the ball twice.",
+        "Widely felt to be the team's best performance of the season despite the scoreline, and against the eventual league winners."
+      ],
+      "notes": "Nearly cancelled for lightning. Held to one try by the side that went on to win the league."
+    },
+    {
+      "id": "s1-w4",
+      "seasonId": "2026-spring",
+      "week": 4,
+      "date": "2026-05-20",
+      "kickoff": "19:10",
+      "competition": "league",
+      "playoffRound": null,
+      "opponentId": "churchills",
+      "opponentName": "Sponsored by Churchills",
+      "venue": "Wandsworth Common Northside Field",
+      "played": true,
+      "touchThisScore": 2,
+      "opponentScore": 9,
+      "result": "L",
+      "scorers": [
+        {
+          "playerId": "franny",
+          "playerName": "Francisco",
+          "tries": 1
+        },
+        {
+          "playerId": "harit",
+          "playerName": "Harit",
+          "tries": 1
+        }
+      ],
+      "mvp": {
+        "playerId": "max",
+        "playerName": "Max Gutsche",
+        "award": "MOTM",
+        "citation": null
+      },
+      "lineup": [
+        {
+          "playerId": "harit",
+          "playerName": "Harit"
+        },
+        {
+          "playerId": "franny",
+          "playerName": "Francisco"
+        },
+        {
+          "playerId": "gayatri",
+          "playerName": "Gayatri"
+        },
+        {
+          "playerId": "sarah",
+          "playerName": "Sarah"
+        },
+        {
+          "playerId": "max",
+          "playerName": "Max Gutsche"
+        },
+        {
+          "playerId": "ella",
+          "playerName": "Ella"
+        },
+        {
+          "playerId": "helena",
+          "playerName": "Helena Murray"
+        }
+      ],
+      "conditions": "Dry and pleasant.",
+      "highlights": [
+        "Franny scored from a twinkle toes move combined with Harit.",
+        "Harit intercepted and sprinted the full length of the pitch without looking back.",
+        "A dog took a dump exactly as the opposition scored their fourth.",
+        "Gayatri intercepted a pass.",
+        "A failed diving try.",
+        "Franny ran sideways the entire length of the pitch."
+      ],
+      "notes": "Scored twice against the division's best defence: 2nd place and unbeaten in three at the time."
+    },
+    {
+      "id": "s1-w5",
+      "seasonId": "2026-spring",
+      "week": 5,
+      "date": "2026-05-27",
+      "kickoff": "19:50",
+      "competition": "league",
+      "playoffRound": null,
+      "opponentId": "wandsworth-wasps",
+      "opponentName": "Wandsworth Wasps",
+      "venue": "Wandsworth Common Northside Field",
+      "played": true,
+      "touchThisScore": 3,
+      "opponentScore": 5,
+      "result": "L",
+      "scorers": [
+        {
+          "playerId": "sarah",
+          "playerName": "Sarah",
+          "tries": 1
+        },
+        {
+          "playerId": "franny",
+          "playerName": "Francisco",
+          "tries": 1
+        },
+        {
+          "playerId": "martin",
+          "playerName": "Martin",
+          "tries": 1
+        }
+      ],
+      "mvp": {
+        "playerId": "sam",
+        "playerName": "Sam",
+        "award": "MOTM",
+        "citation": null
+      },
+      "lineup": [
+        {
+          "playerId": "harit",
+          "playerName": "Harit"
+        },
+        {
+          "playerId": "gayatri",
+          "playerName": "Gayatri"
+        },
+        {
+          "playerId": "sarah",
+          "playerName": "Sarah"
+        },
+        {
+          "playerId": "sam",
+          "playerName": "Sam"
+        },
+        {
+          "playerId": "franny",
+          "playerName": "Francisco"
+        },
+        {
+          "playerId": "martin",
+          "playerName": "Martin"
+        },
+        {
+          "playerId": "helena",
+          "playerName": "Helena Murray"
+        }
+      ],
+      "conditions": "Cool breeze, pleasant.",
+      "highlights": [
+        "Ella guested for the Wasps and earned the double agent label, the only person connected to the team to win a game of touch all season.",
+        "Martin scored fast, then broke a lung, and added an interception inside 60 seconds.",
+        "Franny passed the ball to the referee.",
+        "Strong first half, the team bottled the second."
+      ],
+      "notes": "The 6th vs 7th grudge match against the designated rivals."
+    },
+    {
+      "id": "s1-w6",
+      "seasonId": "2026-spring",
+      "week": 6,
+      "date": "2026-06-03",
+      "kickoff": "19:10",
+      "competition": "league",
+      "playoffRound": null,
+      "opponentId": "try-hard-2",
+      "opponentName": "Try Hard 2: Try Harder",
+      "venue": "Wandsworth Common Northside Field",
+      "played": true,
+      "touchThisScore": 7,
+      "opponentScore": 8,
+      "result": "L",
+      "scorers": [
+        {
+          "playerId": "kingsley",
+          "playerName": "Kingsley",
+          "tries": 3
+        },
+        {
+          "playerId": "martin",
+          "playerName": "Martin",
+          "tries": 2
+        },
+        {
+          "playerId": "sam",
+          "playerName": "Sam",
+          "tries": 1
+        },
+        {
+          "playerId": "harit",
+          "playerName": "Harit",
+          "tries": 1
+        }
+      ],
+      "mvp": {
+        "playerId": "helena",
+        "playerName": "Helena Murray",
+        "award": "MVP",
+        "citation": null
+      },
+      "lineup": [
+        {
+          "playerId": "helena",
+          "playerName": "Helena Murray"
+        },
+        {
+          "playerId": "max",
+          "playerName": "Max Gutsche"
+        },
+        {
+          "playerId": "harit",
+          "playerName": "Harit"
+        },
+        {
+          "playerId": "sam",
+          "playerName": "Sam"
+        },
+        {
+          "playerId": "martin",
+          "playerName": "Martin"
+        },
+        {
+          "playerId": "kingsley",
+          "playerName": "Kingsley"
+        },
+        {
+          "playerId": "gayatri",
+          "playerName": "Gayatri"
+        },
+        {
+          "playerId": "ella",
+          "playerName": "Ella"
+        },
+        {
+          "playerId": "franny",
+          "playerName": "Francisco"
+        },
+        {
+          "playerId": "sarah",
+          "playerName": "Sarah"
+        },
+        {
+          "playerId": "charlotte",
+          "playerName": "Charlotte"
+        }
+      ],
+      "conditions": "Slippery and wet.",
+      "highlights": [
+        "Closest game of the season, lost by a single try.",
+        "Kingsley made a double interception.",
+        "Someone grabbed Harit's arse.",
+        "Charlotte, a new sub, ran on smiling without knowing the rules."
+      ],
+      "notes": "Highest scoring game of the season: 7 tries against the eventual 3rd-placed side. A Kingsley hat-trick off the back of his double interception, two for Martin, one each for Sam and Harit."
+    },
+    {
+      "id": "s1-po",
+      "seasonId": "2026-spring",
+      "week": null,
+      "date": "2026-06-24",
+      "kickoff": "19:50",
+      "competition": "playoff",
+      "playoffRound": "5th/6th place",
+      "opponentId": "touchdown-titans",
+      "opponentName": "Touchdown Titans v2",
+      "venue": "Wandsworth Common Northside Field",
+      "played": true,
+      "touchThisScore": 3,
+      "opponentScore": 7,
+      "result": "L",
+      "scorers": [
+        {
+          "playerId": "robert",
+          "playerName": "Robert Hutchinson",
+          "tries": 2
+        },
+        {
+          "playerId": "max",
+          "playerName": "Max Gutsche",
+          "tries": 1
+        }
+      ],
+      "mvp": {
+        "playerId": "robert",
+        "playerName": "Robert Hutchinson",
+        "award": "MVP",
+        "citation": "Scored twice on his debut"
+      },
+      "lineup": [
+        {
+          "playerId": "robert",
+          "playerName": "Robert Hutchinson"
+        },
+        {
+          "playerId": "harit",
+          "playerName": "Harit"
+        },
+        {
+          "playerId": "gayatri",
+          "playerName": "Gayatri"
+        },
+        {
+          "playerId": "ella",
+          "playerName": "Ella"
+        },
+        {
+          "playerId": "sam",
+          "playerName": "Sam"
+        },
+        {
+          "playerId": "max",
+          "playerName": "Max Gutsche"
+        },
+        {
+          "playerId": "sophie",
+          "playerName": "Sophie"
+        },
+        {
+          "playerId": "henry",
+          "playerName": "Henry"
+        }
+      ],
+      "conditions": "37 degrees, very hot.",
+      "highlights": [
+        "Full circle rematch of the opening game against the same Titans, ending on the same scoreline.",
+        "Robert scored on his first ever game and shouted at the referee.",
+        "Ella was back on the correct team and got slammed to the floor.",
+        "Sam repeatedly bailed Harit out.",
+        "Henry threw the ball into touch three times.",
+        "Max and Gayatri could not finish breaks because nobody supported the run."
+      ],
+      "notes": "5th place play-off. Robert scored twice on debut and Max got the third. A win meant 5th, the loss meant 6th. Originally set for 17 Jun but cancelled, no referee."
+    },
+    {
+      "id": "s2-w1",
+      "seasonId": "2026-summer",
+      "week": 1,
+      "date": "2026-07-01",
+      "kickoff": "19:50",
+      "competition": "league",
+      "playoffRound": null,
+      "opponentId": "touchdown-titans",
+      "opponentName": "Touchdown Titans v2",
+      "venue": "Wandsworth Common Northside Field",
+      "played": true,
+      "touchThisScore": 1,
+      "opponentScore": 6,
+      "result": "L",
+      "scorers": [
+        {
+          "playerId": "franny",
+          "playerName": "Francisco",
+          "tries": 1
+        }
+      ],
+      "mvp": {
+        "playerId": "nicole",
+        "playerName": "Nicole Hopper",
+        "award": "MVP",
+        "citation": "Fantastic first game, got stuck in in the centre and didnt stop running"
+      },
+      "lineup": [
+        {
+          "playerId": "harit",
+          "playerName": "Harit"
+        },
+        {
+          "playerId": "nicole",
+          "playerName": "Nicole Hopper"
+        },
+        {
+          "playerId": "harry",
+          "playerName": "Harry"
+        },
+        {
+          "playerId": "sam",
+          "playerName": "Sam"
+        },
+        {
+          "playerId": "franny",
+          "playerName": "Francisco"
+        },
+        {
+          "playerId": "ella",
+          "playerName": "Ella"
+        },
+        {
+          "playerId": "sarah",
+          "playerName": "Sarah"
+        },
+        {
+          "playerId": "marian",
+          "playerName": "Marian"
+        },
+        {
+          "playerId": "morgan",
+          "playerName": "Morgan"
+        }
+      ],
+      "conditions": null,
+      "highlights": [
+        "A blonde opponent kept branding Francisco a \"LITTLE MONKEY\" 🐵.",
+        "Fran scored Touch This's only try, with the last ball of the game.",
+        "Harit lined up two interceptions again and dropped both.",
+        "Four new players on the pitch at one time.",
+        "Ella ran a defensive masterclass on the same blonde opponent.",
+        "Harry drew first blood with a knee scrape."
+      ],
+      "notes": "Season 2 opener, lost 6 to 1 to the Titans at the third meeting. Nicole Hopper took MVP on debut."
+    },
+    {
+      "id": "s2-w2",
+      "seasonId": "2026-summer",
+      "week": 2,
+      "date": "2026-07-08",
+      "kickoff": "19:50",
+      "competition": "league",
+      "playoffRound": null,
+      "opponentId": "wandsworth-wasps",
+      "opponentName": "Wandsworth Wasps",
+      "venue": "Wandsworth Common Northside Field",
+      "played": true,
+      "touchThisScore": 2,
+      "opponentScore": 8,
+      "result": "L",
+      "scorers": [
+        {
+          "playerId": "harit",
+          "playerName": "Harit",
+          "tries": 1
+        },
+        {
+          "playerId": "robert",
+          "playerName": "Robert Hutchinson",
+          "tries": 1
+        }
+      ],
+      "mvp": {
+        "playerId": "robert",
+        "playerName": "Robert Hutchinson",
+        "award": "MVP",
+        "citation": "His second-half try, constant calling for the ball, and rage-baiting the opposition into an angry fit."
+      },
+      "lineup": [
+        {
+          "playerId": "harit",
+          "playerName": "Harit"
+        },
+        {
+          "playerId": "sarah",
+          "playerName": "Sarah"
+        },
+        {
+          "playerId": "franny",
+          "playerName": "Francisco"
+        },
+        {
+          "playerId": "max",
+          "playerName": "Max Gutsche"
+        },
+        {
+          "playerId": "robert",
+          "playerName": "Robert Hutchinson"
+        },
+        {
+          "playerId": "jas",
+          "playerName": "Jas"
+        },
+        {
+          "playerId": "nicole",
+          "playerName": "Nicole Hopper"
+        },
+        {
+          "playerId": "sam",
+          "playerName": "Sam"
+        }
+      ],
+      "conditions": "Hot and sweaty.",
+      "highlights": [
+        "The Wasps whinged all game like a bunch of whiney babies, until the referee gave them a telling off.",
+        "Sarah decimated her ankle right at the end of the first half.",
+        "Nicole and Jas both went agonisingly close to a try.",
+        "Fran turned out for the first half despite having football the same day.",
+        "The team's new socks made their debut, and they were much loved.",
+        "One little annoying opposition player, possibly French (no offence)."
+      ],
+      "notes": "Week 2 against the designated rivals, lost 8 to 2. Harit scored in the first half and Robert in the second; Robert took MVP for the try, his non-stop calling for the ball, and winding an opposition player into a fury."
+    },
+    {
+      "id": "s2-w3",
+      "seasonId": "2026-summer",
+      "week": 3,
+      "date": "2026-07-15",
+      "kickoff": "19:10",
+      "competition": "league",
+      "playoffRound": null,
+      "opponentId": "tag-me-if-you-can",
+      "opponentName": "Tag Me If You Can",
+      "venue": "Wandsworth Common Northside Field",
+      "played": true,
+      "touchThisScore": 4,
+      "opponentScore": 3,
+      "result": "W",
+      "scorers": [
+        {
+          "playerId": "joe",
+          "playerName": "Joe",
+          "tries": 2
+        },
+        {
+          "playerId": "gayatri",
+          "playerName": "Gayatri",
+          "tries": 1
+        },
+        {
+          "playerId": "harit",
+          "playerName": "Harit",
+          "tries": 1
+        }
+      ],
+      "mvp": {
+        "playerId": "joe",
+        "playerName": "Joe",
+        "award": "MVP",
+        "citation": "Two tries on debut: the first off an interception in the opening exchanges, the second the winner with the last play of the game."
+      },
+      "lineup": [
+        {
+          "playerId": "harit",
+          "playerName": "Harit"
+        },
+        {
+          "playerId": "gayatri",
+          "playerName": "Gayatri"
+        },
+        {
+          "playerId": "marian",
+          "playerName": "Marian"
+        },
+        {
+          "playerId": "franny",
+          "playerName": "Francisco"
+        },
+        {
+          "playerId": "sam",
+          "playerName": "Sam"
+        },
+        {
+          "playerId": "robert",
+          "playerName": "Robert Hutchinson"
+        },
+        {
+          "playerId": "joe",
+          "playerName": "Joe"
+        }
+      ],
+      "conditions": null,
+      "highlights": [
+        "Joe scored on the first interception of the game.",
+        "There was a tree in the middle of the pitch.",
+        "Fran turned up in a suit.",
+        "It stayed 3 to 3 until the last play of the game.",
+        "The winner went Joe to G to Rob and back to Joe, who fumbled it and scored anyway.",
+        "A nervous game throughout.",
+        "Gayatri popped her Tryvigity: her first ever try, in her eighth game."
+      ],
+      "notes": "The first ever win. Nine defeats and 84 days on from game one, TT beat new opponents Tag Me If You Can 4 to 3, decided by the last play of the game. Joe from Wales scored twice on debut and took MVP; Gayatri scored her first ever try."
+    },
+    {
+      "id": "s2-w4",
+      "seasonId": "2026-summer",
+      "week": 4,
+      "date": "2026-07-22",
+      "kickoff": "19:10",
+      "competition": "league",
+      "playoffRound": null,
+      "opponentId": "churchills",
+      "opponentName": "Sponsored by Churchills",
+      "venue": "Wandsworth Common Northside Field",
+      "played": true,
+      "touchThisScore": 4,
+      "opponentScore": 7,
+      "result": "L",
+      "scorers": [
+        {
+          "playerId": "franny",
+          "playerName": "Francisco",
+          "tries": 2
+        },
+        {
+          "playerId": "harit",
+          "playerName": "Harit",
+          "tries": 1
+        },
+        {
+          "playerId": "cam",
+          "playerName": "Cam",
+          "tries": 1
+        }
+      ],
+      "mvp": {
+        "playerId": "cam",
+        "playerName": "Cam",
+        "award": "MVP",
+        "citation": "For scoring for without even touching the line."
+      },
+      "lineup": [
+        {
+          "playerId": "harit",
+          "playerName": "Harit"
+        },
+        {
+          "playerId": "gayatri",
+          "playerName": "Gayatri"
+        },
+        {
+          "playerId": "nicole",
+          "playerName": "Nicole Hopper"
+        },
+        {
+          "playerId": "robert",
+          "playerName": "Robert Hutchinson"
+        },
+        {
+          "playerId": "max",
+          "playerName": "Max Gutsche"
+        },
+        {
+          "playerId": "franny",
+          "playerName": "Francisco"
+        },
+        {
+          "playerId": "cam",
+          "playerName": "Cam"
+        }
+      ],
+      "conditions": null,
+      "highlights": [
+        "Fran side-stepped his way to both of his tries.",
+        "Rob went for three interceptions, the Rob special.",
+        "G's hot potato.",
+        "Manifesting touches."
+      ],
+      "notes": "Week 4 against Sponsored by Churchills, lost 7 to 4 at the second meeting. Fran scored twice, Harit and Cam once each; Cam took MVP on debut. Four tries matches the season high set in the first win, and the deficit against Churchills narrowed from seven to three."
+    },
+    {
+      "id": "s2-w5",
+      "seasonId": "2026-summer",
+      "week": 5,
+      "date": "2026-07-29",
+      "kickoff": "18:30",
+      "competition": "league",
+      "playoffRound": null,
+      "opponentId": "touching-wands",
+      "opponentName": "Touching Wands",
+      "venue": "Wandsworth Common Northside Field",
+      "played": false,
+      "touchThisScore": null,
+      "opponentScore": null,
+      "result": null,
+      "scorers": [],
+      "mvp": null,
+      "lineup": [],
+      "conditions": null,
+      "highlights": [],
+      "notes": null
+    },
+    {
+      "id": "s2-w6",
+      "seasonId": "2026-summer",
+      "week": 6,
+      "date": "2026-08-12",
+      "kickoff": "19:10",
+      "competition": "league",
+      "playoffRound": null,
+      "opponentId": "touch-me",
+      "opponentName": "Touch Me",
+      "venue": "Wandsworth Common Northside Field",
+      "played": false,
+      "touchThisScore": null,
+      "opponentScore": null,
+      "result": null,
+      "scorers": [],
+      "mvp": null,
+      "lineup": [],
+      "conditions": null,
+      "highlights": [],
+      "notes": "No TT fixture shown on 5 Aug (likely a bye week) — to confirm."
+    },
+    {
+      "id": "s2-po",
+      "seasonId": "2026-summer",
+      "week": null,
+      "date": "2026-08-19",
+      "kickoff": null,
+      "competition": "playoff",
+      "playoffRound": "Semi-final (potential)",
+      "opponentId": null,
+      "opponentName": null,
+      "venue": "Wandsworth Common Northside Field",
+      "played": false,
+      "touchThisScore": null,
+      "opponentScore": null,
+      "result": null,
+      "scorers": [],
+      "mvp": null,
+      "lineup": [],
+      "conditions": null,
+      "highlights": [],
+      "notes": "Potential play-off semi-final; opponent and slot depend on where TT finishes. Slots 18:30 / 19:10 / 19:50."
+    }
+  ],
+  "byes": [
+    {
+      "seasonId": "2026-spring",
+      "date": "2026-04-29",
+      "notes": "Bye week. Poor weather; the team chose to rest."
+    }
+  ],
+  "leagueRounds": [
+    {
+      "seasonId": "2026-spring",
+      "date": "2026-04-22",
+      "byeTeam": "The Dirty Dogs",
+      "games": [
+        {
+          "homeTeam": "Wandsworth Wasps",
+          "homeScore": 4,
+          "awayTeam": "Sponsored by Churchills",
+          "awayScore": 10,
+          "involvesTouchThis": false
+        },
+        {
+          "homeTeam": "Touch This (TT)",
+          "homeScore": 3,
+          "awayTeam": "Touchdown Titans v2",
+          "awayScore": 7,
+          "involvesTouchThis": true
+        },
+        {
+          "homeTeam": "Try Hard 2: Try Harder",
+          "homeScore": 6,
+          "awayTeam": "Scoregasms",
+          "awayScore": 3,
+          "involvesTouchThis": false
+        }
+      ]
+    },
+    {
+      "seasonId": "2026-spring",
+      "date": "2026-04-29",
+      "byeTeam": "Touch This (TT)",
+      "games": [
+        {
+          "homeTeam": "Try Hard 2: Try Harder",
+          "homeScore": 2,
+          "awayTeam": "Sponsored by Churchills",
+          "awayScore": 4,
+          "involvesTouchThis": false
+        },
+        {
+          "homeTeam": "Scoregasms",
+          "homeScore": 6,
+          "awayTeam": "Touchdown Titans v2",
+          "awayScore": 4,
+          "involvesTouchThis": false
+        },
+        {
+          "homeTeam": "The Dirty Dogs",
+          "homeScore": 8,
+          "awayTeam": "Wandsworth Wasps",
+          "awayScore": 2,
+          "involvesTouchThis": false
+        }
+      ]
+    },
+    {
+      "seasonId": "2026-spring",
+      "date": "2026-05-06",
+      "byeTeam": "Scoregasms",
+      "games": [
+        {
+          "homeTeam": "The Dirty Dogs",
+          "homeScore": 11,
+          "awayTeam": "Touch This (TT)",
+          "awayScore": 0,
+          "involvesTouchThis": true
+        },
+        {
+          "homeTeam": "Try Hard 2: Try Harder",
+          "homeScore": 9,
+          "awayTeam": "Wandsworth Wasps",
+          "awayScore": 0,
+          "involvesTouchThis": false
+        },
+        {
+          "homeTeam": "Touchdown Titans v2",
+          "homeScore": 4,
+          "awayTeam": "Sponsored by Churchills",
+          "awayScore": 5,
+          "involvesTouchThis": false
+        }
+      ]
+    },
+    {
+      "seasonId": "2026-spring",
+      "date": "2026-05-13",
+      "byeTeam": "Sponsored by Churchills",
+      "games": [
+        {
+          "homeTeam": "Scoregasms",
+          "homeScore": 9,
+          "awayTeam": "Touch This (TT)",
+          "awayScore": 1,
+          "involvesTouchThis": true
+        },
+        {
+          "homeTeam": "The Dirty Dogs",
+          "homeScore": 3,
+          "awayTeam": "Try Hard 2: Try Harder",
+          "awayScore": 9,
+          "involvesTouchThis": false
+        },
+        {
+          "homeTeam": "Touchdown Titans v2",
+          "homeScore": 8,
+          "awayTeam": "Wandsworth Wasps",
+          "awayScore": 2,
+          "involvesTouchThis": false
+        }
+      ]
+    },
+    {
+      "seasonId": "2026-spring",
+      "date": "2026-05-20",
+      "byeTeam": "Wandsworth Wasps",
+      "games": [
+        {
+          "homeTeam": "Touchdown Titans v2",
+          "homeScore": 8,
+          "awayTeam": "Try Hard 2: Try Harder",
+          "awayScore": 7,
+          "involvesTouchThis": false
+        },
+        {
+          "homeTeam": "Sponsored by Churchills",
+          "homeScore": 9,
+          "awayTeam": "Touch This (TT)",
+          "awayScore": 2,
+          "involvesTouchThis": true
+        },
+        {
+          "homeTeam": "The Dirty Dogs",
+          "homeScore": 4,
+          "awayTeam": "Scoregasms",
+          "awayScore": 8,
+          "involvesTouchThis": false
+        }
+      ]
+    },
+    {
+      "seasonId": "2026-spring",
+      "date": "2026-05-27",
+      "byeTeam": "Try Hard 2: Try Harder",
+      "games": [
+        {
+          "homeTeam": "Sponsored by Churchills",
+          "homeScore": 2,
+          "awayTeam": "Scoregasms",
+          "awayScore": 3,
+          "involvesTouchThis": false
+        },
+        {
+          "homeTeam": "The Dirty Dogs",
+          "homeScore": 4,
+          "awayTeam": "Touchdown Titans v2",
+          "awayScore": 2,
+          "involvesTouchThis": false
+        },
+        {
+          "homeTeam": "Wandsworth Wasps",
+          "homeScore": 5,
+          "awayTeam": "Touch This (TT)",
+          "awayScore": 3,
+          "involvesTouchThis": true
+        }
+      ]
+    },
+    {
+      "seasonId": "2026-spring",
+      "date": "2026-06-03",
+      "byeTeam": "Touchdown Titans v2",
+      "games": [
+        {
+          "homeTeam": "Wandsworth Wasps",
+          "homeScore": 0,
+          "awayTeam": "Scoregasms",
+          "awayScore": 7,
+          "involvesTouchThis": false
+        },
+        {
+          "homeTeam": "Touch This (TT)",
+          "homeScore": 7,
+          "awayTeam": "Try Hard 2: Try Harder",
+          "awayScore": 8,
+          "involvesTouchThis": true
+        },
+        {
+          "homeTeam": "The Dirty Dogs",
+          "homeScore": 6,
+          "awayTeam": "Sponsored by Churchills",
+          "awayScore": 4,
+          "involvesTouchThis": false
+        }
+      ]
+    },
+    {
+      "seasonId": "2026-summer",
+      "date": "2026-07-01",
+      "byeTeam": "Sponsored by Churchills",
+      "games": [
+        {
+          "homeTeam": "Tag Me If You Can",
+          "homeScore": 4,
+          "awayTeam": "Wandsworth Wasps",
+          "awayScore": 8,
+          "involvesTouchThis": false
+        },
+        {
+          "homeTeam": "Touch Me",
+          "homeScore": 14,
+          "awayTeam": "Touching Wands",
+          "awayScore": 0,
+          "involvesTouchThis": false
+        },
+        {
+          "homeTeam": "Touch This (TT)",
+          "homeScore": 1,
+          "awayTeam": "Touchdown Titans v2",
+          "awayScore": 6,
+          "involvesTouchThis": true
+        }
+      ]
+    },
+    {
+      "seasonId": "2026-summer",
+      "date": "2026-07-08",
+      "byeTeam": "Touch Me",
+      "games": [
+        {
+          "homeTeam": "Sponsored by Churchills",
+          "homeScore": 8,
+          "awayTeam": "Tag Me If You Can",
+          "awayScore": 2,
+          "involvesTouchThis": false
+        },
+        {
+          "homeTeam": "Touchdown Titans v2",
+          "homeScore": 9,
+          "awayTeam": "Touching Wands",
+          "awayScore": 3,
+          "involvesTouchThis": false
+        },
+        {
+          "homeTeam": "Touch This (TT)",
+          "homeScore": 2,
+          "awayTeam": "Wandsworth Wasps",
+          "awayScore": 8,
+          "involvesTouchThis": true
+        }
+      ]
+    },
+    {
+      "seasonId": "2026-summer",
+      "date": "2026-07-15",
+      "byeTeam": "Touchdown Titans v2",
+      "games": [
+        {
+          "homeTeam": "Sponsored by Churchills",
+          "homeScore": 1,
+          "awayTeam": "Touch Me",
+          "awayScore": 7,
+          "involvesTouchThis": false
+        },
+        {
+          "homeTeam": "Touch This (TT)",
+          "homeScore": 4,
+          "awayTeam": "Tag Me If You Can",
+          "awayScore": 3,
+          "involvesTouchThis": true
+        },
+        {
+          "homeTeam": "Touching Wands",
+          "homeScore": 0,
+          "awayTeam": "Wandsworth Wasps",
+          "awayScore": 0,
+          "involvesTouchThis": false
+        }
+      ]
+    },
+    {
+      "seasonId": "2026-summer",
+      "date": "2026-07-22",
+      "byeTeam": "Wandsworth Wasps",
+      "games": [
+        {
+          "homeTeam": "Touchdown Titans v2",
+          "homeScore": 5,
+          "awayTeam": "Touch Me",
+          "awayScore": 3,
+          "involvesTouchThis": false
+        },
+        {
+          "homeTeam": "Sponsored by Churchills",
+          "homeScore": 7,
+          "awayTeam": "Touch This (TT)",
+          "awayScore": 4,
+          "involvesTouchThis": true
+        },
+        {
+          "homeTeam": "Touching Wands",
+          "homeScore": 6,
+          "awayTeam": "Tag Me If You Can",
+          "awayScore": 3,
+          "involvesTouchThis": false
+        }
+      ]
+    }
+  ],
+  "playerStats": [
+    {
+      "playerId": "franny",
+      "name": "Francisco",
+      "nickname": "El Mono",
+      "squadType": "core",
+      "flag": "🇨🇱",
+      "appearances": 9,
+      "tries": 7,
+      "mvpAwards": 1,
+      "seasons": [
+        "2026-spring",
+        "2026-summer"
+      ]
+    },
+    {
+      "playerId": "harit",
+      "name": "Harit",
+      "nickname": "El Capatain También",
+      "squadType": "core",
+      "flag": "🇬🇧",
+      "appearances": 11,
+      "tries": 6,
+      "mvpAwards": 1,
+      "seasons": [
+        "2026-spring",
+        "2026-summer"
+      ]
+    },
+    {
+      "playerId": "robert",
+      "name": "Robert Hutchinson",
+      "nickname": "The Grant's Gazelle",
+      "squadType": "squad",
+      "flag": "🇰🇪",
+      "appearances": 4,
+      "tries": 3,
+      "mvpAwards": 2,
+      "seasons": [
+        "2026-spring",
+        "2026-summer"
+      ]
+    },
+    {
+      "playerId": "martin",
+      "name": "Martin",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🇿🇦",
+      "appearances": 2,
+      "tries": 3,
+      "mvpAwards": 0,
+      "seasons": [
+        "2026-spring"
+      ]
+    },
+    {
+      "playerId": "kingsley",
+      "name": "Kingsley",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🇿🇦",
+      "appearances": 1,
+      "tries": 3,
+      "mvpAwards": 0,
+      "seasons": [
+        "2026-spring"
+      ]
+    },
+    {
+      "playerId": "max",
+      "name": "Max Gutsche",
+      "nickname": "The Goose",
+      "squadType": "core",
+      "flag": "🇰🇪",
+      "appearances": 7,
+      "tries": 2,
+      "mvpAwards": 1,
+      "seasons": [
+        "2026-spring",
+        "2026-summer"
+      ]
+    },
+    {
+      "playerId": "joe",
+      "name": "Joe",
+      "nickname": "Joe from Wales",
+      "squadType": "ringer",
+      "flag": "🏴󠁧󠁢󠁷󠁬󠁳󠁿",
+      "appearances": 1,
+      "tries": 2,
+      "mvpAwards": 1,
+      "seasons": [
+        "2026-summer"
+      ]
+    },
+    {
+      "playerId": "gayatri",
+      "name": "Gayatri",
+      "nickname": "El Capitan",
+      "squadType": "core",
+      "flag": "🇬🇧",
+      "appearances": 9,
+      "tries": 1,
+      "mvpAwards": 0,
+      "seasons": [
+        "2026-spring",
+        "2026-summer"
+      ]
+    },
+    {
+      "playerId": "sam",
+      "name": "Sam",
+      "nickname": "The Contract",
+      "squadType": "regular",
+      "flag": "🇬🇧",
+      "appearances": 9,
+      "tries": 1,
+      "mvpAwards": 1,
+      "seasons": [
+        "2026-spring",
+        "2026-summer"
+      ]
+    },
+    {
+      "playerId": "sarah",
+      "name": "Sarah",
+      "nickname": "The Hr Hazard",
+      "squadType": "core",
+      "flag": "🇬🇧",
+      "appearances": 8,
+      "tries": 1,
+      "mvpAwards": 1,
+      "seasons": [
+        "2026-spring",
+        "2026-summer"
+      ]
+    },
+    {
+      "playerId": "cam",
+      "name": "Cam",
+      "nickname": "The Gagger",
+      "squadType": "ringer",
+      "flag": "🇰🇪",
+      "appearances": 1,
+      "tries": 1,
+      "mvpAwards": 1,
+      "seasons": [
+        "2026-summer"
+      ]
+    },
+    {
+      "playerId": "ella",
+      "name": "Ella",
+      "nickname": "El Capitan",
+      "squadType": "core",
+      "flag": "🇳🇿",
+      "appearances": 5,
+      "tries": 0,
+      "mvpAwards": 0,
+      "seasons": [
+        "2026-spring",
+        "2026-summer"
+      ]
+    },
+    {
+      "playerId": "helena",
+      "name": "Helena Murray",
+      "nickname": "The Last Line",
+      "squadType": "core",
+      "flag": "🇬🇧",
+      "appearances": 5,
+      "tries": 0,
+      "mvpAwards": 1,
+      "seasons": [
+        "2026-spring"
+      ]
+    },
+    {
+      "playerId": "nicole",
+      "name": "Nicole Hopper",
+      "nickname": "The Engine",
+      "squadType": "regular",
+      "flag": "🇦🇺",
+      "appearances": 3,
+      "tries": 0,
+      "mvpAwards": 1,
+      "seasons": [
+        "2026-summer"
+      ]
+    },
+    {
+      "playerId": "ieuan",
+      "name": "Ieuan",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🇳🇿",
+      "appearances": 2,
+      "tries": 0,
+      "mvpAwards": 0,
+      "seasons": [
+        "2026-spring"
+      ]
+    },
+    {
+      "playerId": "marian",
+      "name": "Marian",
+      "nickname": null,
+      "squadType": "regular",
+      "flag": "🏳️",
+      "appearances": 2,
+      "tries": 0,
+      "mvpAwards": 0,
+      "seasons": [
+        "2026-summer"
+      ]
+    },
+    {
+      "playerId": "jas",
+      "name": "Jas",
+      "nickname": "The yet to be named",
+      "squadType": "core",
+      "flag": "🇫🇷",
+      "appearances": 2,
+      "tries": 0,
+      "mvpAwards": 0,
+      "seasons": [
+        "2026-spring",
+        "2026-summer"
+      ]
+    },
+    {
+      "playerId": "bex",
+      "name": "Bex Dunnet",
+      "nickname": "The Martyr",
+      "squadType": "squad",
+      "flag": "🇬🇧",
+      "appearances": 1,
+      "tries": 0,
+      "mvpAwards": 0,
+      "seasons": [
+        "2026-spring"
+      ]
+    },
+    {
+      "playerId": "charlotte",
+      "name": "Charlotte",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🏳️",
+      "appearances": 1,
+      "tries": 0,
+      "mvpAwards": 0,
+      "seasons": [
+        "2026-spring"
+      ]
+    },
+    {
+      "playerId": "henry",
+      "name": "Henry",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🏳️",
+      "appearances": 1,
+      "tries": 0,
+      "mvpAwards": 0,
+      "seasons": [
+        "2026-spring"
+      ]
+    },
+    {
+      "playerId": "sophie",
+      "name": "Sophie",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🏳️",
+      "appearances": 1,
+      "tries": 0,
+      "mvpAwards": 0,
+      "seasons": [
+        "2026-spring"
+      ]
+    },
+    {
+      "playerId": "george",
+      "name": "George",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🏳️",
+      "appearances": 1,
+      "tries": 0,
+      "mvpAwards": 0,
+      "seasons": [
+        "2026-spring"
+      ]
+    },
+    {
+      "playerId": "lizzie",
+      "name": "Lizzie",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🏳️",
+      "appearances": 1,
+      "tries": 0,
+      "mvpAwards": 0,
+      "seasons": [
+        "2026-spring"
+      ]
+    },
+    {
+      "playerId": "eduardo",
+      "name": "Eduardo",
+      "nickname": null,
+      "squadType": "ringer",
+      "flag": "🏳️",
+      "appearances": 1,
+      "tries": 0,
+      "mvpAwards": 0,
+      "seasons": [
+        "2026-spring"
+      ]
+    },
+    {
+      "playerId": "harry",
+      "name": "Harry",
+      "nickname": null,
+      "squadType": "regular",
+      "flag": "🏳️",
+      "appearances": 1,
+      "tries": 0,
+      "mvpAwards": 0,
+      "seasons": [
+        "2026-summer"
+      ]
+    },
+    {
+      "playerId": "morgan",
+      "name": "Morgan",
+      "nickname": null,
+      "squadType": "regular",
+      "flag": "🏳️",
+      "appearances": 1,
+      "tries": 0,
+      "mvpAwards": 0,
+      "seasons": [
+        "2026-summer"
+      ]
+    }
+  ]
+}
